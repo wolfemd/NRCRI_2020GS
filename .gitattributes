@@ -1,0 +1,5 @@
+# Classify R Markdown files as R code for GitHub language statistics
+# https://github.com/github/linguist#overrides
+*.[Rr]md linguist-language=R
+output/DosageMatrix_NRCRI_SamplesForGP_2020April27.rds filter=lfs diff=lfs merge=lfs -text
+output/DosageMatrix_NRCRI_2020Oct15.rds filter=lfs diff=lfs merge=lfs -text
