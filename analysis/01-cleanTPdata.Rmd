@@ -1,0 +1,510 @@
+---
+title: "Review and QC of NRCRI training data"
+author: "wolfemd"
+date: "2020-April-21"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: inline
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = F, tidy = T)
+```
+
+# Objective
+
+Follow outlined GenomicPredictionChecklist and previous pipeline to process cassavabase data for ultimate genomic prediction.
+
+Below we will clean and format NRCRI training data, all years, all trials, downloaded from DB.
+
+* Inputs: "Raw" field trial data
+* Expected outputs: "Cleaned" field trial data
+
+# [User input] Cassavabase download
+
+Using the [Cassavabase search wizard](https://www.cassavabase.org/breeders/search):  
+
+1. Used the Wizard. 
+2. Selected all NRCRI trials till present. Make a list. Named it **All_NRCRI_TRIALS_2020April21**.
+3. Go to **Manage** --> **Download**. Download phenotypes and meta-data as CSV using the corresponding boxes / drop-downs. 
+  * **TRIED TO DOWNLOAD META-DATA, BUT DB IS GIVING "SERVER ERROR"** 
+
+# Read-in trial data
+
+```{r}
+library(tidyverse); library(magrittr);
+```
+
+```{r readDBdata}
+readDBdata<-function(phenotypeFile,metadataFile=NULL){
+      indata<-read.csv(phenotypeFile,
+                      na.strings = c("#VALUE!",NA,".",""," ","-","\""),
+                      stringsAsFactors = F)
+      if(!is.null(metadataFile)){
+      meta<-read.csv(metadataFile,
+                     na.strings = c("#VALUE!",NA,".",""," ","-","\""),
+                     stringsAsFactors = F) %>% 
+            rename(programName=breedingProgramName,
+                   programDescription=breedingProgramDescription,
+                   programDbId=breedingProgramDbId)
+      indata<-left_join(indata,meta) }
+      indata %<>% 
+        filter(observationLevel=="plot")
+      return(indata) }
+
+```
+
+```{r}
+dbdata<-readDBdata(phenotypeFile = here::here("data/DatabaseDownload_42120/","2020-04-21T154040phenotype_download.csv"))
+```
+
+# Group and select trials to analyze
+
+Make TrialType Variable
+
+The function below requires an iterative, interactive process for me to make sure I include and correctly classify trials.
+```{r makeTrialTypeVar}
+makeTrialTypeVar<-function(indata){
+  # So far, this function is not very general
+  # Handles IITA and NRCRI trial names as of April 2020.
+  # Can customize this or add lines to grab TrialTypes for each breeding program
+  if(indata$programName=="IITA"){
+  outdata<-indata %>% 
+    mutate(TrialType=ifelse(grepl("CE|clonal|13NEXTgenC1",studyName,ignore.case = T),"CET",NA),
+           TrialType=ifelse(grepl("EC",studyName,ignore.case = T),"ExpCET",TrialType),
+           TrialType=ifelse(grepl("PYT",studyName,ignore.case = T),"PYT",TrialType),
+           TrialType=ifelse(grepl("AYT",studyName,ignore.case = T),"AYT",TrialType),
+           TrialType=ifelse(grepl("UYT",studyName,ignore.case = T),"UYT",TrialType),
+           TrialType=ifelse(grepl("geneticgain|gg|genetic gain",studyName,ignore.case = T),"GeneticGain",TrialType),
+           TrialType=ifelse(grepl("Cassava",studyName,ignore.case = T) & grepl("/",studyName),"GeneticGain",TrialType),
+           TrialType=ifelse((grepl("clonal evaluation trial",!grepl("genetic gain",studyDescription,ignore.case = T), 
+                                   ignore.case = T)),"CET",TrialType),
+           TrialType=ifelse(grepl("preliminary yield trial",studyDescription,ignore.case = T),"PYT",TrialType),
+           TrialType=ifelse(grepl("Crossingblock|GS.C4.CB|cross",studyName) & is.na(TrialType),"CrossingBlock",TrialType),
+           TrialType=ifelse(grepl("NCRP",studyName) & is.na(TrialType),"NCRP",TrialType),
+           TrialType=ifelse(grepl("conservation",studyName) & is.na(TrialType),"Conservation",TrialType)) }
+    if(indata$programName=="NRCRI"){
+        outdata<-indata %>% 
+          mutate(TrialType=ifelse(grepl("TP1",studyName,ignore.case = T),"TP1",NA),
+                 TrialType=ifelse(grepl("TP2",studyName,ignore.case = T),"TP2",TrialType),
+                 TrialType=ifelse(grepl("C1a",studyName,ignore.case = T),"C1a",TrialType),
+                 TrialType=ifelse(grepl("C1b",studyName,ignore.case = T),"C1b",TrialType),
+                 TrialType=ifelse(grepl("C2a",studyName,ignore.case = T),"C2a",TrialType),
+                 TrialType=ifelse(grepl("C2b",studyName,ignore.case = T),"C2b",TrialType),
+                 TrialType=ifelse(grepl("NCRP",studyName) & is.na(TrialType),"NCRP",TrialType),
+                 TrialType=ifelse(grepl("15nextgen60gs-cbUM|crossnblk|crossingblock",studyName,ignore.case = T) &
+                                    !grepl("CET",studyName),
+                                  "CrossingBlock",TrialType),
+                 TrialType=ifelse(grepl("seedling",studyName,ignore.case = T),NA,TrialType)) }
+  return(outdata) }
+```
+```{r}
+dbdata<-makeTrialTypeVar(dbdata) 
+dbdata %>% 
+  count(TrialType)
+```
+## Question for NRCRI
+
+Looking at the **studyName**'s of trials getting NA for TrialType, meaning I can't classify them at present.
+
+Here is the list of trials I am _not_ including.
+```{r}
+dbdata %>% 
+  filter(is.na(TrialType)) %$% unique(studyName)
+```
+Should any of these trials have been included?
+
+Especially the following new trials (post 2018)
+```{r}
+dbdata %>% 
+  filter(is.na(TrialType),
+         as.numeric(studyYear)>2018) %$% unique(studyName)
+```
+## Remove unclassified trials
+
+```{r}
+dbdata %<>% 
+    filter(!is.na(TrialType)) 
+dbdata %>% 
+    group_by(programName) %>% 
+    summarize(N=n())
+```
+
+# Traits and TraitAbbreviations
+
+Function to rename columns and remove everything unecessary
+```{r renameAndSelectCols}
+#' @param  traitabbrevs data.frame with 2 cols (TraitAbbrev and TraitName). TraitName should match exactly to cassava ontology names
+#' @param  indata data.frame read from cassavabase download
+#' @param  customColsToKeep char. vec. of any custom cols you added and want to keep
+renameAndSelectCols<-function(traitabbrevs,indata,
+                              customColsToKeep=NULL){
+  outdata<-indata %>% 
+    select(studyYear,programName,locationName,studyName,studyDesign,plotWidth,plotLength,fieldSize,
+           plantingDate,harvestDate,locationName,germplasmName,
+           replicate,blockNumber,plotNumber,rowNumber,colNumber,entryType,
+           # trialType:numberReps,folderName, # these are columns that come from the metadata file
+           any_of(customColsToKeep), 
+           any_of(traitabbrevs$TraitName)) %>% 
+    pivot_longer(cols = traitabbrevs$TraitName[traitabbrevs$TraitName %in% colnames(indata)],
+                 names_to = "TraitName",
+                 values_to = "Value") %>% 
+    left_join(.,traitabbrevs) %>% 
+    select(-TraitName) %>% 
+    pivot_wider(names_from = TraitAbbrev,
+                values_from = "Value")
+  return(outdata) }
+```
+
+Making a table of abbreviations for renaming
+```{r}
+traitabbrevs<-tribble(~TraitAbbrev,~TraitName,
+        "CMD1S","cassava.mosaic.disease.severity.1.month.evaluation.CO_334.0000191",
+        "CMD3S","cassava.mosaic.disease.severity.3.month.evaluation.CO_334.0000192",
+        "CMD6S","cassava.mosaic.disease.severity.6.month.evaluation.CO_334.0000194",
+        "CMD9S","cassava.mosaic.disease.severity.9.month.evaluation.CO_334.0000193",
+        "CGM","Cassava.green.mite.severity.CO_334.0000033",
+        "CGMS1","cassava.green.mite.severity.first.evaluation.CO_334.0000189",
+        "CGMS2","cassava.green.mite.severity.second.evaluation.CO_334.0000190",
+        "DM","dry.matter.content.percentage.CO_334.0000092",
+        "PLTHT","plant.height.measurement.in.cm.CO_334.0000018",
+        "BRNHT1","first.apical.branch.height.measurement.in.cm.CO_334.0000106",
+        "SHTWT","fresh.shoot.weight.measurement.in.kg.per.plot.CO_334.0000016",
+        "RTWT","fresh.storage.root.weight.per.plot.CO_334.0000012",
+        "RTNO","root.number.counting.CO_334.0000011",
+        "TCHART","total.carotenoid.by.chart.1.8.CO_334.0000161",
+        "NOHAV","plant.stands.harvested.counting.CO_334.0000010")
+traitabbrevs
+```
+```{r}
+dbdata<-renameAndSelectCols(traitabbrevs,indata=dbdata,customColsToKeep = "TrialType")
+```
+
+# QC Trait values
+
+```{r}
+dbdata<-dbdata %>% 
+  mutate(CMD1S=ifelse(CMD1S<1 | CMD1S>5,NA,CMD1S),
+         CMD3S=ifelse(CMD3S<1 | CMD3S>5,NA,CMD3S),
+         CMD6S=ifelse(CMD6S<1 | CMD1S>5,NA,CMD6S),
+         CMD9S=ifelse(CMD9S<1 | CMD1S>5,NA,CMD9S),
+         CGM=ifelse(CGM<1 | CGM>5,NA,CGM),
+         CGMS1=ifelse(CGMS1<1 | CGMS1>5,NA,CGMS1),
+         CGMS2=ifelse(CGMS2<1 | CGMS2>5,NA,CGMS2),
+         DM=ifelse(DM>100 | DM<=0,NA,DM),
+         RTWT=ifelse(RTWT==0 | NOHAV==0 | is.na(NOHAV),NA,RTWT),
+         SHTWT=ifelse(SHTWT==0 | NOHAV==0 | is.na(NOHAV),NA,SHTWT),
+         RTNO=ifelse(RTNO==0 | NOHAV==0 | is.na(NOHAV),NA,RTNO),
+         NOHAV=ifelse(NOHAV==0,NA,NOHAV),
+         NOHAV=ifelse(NOHAV>42,NA,NOHAV),
+         RTNO=ifelse(!RTNO %in% 1:10000,NA,RTNO))
+```
+
+# Post-QC traits
+
+## Harvest index
+```{r}
+dbdata<-dbdata %>% 
+    mutate(HI=RTWT/(RTWT+SHTWT))
+```
+
+## Unit area traits
+
+I anticipate this will not be necessary as it will be computed before or during data upload.
+
+For calculating fresh root yield: 
+
+1. **PlotSpacing:** Area in $m^2$ per plant. plotWidth and plotLength metadata would hypothetically provide this info, but is missing for vast majority of trials. Therefore, use info from Fola.
+2. **maxNOHAV:** Instead of ExpectedNOHAV. Need to know the max number of plants in the area harvested. For some trials, only the inner (or "net") plot is harvested, therefore the PlantsPerPlot meta-variable will not suffice. Besides, the PlantsPerPlot information is missing for the vast majority of trials. Instead, use observed max(NOHAV) for each trial. We use this plus the PlotSpacing to calc. the area over which the RTWT was measured. During analysis, variation in the actual number of plants harvested will be accounted for.
+
+```{r, message=F, warning=F}
+dbdata<-dbdata %>% 
+    mutate(PlotSpacing=ifelse(programName!="IITA",1,
+                              ifelse(studyYear<2013,1,
+                              ifelse(TrialType %in% c("CET","GeneticGain","ExpCET"),1,0.8))))
+maxNOHAV_byStudy<-dbdata %>% 
+  group_by(programName,locationName,studyYear,studyName,studyDesign) %>% 
+  summarize(MaxNOHAV=max(NOHAV, na.rm=T)) %>% 
+  ungroup() %>% 
+  mutate(MaxNOHAV=ifelse(MaxNOHAV=="-Inf",NA,MaxNOHAV))
+
+write.csv(maxNOHAV_byStudy %>% arrange(studyYear),file=here::here("output","maxNOHAV_byStudy_NRCRI_2020April27.csv"), row.names = F)
+```
+
+Previously, I took these values _as is_. I am unsatisfied with that. The trial number is small enough I'm going to curate manually below. I hope this gives better yield results.
+
+```{r}
+maxNOHAV_byStudy %<>%
+  mutate(MaxNOHAV=ifelse(studyName=="18C2acrossingblockCETubiaja",8,MaxNOHAV),
+         MaxNOHAV=ifelse(studyName=="13TP1CET518kano",5,MaxNOHAV),
+         MaxNOHAV=ifelse(studyName=="17C1aAYTGSkano",10,MaxNOHAV),
+         MaxNOHAV=ifelse(studyName=="18C1bAYTGSOtobi",10,MaxNOHAV),
+         MaxNOHAV=ifelse(studyName=="16C1aCETnonGSOtobi",5,MaxNOHAV),
+         MaxNOHAV=ifelse(studyName=="17C1bCETkano",5,MaxNOHAV),
+         MaxNOHAV=ifelse(studyName=="16C1aCETnonGSOtobi",5,MaxNOHAV),
+         MaxNOHAV=ifelse(studyName=="18C1bAYTGSset2umu",10,MaxNOHAV))
+
+# maxNOHAV_byStudy %>%
+#   filter(!is.na(MaxNOHAV),
+#          MaxNOHAV>=10)
+# maxNOHAV_byStudy %>%
+#   filter(grepl("CET",studyName))
+# dbdata %>% filter(studyName=="13TP1CET518kano") %$% table(NOHAV)
+# dbdata %>% filter(studyName=="18C2acrossingblockCETubiaja") %$% table(NOHAV)
+# dbdata %>% filter(studyName=="17C1aAYTGSkano") %$% table(NOHAV)
+# dbdata %>% filter(studyName=="18C1bAYTGSOtobi") %$% table(NOHAV)
+# dbdata %>% filter(studyName=="16C1aCETnonGSOtobi") %$% table(NOHAV)
+# dbdata %>% filter(studyName=="17C1aAYTGSumu") %$% table(NOHAV)
+# dbdata %>% filter(studyName=="17C1bCETkano") %$% table(NOHAV)
+# dbdata %>% filter(studyName=="18C1bAYTGSset2umu") %$% table(NOHAV)
+
+```
+18C2acrossingblockCETubiaja ...10... Lydia says 8.
+13TP1CET518kano... 5  
+18C1bAYTGSOtobi... looks like it should be 5, but DB says 4 x 4 m plots.   
+16C1aCETnonGSOtobi... 10 (says plot length 8)  
+18C1bAYTGSset2umu... 10
+
+```{r, message=F, warning=F}
+# I log transform yield traits 
+# to satisfy homoskedastic residuals assumption 
+# of linear mixed models
+dbdata<-left_join(dbdata,maxNOHAV_byStudy) %>% 
+  mutate(RTWT=ifelse(NOHAV>MaxNOHAV,NA,RTWT),
+         SHTWT=ifelse(NOHAV>MaxNOHAV,NA,SHTWT),
+         RTNO=ifelse(NOHAV>MaxNOHAV,NA,RTNO),
+         HI=ifelse(NOHAV>MaxNOHAV,NA,HI),
+         logFYLD=log(RTWT/(MaxNOHAV*PlotSpacing)*10),
+         logTOPYLD=log(SHTWT/(MaxNOHAV*PlotSpacing)*10),
+         logRTNO=log(RTNO),
+         PropNOHAV=NOHAV/MaxNOHAV) 
+
+# remove non transformed / per-plot (instead of per area) traits
+dbdata %<>% select(-RTWT,-SHTWT,-RTNO)
+```
+```{r}
+# dbdata %>% 
+#   distinct(studyName,MaxNOHAV) %>% 
+#   filter(!is.na(MaxNOHAV)) %>% arrange(MaxNOHAV)
+```
+
+## Season-wide mean CMDS
+```{r}
+dbdata<-dbdata %>% 
+  mutate(MCMDS=rowMeans(.[,c("CMD1S","CMD3S","CMD6S","CMD9S")], na.rm = T)) %>% 
+  select(-CMD1S,-CMD3S,-CMD6S,-CMD9S)
+```
+
+# Assign genos to phenos
+
+```{r}
+library(tidyverse); library(magrittr)
+gbs2phenoMaster<-dbdata %>% 
+  select(germplasmName) %>% 
+  distinct %>% 
+  left_join(read.csv(here::here("data","NRCRI_GBStoPhenoMaster_40318.csv"), 
+                     stringsAsFactors = F)) %>% 
+  mutate(FullSampleName=ifelse(grepl("C2a",germplasmName,ignore.case = T) & 
+                                 is.na(FullSampleName),germplasmName,FullSampleName)) %>% 
+  filter(!is.na(FullSampleName)) %>% 
+  select(germplasmName,FullSampleName) %>% 
+  bind_rows(dbdata %>% 
+              select(germplasmName) %>% 
+              distinct %>% 
+              left_join(read.csv(here::here("data","IITA_GBStoPhenoMaster_33018.csv"), 
+                                 stringsAsFactors = F)) %>% 
+              filter(!is.na(FullSampleName)) %>% 
+              select(germplasmName,FullSampleName)) %>% 
+  bind_rows(dbdata %>% 
+              select(germplasmName) %>% 
+              distinct %>% 
+              left_join(read.csv(here::here("data","GBSdataMasterList_31818.csv"), 
+                                 stringsAsFactors = F) %>% 
+                          select(DNASample,FullSampleName) %>% 
+                          rename(germplasmName=DNASample)) %>% 
+              filter(!is.na(FullSampleName)) %>% 
+              select(germplasmName,FullSampleName)) %>% 
+  bind_rows(dbdata %>% 
+              select(germplasmName) %>% 
+              distinct %>% 
+              mutate(germplasmSynonyms=ifelse(grepl("^UG",germplasmName,ignore.case = T),
+                                              gsub("UG","Ug",germplasmName),germplasmName)) %>% 
+              left_join(read.csv(here::here("data","GBSdataMasterList_31818.csv"), 
+                                 stringsAsFactors = F) %>% 
+                          select(DNASample,FullSampleName) %>% 
+                          rename(germplasmSynonyms=DNASample)) %>% 
+              filter(!is.na(FullSampleName)) %>% 
+              select(germplasmName,FullSampleName)) %>%  
+  bind_rows(dbdata %>% 
+              select(germplasmName) %>% 
+              distinct %>% 
+              mutate(germplasmSynonyms=ifelse(grepl("^TZ",germplasmName,
+                                                    ignore.case = T),
+                                              gsub("TZ","",germplasmName),germplasmName)) %>% 
+              left_join(read.csv(here::here("data","GBSdataMasterList_31818.csv"), 
+                                 stringsAsFactors = F) %>% 
+                          select(DNASample,FullSampleName) %>% 
+                          rename(germplasmSynonyms=DNASample)) %>% 
+              filter(!is.na(FullSampleName)) %>%
+              select(germplasmName,FullSampleName)) %>% 
+  distinct %>% 
+  left_join(read.csv(here::here("data","GBSdataMasterList_31818.csv"), 
+                     stringsAsFactors = F) %>% 
+              select(FullSampleName,OrigKeyFile,Institute) %>% 
+              rename(OriginOfSample=Institute)) %>% 
+  mutate(OrigKeyFile=ifelse(grepl("C2a",germplasmName,ignore.case = T),
+                            ifelse(is.na(OrigKeyFile),"LavalGBS",OrigKeyFile),
+                            OrigKeyFile),
+         OriginOfSample=ifelse(grepl("C2a",germplasmName,ignore.case = T),
+                               ifelse(is.na(OriginOfSample),"NRCRI",OriginOfSample),
+                               OriginOfSample))
+nrow(gbs2phenoMaster)
+gbs2phenoMaster %>% count(OriginOfSample)
+# gbs2phenoMaster %>% filter(grepl("C2a",germplasmName,ignore.case = T))
+
+# first, filter to just program-DNAorigin matches
+germNamesWithGenos<-dbdata %>% 
+  select(programName,germplasmName) %>% 
+  distinct %>% 
+  left_join(gbs2phenoMaster) %>% 
+  filter(!is.na(FullSampleName))
+nrow(germNamesWithGenos) # 3077
+# program-germNames with locally sourced GBS samples
+germNamesWithGenos_HasLocalSourcedGBS<-germNamesWithGenos %>% #count(OriginOfSample)
+  filter(programName==OriginOfSample) %>% 
+  select(programName,germplasmName) %>% 
+  semi_join(germNamesWithGenos,.) %>% 
+  group_by(programName,germplasmName) %>% # select one DNA per germplasmName per program
+  slice(1) %>% ungroup() 
+nrow(germNamesWithGenos_HasLocalSourcedGBS) # 2592
+# the rest (program-germNames) with GBS but coming from a different breeding program
+germNamesWithGenos_NoLocalSourcedGBS<-germNamesWithGenos %>% 
+  filter(programName==OriginOfSample) %>% 
+  select(programName,germplasmName) %>% 
+  anti_join(germNamesWithGenos,.) %>% 
+  # select one DNA per germplasmName per program
+  group_by(programName,germplasmName) %>% 
+  slice(1) %>% ungroup() 
+nrow(germNamesWithGenos_NoLocalSourcedGBS) # 202
+gbsForPhenos<-bind_rows(germNamesWithGenos_HasLocalSourcedGBS,
+                        germNamesWithGenos_NoLocalSourcedGBS) 
+nrow(gbsForPhenos) # 2794
+dbdata %<>% 
+    left_join(gbsForPhenos) 
+
+# Create a new identifier, GID
+## Equals the value SNP data name (FullSampleName) 
+## else germplasmName if no SNP data
+dbdata %<>% 
+  mutate(GID=ifelse(is.na(FullSampleName),germplasmName,FullSampleName))
+```
+
+```{r}
+#  going to check against SNP data
+snps<-readRDS(file=url(paste0("ftp://ftp.cassavabase.org/marnin_datasets/NGC_BigData/",
+                              "DosageMatrix_RefPanelAndGSprogeny_ReadyForGP_73019.rds")))
+rownames_snps<-rownames(snps); rm(snps); gc()
+# current matches to SNP data
+dbdata %>% 
+  distinct(GID,germplasmName,FullSampleName) %>% 
+  semi_join(tibble(GID=rownames_snps)) %>% nrow() #1340
+dbdata %>% 
+  distinct(GID,germplasmName,FullSampleName) %>% 
+  semi_join(tibble(GID=rownames_snps)) %>% 
+  filter(grepl("c1",GID,ignore.case = F)) # no C1 clones currently match
+dbdata %>% 
+  distinct(GID,germplasmName,FullSampleName) %>% 
+  semi_join(tibble(GID=rownames_snps)) %>% 
+  filter(grepl("c2",GID,ignore.case = F)) # no C2 clones either
+dbdata %>% 
+  distinct(GID,germplasmName,FullSampleName) %>% 
+  anti_join(tibble(GID=rownames_snps)) %>% 
+  filter(grepl("c1|c2",GID,ignore.case = T)) # definitely there are both C1 and C2 phenotypes
+# and there are C1 and C2 genotypes
+rownames_snps %>% grep("c1",.,value = T,ignore.case = T) %>% length # [1] 1762
+rownames_snps %>% grep("c2",.,value = T,ignore.case = T) %>% length # [1] 4291 
+```
+```{r}
+germ2snps<-dbdata %>% 
+  distinct(germplasmName,FullSampleName) %>% 
+  semi_join(tibble(FullSampleName=rownames_snps)) %>% 
+  bind_rows(dbdata %>% 
+              distinct(germplasmName,FullSampleName) %>% 
+              anti_join(tibble(FullSampleName=rownames_snps)) %>% 
+              filter(grepl("c1a",germplasmName,ignore.case = T)) %>% 
+              select(-FullSampleName) %>% 
+              left_join(tibble(FullSampleName=rownames_snps) %>% 
+                          filter(grepl("c1a",FullSampleName,ignore.case = T)) %>% 
+                          separate(FullSampleName,c("dartID","germplasmName"),"\\.\\.\\.",extra = 'merge',remove = F) %>% 
+                          select(-dartID))) %>% 
+  bind_rows(dbdata %>% 
+              distinct(germplasmName,FullSampleName) %>% 
+              anti_join(tibble(FullSampleName=rownames_snps)) %>% 
+              filter(grepl("C1b",germplasmName,ignore.case = T)) %>% 
+              filter(grepl("NR16C1b",germplasmName,ignore.case = T)) %>% 
+              select(-FullSampleName) %>%
+              left_join(tibble(FullSampleName=rownames_snps) %>% 
+                          filter(grepl("c1b",FullSampleName,ignore.case = T)) %>% 
+                          separate(FullSampleName,c("germplasmName","GBS_ID"),":",extra = 'merge',remove = F) %>% 
+                          select(-GBS_ID) %>% 
+                          mutate(germplasmName=gsub("C1b","",germplasmName),
+                                 germplasmName=paste0("NR16C1b",germplasmName)))) %>% 
+  bind_rows(dbdata %>% 
+              distinct(germplasmName,FullSampleName) %>% 
+              anti_join(tibble(FullSampleName=rownames_snps)) %>% 
+              filter(grepl("C1b",germplasmName,ignore.case = T)) %>% 
+              filter(!grepl("NR16C1b",germplasmName,ignore.case = T)) %>% 
+              select(-FullSampleName) %>% 
+              left_join(tibble(FullSampleName=rownames_snps) %>% 
+                          filter(grepl("c1b",FullSampleName,ignore.case = T)) %>% 
+                          separate(FullSampleName,c("germplasmName","GBS_ID"),":",extra = 'merge',remove = F) %>% 
+                          select(-GBS_ID) %>% 
+                          mutate(germplasmName=paste0("NR16",germplasmName)))) %>% 
+  bind_rows(dbdata %>% 
+              distinct(germplasmName,FullSampleName) %>% 
+              anti_join(tibble(FullSampleName=rownames_snps)) %>% 
+              filter(grepl("c2",germplasmName,ignore.case = T)) %>% 
+              select(-FullSampleName) %>% 
+              left_join(tibble(FullSampleName=rownames_snps) %>% 
+                          filter(grepl("c2",FullSampleName,ignore.case = T),
+                                 grepl("\\.\\.\\.",FullSampleName)) %>% 
+                          separate(FullSampleName,c("dartID","germplasmName"),"\\.\\.\\.",extra = 'merge',remove = F) %>% 
+                          select(-dartID))) %>% 
+  distinct
+germ2snps %>% 
+  count(germplasmName) %>% arrange(desc(n))
+germ2snps %>% 
+  count(FullSampleName) %>% arrange(desc(n))
+length(unique(dbdata$FullSampleName)) # [1] 3234
+table(unique(dbdata$FullSampleName) %in% rownames_snps)
+# FALSE  TRUE 
+#  1907  1327 
+dbdata %>% 
+  select(-GID,-FullSampleName) %>% 
+  left_join(germ2snps) %$%
+  length(unique(FullSampleName)) # [1] 6270
+dbdata %>% 
+  select(-GID,-FullSampleName) %>% 
+  left_join(germ2snps) %$%
+  table(unique(FullSampleName) %in% rownames_snps) 
+# FALSE  TRUE 
+#     1  6269 
+
+# Merge updated pheno-to-SNP matches to raw pheno DF
+dbdata %<>% 
+  select(-GID,-FullSampleName) %>% 
+  left_join(germ2snps) %>% 
+  # Re-create the GID identifier
+  ## Equals the value SNP data name (FullSampleName) 
+  ## else germplasmName if no SNP data
+  mutate(GID=ifelse(is.na(FullSampleName),germplasmName,FullSampleName))
+```
+
+# Output "cleaned" file
+```{r}
+saveRDS(dbdata,file=here::here("data","NRCRI_CleanedTrialData_2020April21.rds"))
+```
+
+# Next step
+
+2. [Curate by trait-trial](02-curateByTrial.html): Model each trait-trial separately, remove outliers, get BLUPs

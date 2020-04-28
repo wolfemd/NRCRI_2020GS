@@ -1,0 +1,298 @@
+---
+title: "Curate by trait-trial"
+author: "wolfemd"
+date: "2020-April-21"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: inline
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = F, tidy = T)
+```
+
+# Previous step
+
+1. [Prepare a training dataset](01-cleanTPdata.html): Download data from DB, "Clean" and format DB data
+
+# Nest by trial
+
+Start with cleaned data from previous step.
+```{r}
+rm(list=ls())
+library(tidyverse); library(magrittr);
+dbdata<-readRDS(here::here("data","NRCRI_CleanedTrialData_2020April21.rds"))
+```
+
+All downstream analyses in this step will by on a per-trial (location-year-studyName combination). 
+
+This function converts a data.frame where each row is a **plot** to one where each row is a **trial**, with a list-type column **TrialData** containing the corresponding trial's plot-data.
+
+```{r nestByTrials}
+nestByTrials<-function(indata){ 
+  nested_indata<-indata %>% 
+    # Create some explicitly nested variables including loc and year to nest with the trial data
+        mutate(yearInLoc=paste0(programName,"_",locationName,"_",studyYear),
+               trialInLocYr=paste0(yearInLoc,"_",studyName),
+               repInTrial=paste0(trialInLocYr,"_",replicate),
+               blockInRep=paste0(repInTrial,"_",blockNumber)) %>% 
+    nest(TrialData=-c(programName,locationName,studyYear,TrialType,studyName))
+  return(nested_indata) 
+}
+```
+
+
+```{r}
+dbdata<-nestByTrials(dbdata)
+```
+```{r}
+dbdata %>% head
+```
+
+```{r}
+dbdata$TrialData[[1]] %>% head
+```
+
+# Detect experimental designs
+
+The next step is to check the experimental design of each trial. If you are absolutely certain of the usage of the design variables in your dataset, you might not need this step.
+
+Examples of reasons to do the step below:
+
+- Some trials appear to be complete blocked designs and the blockNumber is used instead of replicate, which is what most use.
+- Some complete block designs have nested, incomplete sub-blocks, others simply copy the "replicate" variable into the "blockNumber variable"
+- Some trials have only incomplete blocks _but_ the incomplete block info might be in the replicate _and/or_ the blockNumber column
+
+One reason it might be important to get this right is that the variance among complete blocks might not be the same among incomplete blocks. If we treat a mixture of complete and incomplete blocks as part of the same random-effect (replicated-within-trial), we assume they have the same variance.
+
+Also error variances might be heterogeneous among different trial-types (blocking scheme available) _and/or_ plot sizes (maxNOHAV).
+
+```{r detectExptDesigns}
+detectExptDesigns<-function(nestedDBdata){
+    # Define complete blocks
+  nestedDBdata %>% 
+    mutate(Nobs=map_dbl(TrialData,~nrow(.)),
+           MaxNOHAV=map_dbl(TrialData,~unique(.$MaxNOHAV)),
+           Nrep=map_dbl(TrialData,~length(unique(.$replicate))),
+           Nblock=map_dbl(TrialData,~length(unique(.$blockInRep))),
+           Nclone=map_dbl(TrialData,~length(unique(.$germplasmName))),
+           # median number of obs per clone
+           medObsPerClone=map_dbl(TrialData,~count(.,germplasmName) %$% round(median(n),1)), 
+           # median number of obs per replicate
+           medObsPerRep=map_dbl(TrialData,~count(.,replicate) %$% round(median(n),1)), 
+           # Define complete block effects based on the "replicate" variable
+           CompleteBlocks=ifelse(Nrep>1 & medObsPerClone==Nrep & Nobs!=Nrep,TRUE,FALSE), 
+           # Additional trials with imperfect complete blocks
+           CompleteBlocks=ifelse(Nrep>1 & medObsPerClone!=Nrep & medObsPerClone>1 & Nobs!=Nrep,TRUE,CompleteBlocks)) -> x 
+  x %>% 
+    # Some complete blocks may only be represented by the "blockNumber" column
+    mutate(medBlocksPerClone=map_dbl(TrialData,~select(.,blockInRep,germplasmName) %>% 
+                                       # median number of blockInRep per clone
+                                       distinct %>% 
+                                       count(germplasmName) %$% 
+                                       round(median(n))),
+           # If CompleteBlocks==FALSE (complete blocks not detected based on replicate)
+           # and if more than half the clones are represented in more than one block based on the blockInRep variable
+           # Copy the blockInRep values into the repInTrial column
+           # Recompute Nrep
+           # and declare CompleteBlocks==TRUE
+           TrialData=ifelse(medBlocksPerClone>1 & CompleteBlocks==FALSE,map(TrialData,~mutate(.,repInTrial=blockInRep)),TrialData),  
+           Nrep=map_dbl(TrialData,~length(unique(.$repInTrial))),
+           CompleteBlocks=ifelse(medBlocksPerClone>1 & CompleteBlocks==FALSE,TRUE,CompleteBlocks)) -> y
+  # Define incomplete blocks
+  y %>% 
+    mutate(repsEqualBlocks=map_lgl(TrialData,~all(.$replicate==.$blockNumber)),  
+           NrepEqualNblock=ifelse(Nrep==Nblock,TRUE,FALSE),
+           medObsPerBlockInRep=map_dbl(TrialData,~count(.,blockInRep) %$% round(median(n),1))) -> z
+  # Define complete blocked trials with nested sub-blocks
+  z %<>%
+    mutate(IncompleteBlocks=ifelse(CompleteBlocks==TRUE & Nobs!=Nblock & Nblock>1 & medObsPerBlockInRep>1 & NrepEqualNblock==FALSE,TRUE,FALSE))
+  # Define clearly unreplicated (CompleteBlocks==FALSE & Nrep==1) trials with nested sub-blocks
+  z %<>% 
+    mutate(IncompleteBlocks=ifelse(CompleteBlocks==FALSE & Nobs!=Nblock & Nblock>1 & medObsPerBlockInRep>1 & Nrep==1,TRUE,IncompleteBlocks))
+  # Define additional trials with incomplete blocks (blockInRep) where CompleteBlocks==FALSE but Nrep>1 and Nrep==Block
+  z %<>% 
+    mutate(IncompleteBlocks=ifelse(CompleteBlocks==FALSE & IncompleteBlocks==FALSE & 
+                                     Nobs!=Nblock & Nblock>1 &  Nobs!=Nrep & 
+                                     medObsPerBlockInRep>1 & Nrep>1 & NrepEqualNblock==TRUE,TRUE,IncompleteBlocks))
+  # Last few cases (2 trials actually) where Nrep>1 and Nblock>1 and Nrep!=Nblock but CompleteBlocks==FALSE
+  z %<>% 
+    mutate(IncompleteBlocks=ifelse(CompleteBlocks==FALSE & IncompleteBlocks==FALSE &
+                                     Nobs!=Nblock & Nobs!=Nrep & 
+                                     medObsPerBlockInRep>1 & Nrep>1,TRUE,IncompleteBlocks))
+  return(z)
+}
+```
+
+Detect designs
+```{r}
+dbdata<-detectExptDesigns(dbdata)
+```
+```{r}
+dbdata %>% 
+    count(programName,CompleteBlocks,IncompleteBlocks) # %>% spread(IncompleteBlocks,n)
+```
+## Output file
+```{r}
+saveRDS(dbdata,file=here::here("data","NRCRI_ExptDesignsDetected_2020April21.rds"))
+```
+
+# Model by trait-trial
+
+This next step fits models to each trial (for each trait)
+
+```{r}
+rm(list=ls())
+library(tidyverse); library(magrittr);
+dbdata<-readRDS(here::here("data","NRCRI_ExptDesignsDetected_2020April21.rds"))
+traits<-c("CGM","CGMS1","CGMS2","MCMDS","DM","PLTHT","BRNHT1","HI","logFYLD","logTOPYLD","logRTNO")
+```
+
+## Functions
+**Nest by trait-trial.** This next function will structure input trial data by trait. This will facilitate looping downstream analyses over each trait for each trial.
+
+```{r nestTrialsByTrait}
+nestTrialsByTrait<-function(indata,traits){ 
+  nested_trialdata<-dbdata %>%
+    select(-MaxNOHAV) %>% 
+    unnest(TrialData) %>% 
+    pivot_longer(cols = any_of(traits),
+                 names_to = "Trait",
+                 values_to = "TraitValue") %>% 
+    nest(TraitByTrialData=-c(Trait,studyYear,programName,locationName,studyName,TrialType))
+  return(nested_trialdata) 
+}
+```
+```{r}
+dbdata<-nestTrialsByTrait(dbdata,traits)
+#dbdata %>% head
+```
+
+Minor support function: calc. proportion missing given a numeric vector.
+```{r calcPropMissing}
+calcPropMissing<-function(TraitValues){ length(which(is.na(TraitValues))) / length(TraitValues) }
+```
+
+
+Function to curate a single trait-trial data chunk.
+```{r curateTrialOneTrait}
+# Trait<-"logFYLD"
+# TraitByTrialData<-dbdata %>% filter(studyName=="18C2acrossingblockCETubiaja",Trait=="logFYLD") %$% TraitByTrialData[[1]]
+# GID="GID"
+#rm(Trait,TraitData,GID)
+curateTrialOneTrait<-function(Trait,TraitByTrialData,GID="GID"){
+  require(lme4)
+  
+  modelFormula<-paste0("TraitValue ~ (1|",GID,")")
+  modelFormula<-ifelse(all(TraitByTrialData$CompleteBlocks),
+                       paste0(modelFormula,"+(1|repInTrial)"),modelFormula)
+  modelFormula<-ifelse(all(TraitByTrialData$IncompleteBlocks),
+                       paste0(modelFormula,"+(1|blockInRep)"),modelFormula)
+  modelFormula<-ifelse(grepl("logRTNO",Trait) | grepl("logFYLD",Trait) | grepl("logTOPYLD",Trait),
+                       paste0(modelFormula,"+PropNOHAV"),modelFormula)
+  
+  propMiss<-calcPropMissing(TraitByTrialData$TraitValue)
+  fit_model<-possibly(function(modelFormula,TraitByTrialData){
+    model_out<-lmer(as.formula(modelFormula),data=TraitByTrialData)
+    if(!is.na(model_out)){
+      outliers<-which(abs(rstudent(model_out))>=3.3)
+      if(length(outliers)>0){
+        model_out<-lmer(as.formula(modelFormula),data=TraitByTrialData,
+                        subset=abs(rstudent(model_out))<3.3)
+      } 
+    }
+    return(list(model_out=model_out,outliers=outliers)) },
+    otherwise = NA)
+  model_out<-fit_model(modelFormula,TraitByTrialData)
+  if(is.na(model_out)){
+    out <-tibble(H2=NA,VarComps=list(NULL),BLUPs=list(NULL),Model=modelFormula,Noutliers=NA,Outliers=NA,propMiss=propMiss) 
+  } else {
+    varcomps<-as.data.frame(VarCorr(model_out[["model_out"]]))[,c("grp","vcov")] %>%
+      spread(grp,vcov)
+    Vg<-varcomps$GID
+    H2<-Vg/(Vg+varcomps$Residual)
+    BLUP<-ranef(model_out[["model_out"]], condVar=TRUE)[[GID]]
+    PEV <- c(attr(BLUP, "postVar"))
+    blups<-tibble(GID=rownames(BLUP),BLUP=BLUP$`(Intercept)`,PEV=PEV) %>% 
+      mutate(REL=1-(PEV/Vg),
+             drgBLUP=BLUP/REL,
+             WT=(1-H2)/((0.1 + (1-REL)/REL)*H2))
+    out <- tibble(H2=H2, 
+                  VarComps=list(varcomps), 
+                  BLUPs=list(blups),
+                  Model=modelFormula,
+                  Noutliers=length(model_out[["outliers"]]),
+                  Outliers=list(model_out[["outliers"]]),
+                  propMiss=propMiss) }
+  return(out) 
+}
+```
+```{r curateTrialsByTrait}
+curateTrialsByTrait<-function(nestedTrialData,traits){
+  outdata<-nestedTrialData %>% 
+    mutate(modelOutput=map2(Trait,TraitByTrialData,~curateTrialOneTrait(Trait = .x,TraitByTrialData = .y))) %>% 
+    dplyr::select(-TraitByTrialData) %>% 
+    unnest(modelOutput)
+  return(outdata)
+}
+```
+
+## Fit models
+```{r}
+dbdata<-curateTrialsByTrait(dbdata,traits)
+dbdata %>% slice(2) %>% str
+```
+## Output file
+```{r}
+saveRDS(dbdata,file=here::here("output","NRCRI_CuratedTrials_2020April27.rds"))
+```
+
+## Plot Results
+```{r}
+dbdata<-readRDS(file=here::here("output","NRCRI_CuratedTrials_2020April27.rds"))
+```
+
+```{r}
+dbdata %>% 
+  ggplot(.,aes(x=Trait,y=H2,fill=Trait)) + 
+  geom_boxplot(color='darkgray') + 
+  theme_bw() + 
+  scale_fill_viridis_d(option = 'magma') + 
+  theme(axis.text.x = element_text(face='bold',angle=90))
+```
+```{r, fig.width=9}
+dbdata %>%
+  select(studyYear:VarComps) %>% 
+  unnest(VarComps) %>% 
+  ggplot(.,aes(x=TrialType,y=Residual,fill=TrialType)) + 
+  geom_boxplot(color='darkgray') + 
+  theme_bw() + facet_wrap(~Trait,scales = 'free',nrow=2) +
+  scale_fill_viridis_d(option = 'inferno') + theme(axis.text.x = element_text(angle=90,face='bold'))
+```
+```{r, fig.width=9}
+dbdata %>%
+  select(studyYear:VarComps) %>% 
+  unnest(VarComps) %>% 
+  ggplot(.,aes(x=TrialType,y=H2,fill=TrialType)) + 
+  geom_boxplot(color='darkgray') + 
+  theme_bw() + facet_wrap(~Trait,scales = 'free',nrow=2) +
+  scale_fill_viridis_d(option = 'inferno') + theme(axis.text.x = element_text(angle=90,face='bold'))
+```
+```{r, fig.width=9}
+dbdata %>%
+  ggplot(.,aes(x=TrialType,y=Noutliers,fill=TrialType)) + 
+  geom_boxplot(color='darkgray') + 
+  theme_bw() + facet_wrap(~Trait,scales = 'free',nrow=2) +
+  scale_fill_viridis_d(option = 'inferno') + theme(axis.text.x = element_text(angle=90,face='bold'))
+```
+```{r, fig.width=9}
+dbdata %>% 
+  ggplot(.,aes(x=TrialType,y=propMiss,fill=TrialType)) + 
+  geom_boxplot(color='darkgray') + 
+  theme_bw() + facet_wrap(~Trait,scales = 'free',nrow=2) +
+  scale_fill_viridis_d(option = 'inferno') + theme(axis.text.x = element_text(angle=90,face='bold'))
+```
+
+# Next step
+
+3. [Get BLUPs combining all trial data](03-GetBLUPs.html): Combine data from all trait-trials to get BLUPs for downstream genomic 

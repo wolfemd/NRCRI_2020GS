@@ -1,0 +1,136 @@
+---
+title: "Get BLUPs combining all trial data"
+author: "wolfemd"
+date: "2020-April-27"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: inline
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = F, tidy = T)
+```
+
+# Previous step 
+
+2. [Curate by trait-trial](02-curateByTrial.html): Model each trait-trial separately, remove outliers, get BLUPs.
+
+# Objective
+
+**Two-stage** genomic prediction refers to the following procedure:
+
+**Stage 1:** Fit a linear mixed model to the data *without* genomic data. Individuals (e.g. clones / accessions) are modeled as independent and identically distributed (*i.i.d.*) random effects. The BLUPs for this random effect represent the measurable total genetic values of each individual. All the experimental design variation, e.g. replication and blocking effects have been controlled for in the creation of our new response variable, the BLUPs from the gneotype random effect.
+
+**Stage 2:** Using a modified version of the BLUPs from step 1 as the response variable, fit a genomic prediction model, which now has reduced size because the number of observations is now the same as the number of individuals.
+
+**NOTE:** In the animal breeding literature **single-step** often refers to predictions that combine pedigree and marker information simultaneously. That *is not* our meaning here.
+
+The code below represents Stage I.
+
+# Set-up training datasets
+
+This next step fits models to each trait, combining curated data (BLUPs) from each trial, which we computed in the previous step.
+
+
+```{r}
+rm(list=ls())
+library(tidyverse); library(magrittr);
+dbdata<-readRDS(file=here::here("output","NRCRI_CuratedTrials_2020April27.rds"))
+traits<-c("CGM","CGMS1","CGMS2","MCMDS","DM","PLTHT","BRNHT1","HI","logFYLD","logTOPYLD","logRTNO")
+```
+
+Starting with the curated trial data (which correspond to per-trait, per-trial BLUPs) from the previous step.
+
+**Nest by trait.** Need to restructure the data from per-trial BLUPs by regrouping by trait. 
+
+```{r nestForMultiTrialAnalysis}
+nestForMultiTrialAnalysis<-function(curatedTrialData){
+  nested_trialdata<-curatedTrialData %>% 
+    # remove trait-trial models that failed
+    filter(!is.na(H2)) %>% 
+    # remove some per-trial summaries we don't want at this stage
+    select(-H2,-VarComps,-Model,-Noutliers,-propMiss) %>% 
+    unnest(BLUPs) %>% 
+    nest(MultiTrialTraitData=c(-Trait))
+  return(nested_trialdata)
+}
+```
+
+```{r}
+dbdata<-nestForMultiTrialAnalysis(dbdata)
+```
+```{r}
+dbdata %>% mutate(N_blups=map_dbl(MultiTrialTraitData,nrow))
+```
+
+## Question for NRCRI
+
+Where is the data from Ugo Ikeogu's (and subsequent) work on NIRs? I'm thinking someone needs to be trying to use esp. the **DM** NIRs data for genomic prediction!?
+
+# Model multiple trials
+
+The function below takes de-regressed BLUPs as response and corresponding weights on error variances are applied. Output includes BLUPs for each clone that combine data across trials and are suitable for downstream genomic prediction work.
+
+```{r fitMultiTrialModel}
+# curatedTrialData<-dbdata$MultiTrialTraitData[[1]]
+# rm(curatedTrialData)
+fitMultiTrialModel<-function(curatedTrialData,GID="GID"){
+  require(lme4)
+  modelFormula<-paste0("drgBLUP ~ (1|",GID,")")
+  fit_model<-possibly(function(modelFormula,curatedTrialData){
+    model_out<-lmer(as.formula(modelFormula),
+                    data=curatedTrialData,
+                    weights = WT)
+    return(model_out) },
+    otherwise = NA)
+  model_out<-fit_model(modelFormula,curatedTrialData)
+  summary(model_out)
+  if(is.na(model_out)){
+    out <-tibble(H2=NA,VarComps=list(NULL),BLUPs=list(NULL),Model=modelFormula) 
+  } else {
+    varcomps<-as.data.frame(VarCorr(model_out))[,c("grp","vcov")] %>%
+      spread(grp,vcov)
+    Vg<-varcomps$GID
+    H2<-Vg/(Vg+varcomps$Residual)
+    BLUP<-ranef(model_out, condVar=TRUE)[[GID]]
+    PEV <- c(attr(BLUP, "postVar"))
+    blups<-tibble(GID=rownames(BLUP),BLUP=BLUP$`(Intercept)`,PEV=PEV) %>% 
+      mutate(REL=1-(PEV/Vg),
+             drgBLUP=BLUP/REL,
+             WT=(1-H2)/((0.1 + (1-REL)/REL)*H2))
+    out <- tibble(H2=H2, 
+                  VarComps=list(varcomps), 
+                  BLUPs=list(blups),
+                  Model=modelFormula) }
+  return(out) 
+}
+```
+
+Run the function with the simplest possible loop using the `purrr` function `map()`.
+```{r}
+dbdata %<>% 
+  mutate(modelOutput=map(MultiTrialTraitData,fitMultiTrialModel))
+```
+```{r}
+dbdata %>% 
+  select(-MultiTrialTraitData) %>% 
+  unnest(modelOutput)
+```
+
+## Output file
+```{r}
+saveRDS(dbdata,file=here::here("output","nrcri_blupsForModelTraining_2020April27.rds"))
+```
+```{r}
+# dbdata<-readRDS(here::here("output","nrcri_blupsForModelTraining_2020April21.rds"))
+# dbdata %>% 
+#   #filter(studyName=="18C2acrossingblockCETubiaja") %>% 
+#   select(Trait,modelOutput) %>% 
+#   unnest(modelOutput) %>% 
+#   select(Trait,BLUPs) %>% 
+#   unnest(BLUPs) %>% 
+#   filter(grepl("c2",GID,ignore.case = T)) %>% count(GID)
+```
+# Next step
+
+4. [Check prediction accuracy](04-CrossValidation.html): Evaluate prediction accuracy with cross-validation.
