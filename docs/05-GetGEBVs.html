@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="wolfemd" />
+
+
+<title>Predict GEBV for NRCRI C2</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/darkly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">NRCRI_2020GS</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Synopsis</a>
+</li>
+<li>
+  <a href="01-cleanTPdata.html">Data Cleaning</a>
+</li>
+<li>
+  <a href="02-curateByTrial.html">Curate Data</a>
+</li>
+<li>
+  <a href="03-GetBLUPs.html">Get BLUPs</a>
+</li>
+<li>
+  <a href="04-CrossValidation.html">Check prediction accuracy</a>
+</li>
+<li>
+  <a href="05-GetGEBVs.html">Get GEBV for GS C2</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/wolfemd/NRCRI_2020GS">
+    <span class="fa fa-github"></span>
+     
+    Source code
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Predict GEBV for NRCRI C2</h1>
+<h4 class="author">wolfemd</h4>
+<h4 class="date">2020-April-27</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2020-04-28
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>NRCRI_2020GS/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.1). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20200421code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20200421)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20200421code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20200421)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrong8c45991"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> 8c45991 </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrong8c45991" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version 8c45991. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .DS_Store
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+    Ignored:    analysis/.DS_Store
+    Ignored:    data/.DS_Store
+    Ignored:    output/.DS_Store
+
+Untracked files:
+    Untracked:  NRCRI 2020 GS.gslides
+    Untracked:  data/DatabaseDownload_42120/
+    Untracked:  data/GBSdataMasterList_31818.csv
+    Untracked:  data/IITA_GBStoPhenoMaster_33018.csv
+    Untracked:  data/NRCRI_CleanedTrialData_2020April21.rds
+    Untracked:  data/NRCRI_ExptDesignsDetected_2020April21.rds
+    Untracked:  data/NRCRI_GBStoPhenoMaster_40318.csv
+    Untracked:  data/iita_blupsForCrossVal_72619.rds
+    Untracked:  data/iita_blupsForCrossVal_outliersRemoved_73019.rds
+    Untracked:  output/DosageMatrix_NRCRI_SamplesForGP_2020April27.rds
+    Untracked:  output/GEBV_NRCRI_IITAaugmented_ModelADE_2020April27.rds
+    Untracked:  output/GEBV_NRCRI_IITAaugmented_ModelA_2020April27.rds
+    Untracked:  output/GEBV_NRCRI_NRCRIalone_ModelADE_2020April27.rds
+    Untracked:  output/GEBV_NRCRI_NRCRIalone_ModelA_2020April27.rds
+    Untracked:  output/GETGV_NRCRI_IITAaugmented_ModelADE_2020April27.rds
+    Untracked:  output/GETGV_NRCRI_NRCRIalone_ModelADE_2020April27.rds
+    Untracked:  output/Kinship_AA_NRCRI_2020April27.rds
+    Untracked:  output/Kinship_AD_NRCRI_2020April27.rds
+    Untracked:  output/Kinship_A_NRCRI_2020April27.rds
+    Untracked:  output/Kinship_DD_NRCRI_2020April27.rds
+    Untracked:  output/Kinship_D_NRCRI_2020April27.rds
+    Untracked:  output/NRCRI_CuratedTrials_2020April21.rds
+    Untracked:  output/NRCRI_CuratedTrials_2020April27.rds
+    Untracked:  output/cvresults_AD_nrOnly.rds
+    Untracked:  output/cvresults_A_iitaAugmented.rds
+    Untracked:  output/cvresults_A_nrOnly.rds
+    Untracked:  output/genomicPredictions_ModelADE_NRCRI_2020April27.rds
+    Untracked:  output/genomicPredictions_ModelA_NRCRI_2020April27.rds
+    Untracked:  output/maxNOHAV_byStudy_NRCRI_2020April27.csv
+    Untracked:  output/nrcri_blupsForModelTraining_2020April21.rds
+    Untracked:  output/nrcri_blupsForModelTraining_2020April27.rds
+    Untracked:  workflowr_log.R
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/05-GetGEBVs.Rmd</code>) and HTML (<code>docs/05-GetGEBVs.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+8c45991
+</td>
+<td>
+wolfemd
+</td>
+<td>
+2020-04-28
+</td>
+<td>
+Publish the first set of analyses and files for NRCRI 2020 GS.
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div id="previous-step" class="section level1">
+<h1>Previous step</h1>
+<ol start="4" style="list-style-type: decimal">
+<li><a href="04-CrossValidation.html">Check prediction accuracy</a>: Evaluate prediction accuracy with cross-validation.</li>
+</ol>
+</div>
+<div id="objective" class="section level1">
+<h1>Objective</h1>
+<p><strong>Current Step</strong></p>
+<ol start="5" style="list-style-type: decimal">
+<li><a href="05-GetGBLUPs.html">Genomic prediction of GS C2</a>: Predict <em>genomic</em> BLUPs (GEBV and GETGV) for all selection candidates using all available data.</li>
+</ol>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># activate multithread OpenBLAS </span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="bu">export</span> <span class="va">OMP_NUM_THREADS=</span>48</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="co">#export OMP_NUM_THREADS=88</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="co">#export OMP_NUM_THREADS=88</span></span></code></pre></div>
+</div>
+<div id="set-up-training-testing-data" class="section level1">
+<h1>Set-up training-testing data</h1>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">library</span>(tidyverse); <span class="kw">library</span>(magrittr); </span>
+<span id="cb2-2"><a href="#cb2-2"></a>A&lt;-<span class="kw">readRDS</span>(<span class="dt">file=</span>here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;output&quot;</span>,<span class="st">&quot;Kinship_A_NRCRI_2020April27.rds&quot;</span>))</span>
+<span id="cb2-3"><a href="#cb2-3"></a>D&lt;-<span class="kw">readRDS</span>(<span class="dt">file=</span>here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;output&quot;</span>,<span class="st">&quot;Kinship_A_NRCRI_2020April27.rds&quot;</span>))</span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="co">#AA&lt;-readRDS(file=here::here(&quot;output&quot;,&quot;Kinship_AA_NRCRI_2020April27.rds&quot;))</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a>AD&lt;-<span class="kw">readRDS</span>(<span class="dt">file=</span>here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;output&quot;</span>,<span class="st">&quot;Kinship_AD_NRCRI_2020April27.rds&quot;</span>))</span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="co">#DD&lt;-readRDS(file=here::here(&quot;output&quot;,&quot;Kinship_DD_NRCRI_2020April27.rds&quot;))</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a></span>
+<span id="cb2-8"><a href="#cb2-8"></a>blups_iita&lt;-<span class="kw">readRDS</span>(<span class="dt">file=</span>here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>,<span class="st">&quot;iita_blupsForCrossVal_outliersRemoved_73019.rds&quot;</span>))</span>
+<span id="cb2-9"><a href="#cb2-9"></a>blups_iita&lt;-blups_iita <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb2-10"><a href="#cb2-10"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(Trait,blups) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb2-11"><a href="#cb2-11"></a><span class="st">  </span><span class="kw">unnest</span>(blups) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb2-12"><a href="#cb2-12"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="op">-</span><span class="st">`</span><span class="dt">std error</span><span class="st">`</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb2-13"><a href="#cb2-13"></a><span class="st">  </span><span class="kw">filter</span>(GID <span class="op">%in%</span><span class="st"> </span><span class="kw">rownames</span>(A),</span>
+<span id="cb2-14"><a href="#cb2-14"></a>         <span class="op">!</span><span class="kw">grepl</span>(<span class="st">&quot;TMS13F|TMS14F|TMS15F|2013_&quot;</span>,GID)) <span class="co"># don&#39;t want IITA GS progenies</span></span>
+<span id="cb2-15"><a href="#cb2-15"></a>blups_nrcri&lt;-<span class="kw">readRDS</span>(<span class="dt">file=</span>here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;output&quot;</span>,<span class="st">&quot;nrcri_blupsForModelTraining_2020April27.rds&quot;</span>))</span>
+<span id="cb2-16"><a href="#cb2-16"></a>blups_nrcri&lt;-blups_nrcri <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb2-17"><a href="#cb2-17"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(Trait,modelOutput) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb2-18"><a href="#cb2-18"></a><span class="st">  </span><span class="kw">unnest</span>(modelOutput) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb2-19"><a href="#cb2-19"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(Trait,BLUPs) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb2-20"><a href="#cb2-20"></a><span class="st">  </span><span class="kw">unnest</span>(BLUPs) <span class="op">%&gt;%</span><span class="st">  </span></span>
+<span id="cb2-21"><a href="#cb2-21"></a><span class="st">  </span><span class="kw">filter</span>(GID <span class="op">%in%</span><span class="st"> </span><span class="kw">rownames</span>(A))</span>
+<span id="cb2-22"><a href="#cb2-22"></a></span>
+<span id="cb2-23"><a href="#cb2-23"></a>blups&lt;-blups_nrcri <span class="op">%&gt;%</span></span>
+<span id="cb2-24"><a href="#cb2-24"></a><span class="st">  </span><span class="kw">nest</span>(<span class="dt">TrainingData=</span><span class="op">-</span>Trait) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb2-25"><a href="#cb2-25"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Dataset=</span><span class="st">&quot;NRCRIalone&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb2-26"><a href="#cb2-26"></a><span class="st">  </span><span class="kw">bind_rows</span>(blups_nrcri <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb2-27"><a href="#cb2-27"></a><span class="st">              </span><span class="kw">bind_rows</span>(blups_iita <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(Trait <span class="op">%in%</span><span class="st"> </span>blups_nrcri<span class="op">$</span>Trait)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb2-28"><a href="#cb2-28"></a><span class="st">              </span><span class="kw">nest</span>(<span class="dt">TrainingData=</span><span class="op">-</span>Trait) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb2-29"><a href="#cb2-29"></a><span class="st">              </span><span class="kw">mutate</span>(<span class="dt">Dataset=</span><span class="st">&quot;IITAaugmented&quot;</span>))</span>
+<span id="cb2-30"><a href="#cb2-30"></a>blups</span></code></pre></div>
+</div>
+<div id="prediction" class="section level1">
+<h1>Prediction</h1>
+<div id="rungenomicpredictions-function" class="section level2">
+<h2>runGenomicPredictions function</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co">#&#39; @param blups nested data.frame with list-column &quot;TrainingData&quot; containing BLUPs</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="co">#&#39; @param modelType string, A, AD or ADE representing model with Additive-only, Add. plus Dominance, and Add. plus Dom. plus. Epistasis (AA+AD+DD), respectively.</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="co">#&#39; @param grms list of GRMs. Any genotypes in the GRMs get predicted with, or without phenotypes. Each element is named either A, D, AA, AD, DD. Matrices supplied must match required by A, AD and ADE models. For ADE grms=list(A=A,D=D,AA=AA,AD=AD,DD=DD). </span></span>
+<span id="cb3-4"><a href="#cb3-4"></a>runGenomicPredictions&lt;-<span class="cf">function</span>(blups,modelType,grms,<span class="dt">ncores=</span><span class="dv">1</span>,<span class="dt">gid=</span><span class="st">&quot;GID&quot;</span>,...){</span>
+<span id="cb3-5"><a href="#cb3-5"></a>  <span class="kw">require</span>(sommer); </span>
+<span id="cb3-6"><a href="#cb3-6"></a>  runOnePred&lt;-<span class="kw">possibly</span>(<span class="cf">function</span>(trainingdata,modelType,grms){</span>
+<span id="cb3-7"><a href="#cb3-7"></a>    trainingdata[[<span class="kw">paste0</span>(gid,<span class="st">&quot;a&quot;</span>)]]&lt;-<span class="kw">factor</span>(trainingdata[[gid]],<span class="dt">levels=</span><span class="kw">rownames</span>(grms[[<span class="st">&quot;A&quot;</span>]]))</span>
+<span id="cb3-8"><a href="#cb3-8"></a>    <span class="cf">if</span>(modelType <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;AD&quot;</span>,<span class="st">&quot;ADE&quot;</span>)){ trainingdata[[<span class="kw">paste0</span>(gid,<span class="st">&quot;d&quot;</span>)]]&lt;-<span class="kw">factor</span>(trainingdata[[gid]],<span class="dt">levels=</span><span class="kw">rownames</span>(grms[[<span class="st">&quot;D&quot;</span>]])) </span>
+<span id="cb3-9"><a href="#cb3-9"></a>    <span class="cf">if</span>(modelType<span class="op">==</span><span class="st">&quot;ADE&quot;</span>){</span>
+<span id="cb3-10"><a href="#cb3-10"></a>      <span class="co">#trainingdata[[paste0(gid,&quot;aa&quot;)]]&lt;-factor(trainingdata[[gid]],levels=rownames(grms[[&quot;AA&quot;]]))</span></span>
+<span id="cb3-11"><a href="#cb3-11"></a>      trainingdata[[<span class="kw">paste0</span>(gid,<span class="st">&quot;ad&quot;</span>)]]&lt;-<span class="kw">factor</span>(trainingdata[[gid]],<span class="dt">levels=</span><span class="kw">rownames</span>(grms[[<span class="st">&quot;AD&quot;</span>]]))</span>
+<span id="cb3-12"><a href="#cb3-12"></a>      <span class="kw">diag</span>(grms[[<span class="st">&quot;AD&quot;</span>]])&lt;-<span class="kw">diag</span>(grms[[<span class="st">&quot;AD&quot;</span>]])<span class="op">+</span><span class="fl">1e-06</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a>      <span class="co">#trainingdata[[paste0(gid,&quot;dd&quot;)]]&lt;-factor(trainingdata[[gid]],levels=rownames(grms[[&quot;DD&quot;]]))</span></span>
+<span id="cb3-14"><a href="#cb3-14"></a>    }</span>
+<span id="cb3-15"><a href="#cb3-15"></a>    }</span>
+<span id="cb3-16"><a href="#cb3-16"></a>    <span class="co"># Set-up random model statements</span></span>
+<span id="cb3-17"><a href="#cb3-17"></a>    randFormula&lt;-<span class="kw">paste0</span>(<span class="st">&quot;~vs(&quot;</span>,gid,<span class="st">&quot;a,Gu=A)&quot;</span>)</span>
+<span id="cb3-18"><a href="#cb3-18"></a>    <span class="cf">if</span>(modelType <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;AD&quot;</span>,<span class="st">&quot;ADE&quot;</span>)){</span>
+<span id="cb3-19"><a href="#cb3-19"></a>      randFormula&lt;-<span class="kw">paste0</span>(randFormula,<span class="st">&quot;+vs(&quot;</span>,gid,<span class="st">&quot;d,Gu=D)&quot;</span>)</span>
+<span id="cb3-20"><a href="#cb3-20"></a>      <span class="cf">if</span>(modelType<span class="op">==</span><span class="st">&quot;ADE&quot;</span>){</span>
+<span id="cb3-21"><a href="#cb3-21"></a>        randFormula&lt;-<span class="kw">paste0</span>(randFormula,<span class="st">&quot;+vs(&quot;</span>,gid,<span class="st">&quot;ad,Gu=AD)&quot;</span>)</span>
+<span id="cb3-22"><a href="#cb3-22"></a>                            <span class="co"># &quot;+vs(&quot;,gid,&quot;aa,Gu=AA)&quot;,</span></span>
+<span id="cb3-23"><a href="#cb3-23"></a>                            <span class="co"># &quot;+vs(&quot;,gid,&quot;dd,Gu=DD)&quot;)</span></span>
+<span id="cb3-24"><a href="#cb3-24"></a>      }</span>
+<span id="cb3-25"><a href="#cb3-25"></a>    }</span>
+<span id="cb3-26"><a href="#cb3-26"></a>    <span class="co"># Fit genomic prediction model  </span></span>
+<span id="cb3-27"><a href="#cb3-27"></a>    fit &lt;-<span class="st"> </span><span class="kw">mmer</span>(<span class="dt">fixed =</span> drgBLUP <span class="op">~</span><span class="dv">1</span>,</span>
+<span id="cb3-28"><a href="#cb3-28"></a>                <span class="dt">random =</span> <span class="kw">as.formula</span>(randFormula),</span>
+<span id="cb3-29"><a href="#cb3-29"></a>                <span class="dt">weights =</span> WT,</span>
+<span id="cb3-30"><a href="#cb3-30"></a>                <span class="dt">data=</span>trainingdata)</span>
+<span id="cb3-31"><a href="#cb3-31"></a>    <span class="co"># Gather the BLUPs</span></span>
+<span id="cb3-32"><a href="#cb3-32"></a>    gblups&lt;-<span class="kw">tibble</span>(<span class="dt">GID=</span><span class="kw">as.character</span>(<span class="kw">names</span>(fit<span class="op">$</span>U[[<span class="kw">paste0</span>(<span class="st">&quot;u:&quot;</span>,gid,<span class="st">&quot;a&quot;</span>)]]<span class="op">$</span>drgBLUP)),</span>
+<span id="cb3-33"><a href="#cb3-33"></a>                   <span class="dt">GEBV=</span><span class="kw">as.numeric</span>(fit<span class="op">$</span>U[[<span class="kw">paste0</span>(<span class="st">&quot;u:&quot;</span>,gid,<span class="st">&quot;a&quot;</span>)]]<span class="op">$</span>drgBLUP))</span>
+<span id="cb3-34"><a href="#cb3-34"></a>    <span class="cf">if</span>(modelType <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;AD&quot;</span>,<span class="st">&quot;ADE&quot;</span>)){</span>
+<span id="cb3-35"><a href="#cb3-35"></a>      gblups <span class="op">%&lt;&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">GEDD=</span><span class="kw">as.numeric</span>(fit<span class="op">$</span>U[[<span class="kw">paste0</span>(<span class="st">&quot;u:&quot;</span>,gid,<span class="st">&quot;d&quot;</span>)]]<span class="op">$</span>drgBLUP))</span>
+<span id="cb3-36"><a href="#cb3-36"></a>      <span class="cf">if</span>(modelType<span class="op">==</span><span class="st">&quot;ADE&quot;</span>){</span>
+<span id="cb3-37"><a href="#cb3-37"></a>        gblups <span class="op">%&lt;&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="co">#GEEDaa=as.numeric(fit$U[[paste0(&quot;u:&quot;,gid,&quot;aa&quot;)]]$drgBLUP),</span></span>
+<span id="cb3-38"><a href="#cb3-38"></a>                           <span class="dt">GEEDad=</span><span class="kw">as.numeric</span>(fit<span class="op">$</span>U[[<span class="kw">paste0</span>(<span class="st">&quot;u:&quot;</span>,gid,<span class="st">&quot;ad&quot;</span>)]]<span class="op">$</span>drgBLUP))</span>
+<span id="cb3-39"><a href="#cb3-39"></a>                           <span class="co">#GEEDdd=as.numeric(fit$U[[paste0(&quot;u:&quot;,gid,&quot;dd&quot;)]]$drgBLUP)) </span></span>
+<span id="cb3-40"><a href="#cb3-40"></a>      }</span>
+<span id="cb3-41"><a href="#cb3-41"></a>    }</span>
+<span id="cb3-42"><a href="#cb3-42"></a>    <span class="co"># Calc GETGVs </span></span>
+<span id="cb3-43"><a href="#cb3-43"></a>    <span class="co">## Note that for modelType==&quot;A&quot;, GEBV==GETGV</span></span>
+<span id="cb3-44"><a href="#cb3-44"></a>    gblups <span class="op">%&lt;&gt;%</span><span class="st"> </span></span>
+<span id="cb3-45"><a href="#cb3-45"></a><span class="st">      </span><span class="kw">mutate</span>(<span class="dt">GETGV=</span><span class="kw">rowSums</span>(.[,<span class="kw">grepl</span>(<span class="st">&quot;GE&quot;</span>,<span class="kw">colnames</span>(.))])) </span>
+<span id="cb3-46"><a href="#cb3-46"></a>    varcomps&lt;-<span class="kw">summary</span>(fit)<span class="op">$</span>varcomp</span>
+<span id="cb3-47"><a href="#cb3-47"></a>    out&lt;-<span class="kw">tibble</span>(<span class="dt">gblups=</span><span class="kw">list</span>(gblups),<span class="dt">varcomps=</span><span class="kw">list</span>(varcomps))</span>
+<span id="cb3-48"><a href="#cb3-48"></a>    <span class="kw">return</span>(out) </span>
+<span id="cb3-49"><a href="#cb3-49"></a>  },<span class="dt">otherwise =</span> <span class="ot">NA</span>)</span>
+<span id="cb3-50"><a href="#cb3-50"></a>  <span class="co">## Run models across all train-test splits</span></span>
+<span id="cb3-51"><a href="#cb3-51"></a>  <span class="co">## Parallelize </span></span>
+<span id="cb3-52"><a href="#cb3-52"></a>  <span class="kw">require</span>(furrr); <span class="kw">plan</span>(multiprocess); <span class="kw">options</span>(<span class="dt">mc.cores=</span>ncores);</span>
+<span id="cb3-53"><a href="#cb3-53"></a>  predictions&lt;-blups <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb3-54"><a href="#cb3-54"></a><span class="st">      </span><span class="kw">mutate</span>(<span class="dt">genomicPredOut=</span><span class="kw">future_map</span>(TrainingData,<span class="op">~</span><span class="kw">runOnePred</span>(<span class="dt">trainingdata=</span>.,</span>
+<span id="cb3-55"><a href="#cb3-55"></a>                                                                <span class="dt">modelType=</span>modelType,<span class="dt">grms=</span>grms)))</span>
+<span id="cb3-56"><a href="#cb3-56"></a>  <span class="kw">return</span>(predictions) </span>
+<span id="cb3-57"><a href="#cb3-57"></a>}</span></code></pre></div>
+<p>cbsulm18 (88 cores; 512GB)</p>
+<p>Model A</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">options</span>(<span class="dt">future.globals.maxSize=</span> <span class="dv">1500</span><span class="op">*</span><span class="dv">1024</span><span class="op">^</span><span class="dv">2</span>)</span>
+<span id="cb4-2"><a href="#cb4-2"></a>predModelA&lt;-<span class="kw">runGenomicPredictions</span>(blups,<span class="dt">modelType=</span><span class="st">&quot;A&quot;</span>,<span class="dt">grms=</span><span class="kw">list</span>(<span class="dt">A=</span>A),<span class="dt">gid=</span><span class="st">&quot;GID&quot;</span>,<span class="dt">ncores=</span><span class="dv">1</span>)</span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="kw">saveRDS</span>(predModelA,<span class="dt">file =</span> here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;output&quot;</span>,<span class="st">&quot;genomicPredictions_ModelA_NRCRI_2020April27.rds&quot;</span>))</span></code></pre></div>
+<p>Model ADE</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">options</span>(<span class="dt">future.globals.maxSize=</span> <span class="dv">3000</span><span class="op">*</span><span class="dv">1024</span><span class="op">^</span><span class="dv">2</span>)</span>
+<span id="cb5-2"><a href="#cb5-2"></a>predModelADE&lt;-<span class="kw">runGenomicPredictions</span>(blups,<span class="dt">modelType=</span><span class="st">&quot;ADE&quot;</span>,<span class="dt">grms=</span><span class="kw">list</span>(<span class="dt">A=</span>A,<span class="dt">D=</span>D,<span class="dt">AD=</span>AD),<span class="dt">gid=</span><span class="st">&quot;GID&quot;</span>,<span class="dt">ncores=</span><span class="dv">20</span>)</span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="kw">saveRDS</span>(predModelADE,<span class="dt">file =</span> here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;output&quot;</span>,<span class="st">&quot;genomicPredictions_ModelADE_NRCRI_2020April27.rds&quot;</span>))</span></code></pre></div>
+</div>
+<div id="plot-predictions" class="section level2">
+<h2>Plot Predictions</h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">library</span>(tidyverse); <span class="kw">library</span>(magrittr);</span>
+<span id="cb6-2"><a href="#cb6-2"></a>predModelA&lt;-<span class="kw">readRDS</span>(<span class="dt">file =</span> here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;output&quot;</span>,<span class="st">&quot;genomicPredictions_ModelA_NRCRI_2020April27.rds&quot;</span>))</span>
+<span id="cb6-3"><a href="#cb6-3"></a>predModelADE&lt;-<span class="kw">readRDS</span>(<span class="dt">file =</span> here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;output&quot;</span>,<span class="st">&quot;genomicPredictions_ModelADE_NRCRI_2020April27.rds&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>predModelA <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(Trait,Dataset,genomicPredOut) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="st">  </span><span class="kw">unnest</span>(genomicPredOut) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>varcomps) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb7-5"><a href="#cb7-5"></a><span class="st">  </span><span class="kw">unnest</span>(gblups) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb7-6"><a href="#cb7-6"></a><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>GETGV) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename</span>(<span class="dt">GEBV_A=</span>GEBV) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb7-7"><a href="#cb7-7"></a><span class="st">  </span><span class="kw">left_join</span>(predModelADE <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb7-8"><a href="#cb7-8"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">islgl=</span><span class="kw">map_lgl</span>(genomicPredOut,is.logical)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb7-9"><a href="#cb7-9"></a><span class="st">  </span><span class="kw">filter</span>(islgl<span class="op">==</span><span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb7-10"><a href="#cb7-10"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(Trait,Dataset,genomicPredOut) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb7-11"><a href="#cb7-11"></a><span class="st">  </span><span class="kw">unnest</span>(genomicPredOut) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb7-12"><a href="#cb7-12"></a><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>varcomps) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb7-13"><a href="#cb7-13"></a><span class="st">  </span><span class="kw">unnest</span>(gblups) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb7-14"><a href="#cb7-14"></a><span class="st">  </span><span class="kw">select</span>(Trait,Dataset,GID,GEBV) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename</span>(<span class="dt">GEBV_ADE=</span>GEBV)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb7-15"><a href="#cb7-15"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">GeneticGroup=</span><span class="ot">NA</span>,</span>
+<span id="cb7-16"><a href="#cb7-16"></a>         <span class="dt">GeneticGroup=</span><span class="kw">ifelse</span>(<span class="kw">grepl</span>(<span class="st">&quot;NR17F&quot;</span>,GID,<span class="dt">ignore.case =</span> T),<span class="st">&quot;C2a&quot;</span>,</span>
+<span id="cb7-17"><a href="#cb7-17"></a>                             <span class="kw">ifelse</span>(<span class="kw">grepl</span>(<span class="st">&quot;C2bF&quot;</span>,GID,<span class="dt">ignore.case =</span> T),<span class="st">&quot;C2b&quot;</span>,</span>
+<span id="cb7-18"><a href="#cb7-18"></a>                                    <span class="kw">ifelse</span>(<span class="kw">grepl</span>(<span class="st">&quot;^F&quot;</span>,GID) <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span><span class="kw">grepl</span>(<span class="st">&quot;C1b&quot;</span>,GID),<span class="st">&quot;C1a&quot;</span>,</span>
+<span id="cb7-19"><a href="#cb7-19"></a>                                           <span class="kw">ifelse</span>(<span class="kw">grepl</span>(<span class="st">&quot;C1b&quot;</span>,GID,</span>
+<span id="cb7-20"><a href="#cb7-20"></a>                                                        <span class="dt">ignore.case =</span> T),<span class="st">&quot;C1b&quot;</span>,<span class="st">&quot;TrainingPop&quot;</span>))))) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb7-21"><a href="#cb7-21"></a><span class="st">  </span><span class="kw">ggplot</span>(.,<span class="kw">aes</span>(<span class="dt">x=</span>GEBV_A,<span class="dt">y=</span>GEBV_ADE,<span class="dt">color=</span>GeneticGroup)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb7-22"><a href="#cb7-22"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_abline</span>(<span class="dt">slope=</span><span class="dv">1</span>, <span class="dt">color=</span><span class="st">&#39;darkred&#39;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb7-23"><a href="#cb7-23"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>Trait, <span class="dt">scales =</span> <span class="st">&#39;free&#39;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb7-24"><a href="#cb7-24"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;Compare GEBV from A-only model to GEBV from A+D+E model&quot;</span>)</span></code></pre></div>
+<p><img src="figure/05-GetGEBVs.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>predModelADE <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">islgl=</span><span class="kw">map_lgl</span>(genomicPredOut,is.logical)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="st">  </span><span class="kw">filter</span>(islgl<span class="op">==</span><span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(Trait,Dataset,genomicPredOut) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="st">  </span><span class="kw">unnest</span>(genomicPredOut) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>varcomps) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb8-7"><a href="#cb8-7"></a><span class="st">  </span><span class="kw">unnest</span>(gblups) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb8-8"><a href="#cb8-8"></a><span class="st">  </span><span class="kw">select</span>(Trait,Dataset,GID,GEBV,GETGV) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb8-9"><a href="#cb8-9"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">GeneticGroup=</span><span class="ot">NA</span>,</span>
+<span id="cb8-10"><a href="#cb8-10"></a>         <span class="dt">GeneticGroup=</span><span class="kw">ifelse</span>(<span class="kw">grepl</span>(<span class="st">&quot;NR17F&quot;</span>,GID,<span class="dt">ignore.case =</span> T),<span class="st">&quot;C2a&quot;</span>,</span>
+<span id="cb8-11"><a href="#cb8-11"></a>                             <span class="kw">ifelse</span>(<span class="kw">grepl</span>(<span class="st">&quot;C2bF&quot;</span>,GID,<span class="dt">ignore.case =</span> T),<span class="st">&quot;C2b&quot;</span>,</span>
+<span id="cb8-12"><a href="#cb8-12"></a>                                    <span class="kw">ifelse</span>(<span class="kw">grepl</span>(<span class="st">&quot;^F&quot;</span>,GID) <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span><span class="kw">grepl</span>(<span class="st">&quot;C1b&quot;</span>,GID),<span class="st">&quot;C1a&quot;</span>,</span>
+<span id="cb8-13"><a href="#cb8-13"></a>                                           <span class="kw">ifelse</span>(<span class="kw">grepl</span>(<span class="st">&quot;C1b&quot;</span>,GID,</span>
+<span id="cb8-14"><a href="#cb8-14"></a>                                                        <span class="dt">ignore.case =</span> T),<span class="st">&quot;C1b&quot;</span>,<span class="st">&quot;TrainingPop&quot;</span>))))) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb8-15"><a href="#cb8-15"></a><span class="st">  </span><span class="kw">ggplot</span>(.,<span class="kw">aes</span>(<span class="dt">x=</span>GEBV,<span class="dt">y=</span>GETGV,<span class="dt">color=</span>GeneticGroup)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb8-16"><a href="#cb8-16"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_abline</span>(<span class="dt">slope=</span><span class="dv">1</span>, <span class="dt">color=</span><span class="st">&#39;darkred&#39;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb8-17"><a href="#cb8-17"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>Trait, <span class="dt">scales =</span> <span class="st">&#39;free&#39;</span>) <span class="op">+</span></span>
+<span id="cb8-18"><a href="#cb8-18"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;Model: ADE - Compare GEBV to GETGV&quot;</span>)</span></code></pre></div>
+<p><img src="figure/05-GetGEBVs.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="write-gebvs" class="section level2">
+<h2>Write GEBVs</h2>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>predModelA <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(Trait,Dataset,genomicPredOut) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="st">  </span><span class="kw">unnest</span>(genomicPredOut) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>varcomps) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb9-5"><a href="#cb9-5"></a><span class="st">  </span><span class="kw">unnest</span>(gblups) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb9-6"><a href="#cb9-6"></a><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>GETGV) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb9-7"><a href="#cb9-7"></a><span class="st">  </span><span class="kw">spread</span>(Trait,GEBV) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb9-8"><a href="#cb9-8"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">GeneticGroup=</span><span class="ot">NA</span>,</span>
+<span id="cb9-9"><a href="#cb9-9"></a>         <span class="dt">GeneticGroup=</span><span class="kw">ifelse</span>(<span class="kw">grepl</span>(<span class="st">&quot;NR17F&quot;</span>,GID,<span class="dt">ignore.case =</span> T),<span class="st">&quot;C2a&quot;</span>,</span>
+<span id="cb9-10"><a href="#cb9-10"></a>                             <span class="kw">ifelse</span>(<span class="kw">grepl</span>(<span class="st">&quot;C2bF&quot;</span>,GID,<span class="dt">ignore.case =</span> T),<span class="st">&quot;C2b&quot;</span>,</span>
+<span id="cb9-11"><a href="#cb9-11"></a>                                    <span class="kw">ifelse</span>(<span class="kw">grepl</span>(<span class="st">&quot;^F&quot;</span>,GID) <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span><span class="kw">grepl</span>(<span class="st">&quot;C1b&quot;</span>,GID),<span class="st">&quot;C1a&quot;</span>,</span>
+<span id="cb9-12"><a href="#cb9-12"></a>                                           <span class="kw">ifelse</span>(<span class="kw">grepl</span>(<span class="st">&quot;C1b&quot;</span>,GID,</span>
+<span id="cb9-13"><a href="#cb9-13"></a>                                                        <span class="dt">ignore.case =</span> T),<span class="st">&quot;C1b&quot;</span>,<span class="st">&quot;TrainingPop&quot;</span>))))) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb9-14"><a href="#cb9-14"></a><span class="st">  </span><span class="kw">nest</span>(<span class="dt">GEBVs=</span><span class="op">-</span>Dataset) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb9-15"><a href="#cb9-15"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">write=</span><span class="kw">map2</span>(Dataset,GEBVs,<span class="op">~</span><span class="kw">write.csv</span>(<span class="dt">x =</span> .y, <span class="dt">file =</span> here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;output&quot;</span>,<span class="kw">paste0</span>(<span class="st">&quot;GEBV_NRCRI_&quot;</span>,.x,<span class="st">&quot;_ModelA_2020April27.rds&quot;</span>)))))</span></code></pre></div>
+<pre><code># A tibble: 2 x 3
+  Dataset       GEBVs                 write 
+  &lt;chr&gt;         &lt;list&gt;                &lt;list&gt;
+1 IITAaugmented &lt;tibble [7,062 × 12]&gt; &lt;NULL&gt;
+2 NRCRIalone    &lt;tibble [7,062 × 12]&gt; &lt;NULL&gt;</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co">## Format and write GEBV</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a>predModelADE <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb11-3"><a href="#cb11-3"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">islgl=</span><span class="kw">map_lgl</span>(genomicPredOut,is.logical)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb11-4"><a href="#cb11-4"></a><span class="st">  </span><span class="kw">filter</span>(islgl<span class="op">==</span><span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb11-5"><a href="#cb11-5"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(Trait,Dataset,genomicPredOut) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb11-6"><a href="#cb11-6"></a><span class="st">  </span><span class="kw">unnest</span>(genomicPredOut) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb11-7"><a href="#cb11-7"></a><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>varcomps) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb11-8"><a href="#cb11-8"></a><span class="st">  </span><span class="kw">unnest</span>(gblups) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb11-9"><a href="#cb11-9"></a><span class="st">  </span><span class="kw">select</span>(Trait,Dataset,GID,GEBV) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb11-10"><a href="#cb11-10"></a><span class="st">  </span><span class="kw">spread</span>(Trait,GEBV) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb11-11"><a href="#cb11-11"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">GeneticGroup=</span><span class="ot">NA</span>,</span>
+<span id="cb11-12"><a href="#cb11-12"></a>         <span class="dt">GeneticGroup=</span><span class="kw">ifelse</span>(<span class="kw">grepl</span>(<span class="st">&quot;NR17F&quot;</span>,GID,<span class="dt">ignore.case =</span> T),<span class="st">&quot;C2a&quot;</span>,</span>
+<span id="cb11-13"><a href="#cb11-13"></a>                             <span class="kw">ifelse</span>(<span class="kw">grepl</span>(<span class="st">&quot;C2bF&quot;</span>,GID,<span class="dt">ignore.case =</span> T),<span class="st">&quot;C2b&quot;</span>,</span>
+<span id="cb11-14"><a href="#cb11-14"></a>                                    <span class="kw">ifelse</span>(<span class="kw">grepl</span>(<span class="st">&quot;^F&quot;</span>,GID) <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span><span class="kw">grepl</span>(<span class="st">&quot;C1b&quot;</span>,GID),<span class="st">&quot;C1a&quot;</span>,</span>
+<span id="cb11-15"><a href="#cb11-15"></a>                                           <span class="kw">ifelse</span>(<span class="kw">grepl</span>(<span class="st">&quot;C1b&quot;</span>,GID,</span>
+<span id="cb11-16"><a href="#cb11-16"></a>                                                        <span class="dt">ignore.case =</span> T),<span class="st">&quot;C1b&quot;</span>,<span class="st">&quot;TrainingPop&quot;</span>))))) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb11-17"><a href="#cb11-17"></a><span class="st">  </span><span class="kw">nest</span>(<span class="dt">GEBVs=</span><span class="op">-</span>Dataset) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb11-18"><a href="#cb11-18"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">write=</span><span class="kw">map2</span>(Dataset,GEBVs,<span class="op">~</span><span class="kw">write.csv</span>(<span class="dt">x =</span> .y, <span class="dt">file =</span> here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;output&quot;</span>,<span class="kw">paste0</span>(<span class="st">&quot;GEBV_NRCRI_&quot;</span>,.x,<span class="st">&quot;_ModelADE_2020April27.rds&quot;</span>)))))</span></code></pre></div>
+<pre><code># A tibble: 2 x 3
+  Dataset       GEBVs                 write 
+  &lt;chr&gt;         &lt;list&gt;                &lt;list&gt;
+1 IITAaugmented &lt;tibble [7,062 × 10]&gt; &lt;NULL&gt;
+2 NRCRIalone    &lt;tibble [7,062 × 10]&gt; &lt;NULL&gt;</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co">## Format and write GETGV</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a>predModelADE <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb13-3"><a href="#cb13-3"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">islgl=</span><span class="kw">map_lgl</span>(genomicPredOut,is.logical)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb13-4"><a href="#cb13-4"></a><span class="st">  </span><span class="kw">filter</span>(islgl<span class="op">==</span><span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb13-5"><a href="#cb13-5"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(Trait,Dataset,genomicPredOut) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb13-6"><a href="#cb13-6"></a><span class="st">  </span><span class="kw">unnest</span>(genomicPredOut) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb13-7"><a href="#cb13-7"></a><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>varcomps) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb13-8"><a href="#cb13-8"></a><span class="st">  </span><span class="kw">unnest</span>(gblups) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb13-9"><a href="#cb13-9"></a><span class="st">  </span><span class="kw">select</span>(Trait,Dataset,GID,GETGV) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb13-10"><a href="#cb13-10"></a><span class="st">  </span><span class="kw">spread</span>(Trait,GETGV) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb13-11"><a href="#cb13-11"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">GeneticGroup=</span><span class="ot">NA</span>,</span>
+<span id="cb13-12"><a href="#cb13-12"></a>         <span class="dt">GeneticGroup=</span><span class="kw">ifelse</span>(<span class="kw">grepl</span>(<span class="st">&quot;NR17F&quot;</span>,GID,<span class="dt">ignore.case =</span> T),<span class="st">&quot;C2a&quot;</span>,</span>
+<span id="cb13-13"><a href="#cb13-13"></a>                             <span class="kw">ifelse</span>(<span class="kw">grepl</span>(<span class="st">&quot;C2bF&quot;</span>,GID,<span class="dt">ignore.case =</span> T),<span class="st">&quot;C2b&quot;</span>,</span>
+<span id="cb13-14"><a href="#cb13-14"></a>                                    <span class="kw">ifelse</span>(<span class="kw">grepl</span>(<span class="st">&quot;^F&quot;</span>,GID) <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span><span class="kw">grepl</span>(<span class="st">&quot;C1b&quot;</span>,GID),<span class="st">&quot;C1a&quot;</span>,</span>
+<span id="cb13-15"><a href="#cb13-15"></a>                                           <span class="kw">ifelse</span>(<span class="kw">grepl</span>(<span class="st">&quot;C1b&quot;</span>,GID,</span>
+<span id="cb13-16"><a href="#cb13-16"></a>                                                        <span class="dt">ignore.case =</span> T),<span class="st">&quot;C1b&quot;</span>,<span class="st">&quot;TrainingPop&quot;</span>))))) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb13-17"><a href="#cb13-17"></a><span class="st">  </span><span class="kw">nest</span>(<span class="dt">GETGVs=</span><span class="op">-</span>Dataset) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb13-18"><a href="#cb13-18"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">write=</span><span class="kw">map2</span>(Dataset,GETGVs,</span>
+<span id="cb13-19"><a href="#cb13-19"></a>                    <span class="op">~</span><span class="kw">write.csv</span>(<span class="dt">x =</span> .y, </span>
+<span id="cb13-20"><a href="#cb13-20"></a>                               <span class="dt">file =</span> here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;output&quot;</span>,<span class="kw">paste0</span>(<span class="st">&quot;GETGV_NRCRI_&quot;</span>,.x,<span class="st">&quot;_ModelADE_2020April27.rds&quot;</span>)))))</span></code></pre></div>
+<pre><code># A tibble: 2 x 3
+  Dataset       GETGVs                write 
+  &lt;chr&gt;         &lt;list&gt;                &lt;list&gt;
+1 IITAaugmented &lt;tibble [7,062 × 10]&gt; &lt;NULL&gt;
+2 NRCRIalone    &lt;tibble [7,062 × 10]&gt; &lt;NULL&gt;</code></pre>
+</div>
+</div>
+<div id="next-step" class="section level1">
+<h1>Next step</h1>
+<ol start="6" style="list-style-type: decimal">
+<li><a href="06-GetGainEst.html">Estimate genetic gain</a></li>
+</ol>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="kw">sessionInfo</span>()</span></code></pre></div>
+<pre><code>R version 3.6.1 (2019-07-05)
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+Running under: macOS Mojave 10.14.6
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] magrittr_1.5    forcats_0.5.0   stringr_1.4.0   dplyr_0.8.5    
+ [5] purrr_0.3.4     readr_1.3.1     tidyr_1.0.2     tibble_3.0.1   
+ [9] ggplot2_3.3.0   tidyverse_1.3.0 workflowr_1.6.1
+
+loaded via a namespace (and not attached):
+ [1] tidyselect_1.0.0 xfun_0.13        haven_2.2.0      lattice_0.20-41 
+ [5] colorspace_1.4-1 vctrs_0.2.4      generics_0.0.2   htmltools_0.4.0 
+ [9] yaml_2.2.1       utf8_1.1.4       rlang_0.4.5      later_1.0.0     
+[13] pillar_1.4.3     withr_2.2.0      glue_1.4.0       DBI_1.1.0       
+[17] dbplyr_1.4.3     modelr_0.1.6     readxl_1.3.1     lifecycle_0.2.0 
+[21] munsell_0.5.0    gtable_0.3.0     cellranger_1.1.0 rvest_0.3.5     
+[25] evaluate_0.14    labeling_0.3     knitr_1.28       httpuv_1.5.2    
+[29] fansi_0.4.1      broom_0.5.6      Rcpp_1.0.4.6     promises_1.1.0  
+[33] backports_1.1.6  scales_1.1.0     jsonlite_1.6.1   farver_2.0.3    
+[37] fs_1.4.1         hms_0.5.3        digest_0.6.25    stringi_1.4.6   
+[41] grid_3.6.1       rprojroot_1.3-2  here_0.1         cli_2.0.2       
+[45] tools_3.6.1      crayon_1.3.4     whisker_0.4      pkgconfig_2.0.3 
+[49] ellipsis_0.3.0   xml2_1.3.2       reprex_0.3.0     lubridate_1.7.8 
+[53] rstudioapi_0.11  assertthat_0.2.1 rmarkdown_2.1    httr_1.4.1      
+[57] R6_2.4.1         nlme_3.1-147     git2r_0.26.1     compiler_3.6.1  </code></pre>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="wolfemd" />
+
+
+<title>Get BLUPs combining all trial data</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/darkly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">NRCRI_2020GS</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Synopsis</a>
+</li>
+<li>
+  <a href="01-cleanTPdata.html">Data Cleaning</a>
+</li>
+<li>
+  <a href="02-curateByTrial.html">Curate Data</a>
+</li>
+<li>
+  <a href="03-GetBLUPs.html">Get BLUPs</a>
+</li>
+<li>
+  <a href="04-CrossValidation.html">Check prediction accuracy</a>
+</li>
+<li>
+  <a href="05-GetGEBVs.html">Get GEBV for GS C2</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/wolfemd/NRCRI_2020GS">
+    <span class="fa fa-github"></span>
+     
+    Source code
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Get BLUPs combining all trial data</h1>
+<h4 class="author">wolfemd</h4>
+<h4 class="date">2020-April-27</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2020-04-28
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>NRCRI_2020GS/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.1). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20200421code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20200421)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20200421code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20200421)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrong8c45991"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> 8c45991 </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrong8c45991" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version 8c45991. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .DS_Store
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+    Ignored:    analysis/.DS_Store
+    Ignored:    data/.DS_Store
+    Ignored:    output/.DS_Store
+
+Untracked files:
+    Untracked:  NRCRI 2020 GS.gslides
+    Untracked:  data/DatabaseDownload_42120/
+    Untracked:  data/GBSdataMasterList_31818.csv
+    Untracked:  data/IITA_GBStoPhenoMaster_33018.csv
+    Untracked:  data/NRCRI_CleanedTrialData_2020April21.rds
+    Untracked:  data/NRCRI_ExptDesignsDetected_2020April21.rds
+    Untracked:  data/NRCRI_GBStoPhenoMaster_40318.csv
+    Untracked:  data/iita_blupsForCrossVal_72619.rds
+    Untracked:  data/iita_blupsForCrossVal_outliersRemoved_73019.rds
+    Untracked:  output/DosageMatrix_NRCRI_SamplesForGP_2020April27.rds
+    Untracked:  output/GEBV_NRCRI_IITAaugmented_ModelADE_2020April27.rds
+    Untracked:  output/GEBV_NRCRI_IITAaugmented_ModelA_2020April27.rds
+    Untracked:  output/GEBV_NRCRI_NRCRIalone_ModelADE_2020April27.rds
+    Untracked:  output/GEBV_NRCRI_NRCRIalone_ModelA_2020April27.rds
+    Untracked:  output/GETGV_NRCRI_IITAaugmented_ModelADE_2020April27.rds
+    Untracked:  output/GETGV_NRCRI_NRCRIalone_ModelADE_2020April27.rds
+    Untracked:  output/Kinship_AA_NRCRI_2020April27.rds
+    Untracked:  output/Kinship_AD_NRCRI_2020April27.rds
+    Untracked:  output/Kinship_A_NRCRI_2020April27.rds
+    Untracked:  output/Kinship_DD_NRCRI_2020April27.rds
+    Untracked:  output/Kinship_D_NRCRI_2020April27.rds
+    Untracked:  output/NRCRI_CuratedTrials_2020April21.rds
+    Untracked:  output/NRCRI_CuratedTrials_2020April27.rds
+    Untracked:  output/cvresults_AD_nrOnly.rds
+    Untracked:  output/cvresults_A_iitaAugmented.rds
+    Untracked:  output/cvresults_A_nrOnly.rds
+    Untracked:  output/genomicPredictions_ModelADE_NRCRI_2020April27.rds
+    Untracked:  output/genomicPredictions_ModelA_NRCRI_2020April27.rds
+    Untracked:  output/maxNOHAV_byStudy_NRCRI_2020April27.csv
+    Untracked:  output/nrcri_blupsForModelTraining_2020April21.rds
+    Untracked:  output/nrcri_blupsForModelTraining_2020April27.rds
+    Untracked:  workflowr_log.R
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/03-GetBLUPs.Rmd</code>) and HTML (<code>docs/03-GetBLUPs.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+8c45991
+</td>
+<td>
+wolfemd
+</td>
+<td>
+2020-04-28
+</td>
+<td>
+Publish the first set of analyses and files for NRCRI 2020 GS.
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div id="previous-step" class="section level1">
+<h1>Previous step</h1>
+<ol start="2" style="list-style-type: decimal">
+<li><a href="02-curateByTrial.html">Curate by trait-trial</a>: Model each trait-trial separately, remove outliers, get BLUPs.</li>
+</ol>
+</div>
+<div id="objective" class="section level1">
+<h1>Objective</h1>
+<p><strong>Two-stage</strong> genomic prediction refers to the following procedure:</p>
+<p><strong>Stage 1:</strong> Fit a linear mixed model to the data <em>without</em> genomic data. Individuals (e.g. clones / accessions) are modeled as independent and identically distributed (<em>i.i.d.</em>) random effects. The BLUPs for this random effect represent the measurable total genetic values of each individual. All the experimental design variation, e.g. replication and blocking effects have been controlled for in the creation of our new response variable, the BLUPs from the gneotype random effect.</p>
+<p><strong>Stage 2:</strong> Using a modified version of the BLUPs from step 1 as the response variable, fit a genomic prediction model, which now has reduced size because the number of observations is now the same as the number of individuals.</p>
+<p><strong>NOTE:</strong> In the animal breeding literature <strong>single-step</strong> often refers to predictions that combine pedigree and marker information simultaneously. That <em>is not</em> our meaning here.</p>
+<p>The code below represents Stage I.</p>
+</div>
+<div id="set-up-training-datasets" class="section level1">
+<h1>Set-up training datasets</h1>
+<p>This next step fits models to each trait, combining curated data (BLUPs) from each trial, which we computed in the previous step.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">rm</span>(<span class="dt">list=</span><span class="kw">ls</span>())</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">library</span>(tidyverse); <span class="kw">library</span>(magrittr);</span>
+<span id="cb1-3"><a href="#cb1-3"></a>dbdata&lt;-<span class="kw">readRDS</span>(<span class="dt">file=</span>here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;output&quot;</span>,<span class="st">&quot;NRCRI_CuratedTrials_2020April27.rds&quot;</span>))</span>
+<span id="cb1-4"><a href="#cb1-4"></a>traits&lt;-<span class="kw">c</span>(<span class="st">&quot;CGM&quot;</span>,<span class="st">&quot;CGMS1&quot;</span>,<span class="st">&quot;CGMS2&quot;</span>,<span class="st">&quot;MCMDS&quot;</span>,<span class="st">&quot;DM&quot;</span>,<span class="st">&quot;PLTHT&quot;</span>,<span class="st">&quot;BRNHT1&quot;</span>,<span class="st">&quot;HI&quot;</span>,<span class="st">&quot;logFYLD&quot;</span>,<span class="st">&quot;logTOPYLD&quot;</span>,<span class="st">&quot;logRTNO&quot;</span>)</span></code></pre></div>
+<p>Starting with the curated trial data (which correspond to per-trait, per-trial BLUPs) from the previous step.</p>
+<p><strong>Nest by trait.</strong> Need to restructure the data from per-trial BLUPs by regrouping by trait.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>nestForMultiTrialAnalysis&lt;-<span class="cf">function</span>(curatedTrialData){</span>
+<span id="cb2-2"><a href="#cb2-2"></a>  nested_trialdata&lt;-curatedTrialData <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="st">    </span><span class="co"># remove trait-trial models that failed</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="st">    </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(H2)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="st">    </span><span class="co"># remove some per-trial summaries we don&#39;t want at this stage</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="st">    </span><span class="kw">select</span>(<span class="op">-</span>H2,<span class="op">-</span>VarComps,<span class="op">-</span>Model,<span class="op">-</span>Noutliers,<span class="op">-</span>propMiss) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="st">    </span><span class="kw">unnest</span>(BLUPs) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="st">    </span><span class="kw">nest</span>(<span class="dt">MultiTrialTraitData=</span><span class="kw">c</span>(<span class="op">-</span>Trait))</span>
+<span id="cb2-9"><a href="#cb2-9"></a>  <span class="kw">return</span>(nested_trialdata)</span>
+<span id="cb2-10"><a href="#cb2-10"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>dbdata&lt;-<span class="kw">nestForMultiTrialAnalysis</span>(dbdata)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>dbdata <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">N_blups=</span><span class="kw">map_dbl</span>(MultiTrialTraitData,nrow))</span></code></pre></div>
+<pre><code># A tibble: 10 x 3
+   Trait     MultiTrialTraitData    N_blups
+   &lt;chr&gt;     &lt;list&gt;                   &lt;dbl&gt;
+ 1 CGMS1     &lt;tibble [10,152 × 12]&gt;   10152
+ 2 CGMS2     &lt;tibble [5,461 × 12]&gt;     5461
+ 3 PLTHT     &lt;tibble [5,163 × 12]&gt;     5163
+ 4 BRNHT1    &lt;tibble [3,523 × 12]&gt;     3523
+ 5 HI        &lt;tibble [6,352 × 12]&gt;     6352
+ 6 logFYLD   &lt;tibble [6,355 × 12]&gt;     6355
+ 7 logTOPYLD &lt;tibble [6,352 × 12]&gt;     6352
+ 8 logRTNO   &lt;tibble [6,118 × 12]&gt;     6118
+ 9 MCMDS     &lt;tibble [6,952 × 12]&gt;     6952
+10 DM        &lt;tibble [3,699 × 12]&gt;     3699</code></pre>
+<div id="question-for-nrcri" class="section level2">
+<h2>Question for NRCRI</h2>
+<p>Where is the data from Ugo Ikeogu’s (and subsequent) work on NIRs? I’m thinking someone needs to be trying to use esp. the <strong>DM</strong> NIRs data for genomic prediction!?</p>
+</div>
+</div>
+<div id="model-multiple-trials" class="section level1">
+<h1>Model multiple trials</h1>
+<p>The function below takes de-regressed BLUPs as response and corresponding weights on error variances are applied. Output includes BLUPs for each clone that combine data across trials and are suitable for downstream genomic prediction work.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># curatedTrialData&lt;-dbdata$MultiTrialTraitData[[1]]</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="co"># rm(curatedTrialData)</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a>fitMultiTrialModel&lt;-<span class="cf">function</span>(curatedTrialData,<span class="dt">GID=</span><span class="st">&quot;GID&quot;</span>){</span>
+<span id="cb6-4"><a href="#cb6-4"></a>  <span class="kw">require</span>(lme4)</span>
+<span id="cb6-5"><a href="#cb6-5"></a>  modelFormula&lt;-<span class="kw">paste0</span>(<span class="st">&quot;drgBLUP ~ (1|&quot;</span>,GID,<span class="st">&quot;)&quot;</span>)</span>
+<span id="cb6-6"><a href="#cb6-6"></a>  fit_model&lt;-<span class="kw">possibly</span>(<span class="cf">function</span>(modelFormula,curatedTrialData){</span>
+<span id="cb6-7"><a href="#cb6-7"></a>    model_out&lt;-<span class="kw">lmer</span>(<span class="kw">as.formula</span>(modelFormula),</span>
+<span id="cb6-8"><a href="#cb6-8"></a>                    <span class="dt">data=</span>curatedTrialData,</span>
+<span id="cb6-9"><a href="#cb6-9"></a>                    <span class="dt">weights =</span> WT)</span>
+<span id="cb6-10"><a href="#cb6-10"></a>    <span class="kw">return</span>(model_out) },</span>
+<span id="cb6-11"><a href="#cb6-11"></a>    <span class="dt">otherwise =</span> <span class="ot">NA</span>)</span>
+<span id="cb6-12"><a href="#cb6-12"></a>  model_out&lt;-<span class="kw">fit_model</span>(modelFormula,curatedTrialData)</span>
+<span id="cb6-13"><a href="#cb6-13"></a>  <span class="kw">summary</span>(model_out)</span>
+<span id="cb6-14"><a href="#cb6-14"></a>  <span class="cf">if</span>(<span class="kw">is.na</span>(model_out)){</span>
+<span id="cb6-15"><a href="#cb6-15"></a>    out &lt;-<span class="kw">tibble</span>(<span class="dt">H2=</span><span class="ot">NA</span>,<span class="dt">VarComps=</span><span class="kw">list</span>(<span class="ot">NULL</span>),<span class="dt">BLUPs=</span><span class="kw">list</span>(<span class="ot">NULL</span>),<span class="dt">Model=</span>modelFormula) </span>
+<span id="cb6-16"><a href="#cb6-16"></a>  } <span class="cf">else</span> {</span>
+<span id="cb6-17"><a href="#cb6-17"></a>    varcomps&lt;-<span class="kw">as.data.frame</span>(<span class="kw">VarCorr</span>(model_out))[,<span class="kw">c</span>(<span class="st">&quot;grp&quot;</span>,<span class="st">&quot;vcov&quot;</span>)] <span class="op">%&gt;%</span></span>
+<span id="cb6-18"><a href="#cb6-18"></a><span class="st">      </span><span class="kw">spread</span>(grp,vcov)</span>
+<span id="cb6-19"><a href="#cb6-19"></a>    Vg&lt;-varcomps<span class="op">$</span>GID</span>
+<span id="cb6-20"><a href="#cb6-20"></a>    H2&lt;-Vg<span class="op">/</span>(Vg<span class="op">+</span>varcomps<span class="op">$</span>Residual)</span>
+<span id="cb6-21"><a href="#cb6-21"></a>    BLUP&lt;-<span class="kw">ranef</span>(model_out, <span class="dt">condVar=</span><span class="ot">TRUE</span>)[[GID]]</span>
+<span id="cb6-22"><a href="#cb6-22"></a>    PEV &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">attr</span>(BLUP, <span class="st">&quot;postVar&quot;</span>))</span>
+<span id="cb6-23"><a href="#cb6-23"></a>    blups&lt;-<span class="kw">tibble</span>(<span class="dt">GID=</span><span class="kw">rownames</span>(BLUP),<span class="dt">BLUP=</span>BLUP<span class="op">$</span><span class="st">`</span><span class="dt">(Intercept)</span><span class="st">`</span>,<span class="dt">PEV=</span>PEV) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb6-24"><a href="#cb6-24"></a><span class="st">      </span><span class="kw">mutate</span>(<span class="dt">REL=</span><span class="dv">1</span><span class="op">-</span>(PEV<span class="op">/</span>Vg),</span>
+<span id="cb6-25"><a href="#cb6-25"></a>             <span class="dt">drgBLUP=</span>BLUP<span class="op">/</span>REL,</span>
+<span id="cb6-26"><a href="#cb6-26"></a>             <span class="dt">WT=</span>(<span class="dv">1</span><span class="op">-</span>H2)<span class="op">/</span>((<span class="fl">0.1</span> <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">-</span>REL)<span class="op">/</span>REL)<span class="op">*</span>H2))</span>
+<span id="cb6-27"><a href="#cb6-27"></a>    out &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">H2=</span>H2, </span>
+<span id="cb6-28"><a href="#cb6-28"></a>                  <span class="dt">VarComps=</span><span class="kw">list</span>(varcomps), </span>
+<span id="cb6-29"><a href="#cb6-29"></a>                  <span class="dt">BLUPs=</span><span class="kw">list</span>(blups),</span>
+<span id="cb6-30"><a href="#cb6-30"></a>                  <span class="dt">Model=</span>modelFormula) }</span>
+<span id="cb6-31"><a href="#cb6-31"></a>  <span class="kw">return</span>(out) </span>
+<span id="cb6-32"><a href="#cb6-32"></a>}</span></code></pre></div>
+<p>Run the function with the simplest possible loop using the <code>purrr</code> function <code>map()</code>.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>dbdata <span class="op">%&lt;&gt;%</span><span class="st"> </span></span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">modelOutput=</span><span class="kw">map</span>(MultiTrialTraitData,fitMultiTrialModel))</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>dbdata <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>MultiTrialTraitData) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="st">  </span><span class="kw">unnest</span>(modelOutput)</span></code></pre></div>
+<pre><code># A tibble: 10 x 5
+   Trait          H2 VarComps         BLUPs                Model            
+   &lt;chr&gt;       &lt;dbl&gt; &lt;list&gt;           &lt;list&gt;               &lt;chr&gt;            
+ 1 CGMS1     0.113   &lt;df[,2] [1 × 2]&gt; &lt;tibble [3,226 × 6]&gt; drgBLUP ~ (1|GID)
+ 2 CGMS2     0.00168 &lt;df[,2] [1 × 2]&gt; &lt;tibble [2,333 × 6]&gt; drgBLUP ~ (1|GID)
+ 3 PLTHT     0.0556  &lt;df[,2] [1 × 2]&gt; &lt;tibble [2,703 × 6]&gt; drgBLUP ~ (1|GID)
+ 4 BRNHT1    0.0337  &lt;df[,2] [1 × 2]&gt; &lt;tibble [1,981 × 6]&gt; drgBLUP ~ (1|GID)
+ 5 HI        0.127   &lt;df[,2] [1 × 2]&gt; &lt;tibble [3,292 × 6]&gt; drgBLUP ~ (1|GID)
+ 6 logFYLD   0.0341  &lt;df[,2] [1 × 2]&gt; &lt;tibble [3,302 × 6]&gt; drgBLUP ~ (1|GID)
+ 7 logTOPYLD 0.0678  &lt;df[,2] [1 × 2]&gt; &lt;tibble [3,200 × 6]&gt; drgBLUP ~ (1|GID)
+ 8 logRTNO   0.0305  &lt;df[,2] [1 × 2]&gt; &lt;tibble [3,218 × 6]&gt; drgBLUP ~ (1|GID)
+ 9 MCMDS     0.0796  &lt;df[,2] [1 × 2]&gt; &lt;tibble [3,597 × 6]&gt; drgBLUP ~ (1|GID)
+10 DM        0.105   &lt;df[,2] [1 × 2]&gt; &lt;tibble [2,425 × 6]&gt; drgBLUP ~ (1|GID)</code></pre>
+<div id="output-file" class="section level2">
+<h2>Output file</h2>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">saveRDS</span>(dbdata,<span class="dt">file=</span>here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;output&quot;</span>,<span class="st">&quot;nrcri_blupsForModelTraining_2020April27.rds&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># dbdata&lt;-readRDS(here::here(&quot;output&quot;,&quot;nrcri_blupsForModelTraining_2020April21.rds&quot;))</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="co"># dbdata %&gt;% </span></span>
+<span id="cb11-3"><a href="#cb11-3"></a><span class="co">#   #filter(studyName==&quot;18C2acrossingblockCETubiaja&quot;) %&gt;% </span></span>
+<span id="cb11-4"><a href="#cb11-4"></a><span class="co">#   select(Trait,modelOutput) %&gt;% </span></span>
+<span id="cb11-5"><a href="#cb11-5"></a><span class="co">#   unnest(modelOutput) %&gt;% </span></span>
+<span id="cb11-6"><a href="#cb11-6"></a><span class="co">#   select(Trait,BLUPs) %&gt;% </span></span>
+<span id="cb11-7"><a href="#cb11-7"></a><span class="co">#   unnest(BLUPs) %&gt;% </span></span>
+<span id="cb11-8"><a href="#cb11-8"></a><span class="co">#   filter(grepl(&quot;c2&quot;,GID,ignore.case = T)) %&gt;% count(GID)</span></span></code></pre></div>
+</div>
+</div>
+<div id="next-step" class="section level1">
+<h1>Next step</h1>
+<ol start="4" style="list-style-type: decimal">
+<li><a href="04-CrossValidation.html">Check prediction accuracy</a>: Evaluate prediction accuracy with cross-validation.</li>
+</ol>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">sessionInfo</span>()</span></code></pre></div>
+<pre><code>R version 3.6.1 (2019-07-05)
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+Running under: macOS Mojave 10.14.6
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] lme4_1.1-23     Matrix_1.2-18   magrittr_1.5    forcats_0.5.0  
+ [5] stringr_1.4.0   dplyr_0.8.5     purrr_0.3.4     readr_1.3.1    
+ [9] tidyr_1.0.2     tibble_3.0.1    ggplot2_3.3.0   tidyverse_1.3.0
+[13] workflowr_1.6.1
+
+loaded via a namespace (and not attached):
+ [1] Rcpp_1.0.4.6     lubridate_1.7.8  here_0.1         lattice_0.20-41 
+ [5] assertthat_0.2.1 rprojroot_1.3-2  digest_0.6.25    utf8_1.1.4      
+ [9] R6_2.4.1         cellranger_1.1.0 backports_1.1.6  reprex_0.3.0    
+[13] evaluate_0.14    httr_1.4.1       pillar_1.4.3     rlang_0.4.5     
+[17] readxl_1.3.1     minqa_1.2.4      rstudioapi_0.11  nloptr_1.2.2.1  
+[21] whisker_0.4      rmarkdown_2.1    splines_3.6.1    statmod_1.4.34  
+[25] munsell_0.5.0    broom_0.5.6      compiler_3.6.1   httpuv_1.5.2    
+[29] modelr_0.1.6     xfun_0.13        pkgconfig_2.0.3  htmltools_0.4.0 
+[33] tidyselect_1.0.0 fansi_0.4.1      crayon_1.3.4     dbplyr_1.4.3    
+[37] withr_2.2.0      later_1.0.0      MASS_7.3-51.6    grid_3.6.1      
+[41] nlme_3.1-147     jsonlite_1.6.1   gtable_0.3.0     lifecycle_0.2.0 
+[45] DBI_1.1.0        git2r_0.26.1     scales_1.1.0     cli_2.0.2       
+[49] stringi_1.4.6    fs_1.4.1         promises_1.1.0   xml2_1.3.2      
+[53] ellipsis_0.3.0   generics_0.0.2   vctrs_0.2.4      boot_1.3-25     
+[57] tools_3.6.1      glue_1.4.0       hms_0.5.3        yaml_2.2.1      
+[61] colorspace_1.4-1 rvest_0.3.5      knitr_1.28       haven_2.2.0     </code></pre>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
