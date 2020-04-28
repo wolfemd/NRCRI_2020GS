@@ -3,15 +3,32 @@ output_dir: ../docs
 navbar:
   title: "NRCRI_2020GS"
   left:
-  - text: Home
+  - text: Synopsis
     href: index.html
-  - text: About
-    href: about.html
+  - text: Data Cleaning
+    href: 01-cleanTPdata.html
+  - text: Curate Data
+    href: 02-curateByTrial.html
+  - text: Get BLUPs
+    href: 03-GetBLUPs.html
+  - text: Check prediction accuracy
+    href: 04-CrossValidation.html
+  - text: Get GEBV for GS C2
+    href: 05-GetGEBVs.html
+  - text: Est. Genetic Gain
+    href: 06-GetGainEst.html
   - text: License
     href: license.html
+  right:
+  - icon: fa-github
+    text: Source code
+    href: https://github.com/wolfemd/NRCRI_2020GS
 output:
   workflowr::wflow_html:
     toc: yes
     toc_float: yes
-    theme: cosmo
-    highlight: textmate
+    toc_depth: 3
+    collapsed: no
+    number_sections: no
+    theme: darkly
+    highlight: tango

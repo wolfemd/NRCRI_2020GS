@@ -1,11 +1,21 @@
 ---
-title: "Home"
+title: "NRCRI Genomic Selection 2020"
 site: workflowr::wflow_site
-output:
-  workflowr::wflow_html:
-    toc: false
+date: "2020-April"
+output: workflowr::wflow_html
 editor_options:
-  chunk_output_type: console
+  chunk_output_type: inline
 ---
 
-Welcome to my research website.
+# Analysis Steps
+
+1. [Prepare a training dataset](01-cleanTPdata.html): Download data from DB, "Clean" and format DB data.
+2. [Curate by trait-trial](02-curateByTrial.html): Model each trait-trial separately, remove outliers, get BLUPs.
+3. [Get BLUPs combining all trial data](03-GetBLUPs.html): Combine data from all trait-trials to get BLUPs for downstream genomic prediction.
+4. [Check prediction accuracy](04-CrossValidation.html): Evaluate prediction accuracy with cross-validation.
+5. [Genomic prediction of GS C2](05-GetGBLUPs.html): Predict _genomic_ BLUPs (GEBV and GETGV) for all selection candidates using all available data.
+6. [Estimate genetic gain](06-GetGainEst.html)
+
+# Summary
+
+Re-prediction of NRCRI germplasm. Updating available training data as of April 2020. Produce GEBV and GETGV. 
