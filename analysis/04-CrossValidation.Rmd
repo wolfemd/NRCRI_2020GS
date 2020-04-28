@@ -633,6 +633,9 @@ library(tidyverse); library(magrittr);
 cv<-readRDS(here::here("output","cvresults_A_iitaAugmented.rds")) %>% 
   bind_rows(readRDS(here::here("output","cvresults_A_nrOnly.rds"))) %>% 
   bind_rows(readRDS(here::here("output","cvresults_AD_nrOnly.rds"))) %>% 
+  bind_rows(readRDS(here::here("output","cvresults_AD_iitaAugmented.rds"))) %>% 
+  bind_rows(readRDS(here::here("output","cvresults_ADE_nrOnly.rds"))) %>% 
+  bind_rows(readRDS(here::here("output","cvresults_ADE_iitaAugmented.rds"))) %>% 
   unnest(CVresults) %>% 
   select(-splits)
 ```
@@ -643,7 +646,7 @@ library(tidyverse); library(magrittr);
 cv %>% 
   mutate(GroupName=factor(GroupName,levels=c("nrTP","C1a","C1b","C2a")),
          Dataset=factor(Dataset,levels=c("NRalone","IITAaugmented")),
-         modelType=factor(modelType,levels=c("A","AD"))) %>% 
+         modelType=factor(modelType,levels=c("A","AD","ADE"))) %>% 
   ggplot(.,aes(x=Dataset,y=accGEBV,fill=modelType,linetype=Dataset)) + 
   geom_boxplot(position = position_dodge(1),width=0.75,color='gray',size=0.75) + 
   facet_grid(GroupName~Trait, scales='free') + 
@@ -663,7 +666,7 @@ library(tidyverse); library(magrittr);
 cv %>% 
   mutate(GroupName=factor(GroupName,levels=c("nrTP","C1a","C1b","C2a")),
          Dataset=factor(Dataset,levels=c("NRalone","IITAaugmented")),
-         modelType=factor(modelType,levels=c("A","AD"))) %>% 
+         modelType=factor(modelType,levels=c("A","AD","ADE"))) %>% 
   ggplot(.,aes(x=Dataset,y=accGETGV,fill=modelType,linetype=Dataset)) + 
   geom_boxplot(position = position_dodge(1),width=0.75,color='gray',size=0.75) + 
   facet_grid(GroupName~Trait, scales='free') + 
