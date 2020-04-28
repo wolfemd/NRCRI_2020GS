@@ -1,7 +1,7 @@
-name: "NRCRI_2020GS"
+name: NRCRI_2020GS
 output_dir: ../docs
 navbar:
-  title: "NRCRI_2020GS"
+  title: NRCRI_2020GS
   left:
   - text: Synopsis
     href: index.html
