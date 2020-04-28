@@ -212,7 +212,7 @@ predModelA %>%
                                            ifelse(grepl("C1b",GID,
                                                         ignore.case = T),"C1b","TrainingPop"))))) %>% 
   nest(GEBVs=-Dataset) %>% 
-  mutate(write=map2(Dataset,GEBVs,~write.csv(x = .y, file = here::here("output",paste0("GEBV_NRCRI_",.x,"_ModelA_2020April27.rds")))))
+  mutate(write=map2(Dataset,GEBVs,~write.csv(x = .y, file = here::here("output",paste0("GEBV_NRCRI_",.x,"_ModelA_2020April27.csv")))))
   
 ```
 ```{r predModelADE}
@@ -233,7 +233,7 @@ predModelADE %>%
                                            ifelse(grepl("C1b",GID,
                                                         ignore.case = T),"C1b","TrainingPop"))))) %>% 
   nest(GEBVs=-Dataset) %>% 
-  mutate(write=map2(Dataset,GEBVs,~write.csv(x = .y, file = here::here("output",paste0("GEBV_NRCRI_",.x,"_ModelADE_2020April27.rds")))))
+  mutate(write=map2(Dataset,GEBVs,~write.csv(x = .y, file = here::here("output",paste0("GEBV_NRCRI_",.x,"_ModelADE_2020April27.csv")))))
 ## Format and write GETGV
 predModelADE %>% 
   mutate(islgl=map_lgl(genomicPredOut,is.logical)) %>% 
@@ -253,7 +253,7 @@ predModelADE %>%
   nest(GETGVs=-Dataset) %>% 
   mutate(write=map2(Dataset,GETGVs,
                     ~write.csv(x = .y, 
-                               file = here::here("output",paste0("GETGV_NRCRI_",.x,"_ModelADE_2020April27.rds")))))
+                               file = here::here("output",paste0("GETGV_NRCRI_",.x,"_ModelADE_2020April27.csv")))))
 
 ```
 
