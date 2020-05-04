@@ -469,6 +469,8 @@ saveRDS(cv_AD_iitaAugmented,file=here::here("output","cvresults_AD_iitaAugmented
 
 cbsulm15 (96 cores; 512GB RAM)
 
+Had to modify initial version of `runCrossVal` function. Original version uses a A+D+AA+AD+DD model, but 5 kernel models kept failing (and they are slow). For now, reduce to a 3 kernel model, which although it expected the list of kernels to be like `grms=list(A=A,D=D,AD=AD)`, a user could just supply a different set of 3 kernels (but named A, D and AD)... or easily modify the `runCrossVal` function.
+
 ```{r runCrossVal_dev, eval=F}
 runCrossVal_dev<-function(TrainTestData,modelType,grms,nrepeats,nfolds,ncores=1,
                       byGroup=FALSE,augmentTP=NULL,gid="GID",...){

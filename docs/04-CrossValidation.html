@@ -499,7 +499,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-04-28
+<strong>Last updated:</strong> 2020-05-04
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -590,16 +590,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomwolfemdNRCRI2020GStree9d6de3467ab29818fb139b807320f904ba9db483targetblank9d6de34a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/wolfemd/NRCRI_2020GS/tree/9d6de3467ab29818fb139b807320f904ba9db483" target="_blank">9d6de34</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomwolfemdNRCRI2020GStree8f48de4d5983504eed2e749a36fd5cfd4ae01ec7targetblank8f48de4a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/wolfemd/NRCRI_2020GS/tree/8f48de4d5983504eed2e749a36fd5cfd4ae01ec7" target="_blank">8f48de4</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomwolfemdNRCRI2020GStree9d6de3467ab29818fb139b807320f904ba9db483targetblank9d6de34a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomwolfemdNRCRI2020GStree8f48de4d5983504eed2e749a36fd5cfd4ae01ec7targetblank8f48de4a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/wolfemd/NRCRI_2020GS/tree/9d6de3467ab29818fb139b807320f904ba9db483" target="_blank">9d6de34</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/wolfemd/NRCRI_2020GS/tree/8f48de4d5983504eed2e749a36fd5cfd4ae01ec7" target="_blank">8f48de4</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -621,9 +621,6 @@ Untracked files:
     Untracked:  output/Kinship_A_NRCRI_2020April27.rds
     Untracked:  output/Kinship_DD_NRCRI_2020April27.rds
     Untracked:  output/Kinship_D_NRCRI_2020April27.rds
-    Untracked:  output/cvresults_ADE_iitaAugmented.rds
-    Untracked:  output/cvresults_ADE_nrOnly.rds
-    Untracked:  output/cvresults_AD_iitaAugmented.rds
     Untracked:  workflowr_log.R
 
 </code></pre>
@@ -663,6 +660,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/wolfemd/NRCRI_2020GS/blob/8f48de4d5983504eed2e749a36fd5cfd4ae01ec7/analysis/04-CrossValidation.Rmd" target="_blank">8f48de4</a>
+</td>
+<td>
+wolfemd
+</td>
+<td>
+2020-05-04
+</td>
+<td>
+Add R script with all functions to code/
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/wolfemd/NRCRI_2020GS/c4017579c973dea7f71a02a1aa31c4e8b594df08/docs/04-CrossValidation.html" target="_blank">c401757</a>
+</td>
+<td>
+wolfemd
+</td>
+<td>
+2020-04-28
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1130,6 +1161,7 @@ Publish the first set of analyses and files for NRCRI 2020 GS.
 <div id="nrcri-alone-2" class="section level3">
 <h3>NRCRI alone</h3>
 <p>cbsulm15 (96 cores; 512GB RAM)</p>
+<p>Had to modify initial version of <code>runCrossVal</code> function. Original version uses a A+D+AA+AD+DD model, but 5 kernel models kept failing (and they are slow). For now, reduce to a 3 kernel model, which although it expected the list of kernels to be like <code>grms=list(A=A,D=D,AD=AD)</code>, a user could just supply a different set of 3 kernels (but named A, D and AD)… or easily modify the <code>runCrossVal</code> function.</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>runCrossVal_dev&lt;-<span class="cf">function</span>(TrainTestData,modelType,grms,nrepeats,nfolds,<span class="dt">ncores=</span><span class="dv">1</span>,</span>
 <span id="cb18-2"><a href="#cb18-2"></a>                      <span class="dt">byGroup=</span><span class="ot">FALSE</span>,<span class="dt">augmentTP=</span><span class="ot">NULL</span>,<span class="dt">gid=</span><span class="st">&quot;GID&quot;</span>,...){</span>
 <span id="cb18-3"><a href="#cb18-3"></a>  <span class="kw">require</span>(sommer); <span class="kw">require</span>(rsample)</span>
@@ -1282,8 +1314,8 @@ Publish the first set of analyses and files for NRCRI 2020 GS.
 <h2>PLOT RESULTS</h2>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="kw">rm</span>(<span class="dt">list=</span><span class="kw">ls</span>());<span class="kw">gc</span>()</span></code></pre></div>
 <pre><code>          used (Mb) gc trigger (Mb) limit (Mb) max used (Mb)
-Ncells  629600 33.7    1284554 68.7         NA  1284554 68.7
-Vcells 1189386  9.1    8388608 64.0     102400  2145036 16.4</code></pre>
+Ncells  617691   33    1250967 66.9         NA  1250967 66.9
+Vcells 1175852    9    8388608 64.0     102400  2135049 16.3</code></pre>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="kw">library</span>(tidyverse); <span class="kw">library</span>(magrittr); </span>
 <span id="cb23-2"><a href="#cb23-2"></a>cv&lt;-<span class="kw">readRDS</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;output&quot;</span>,<span class="st">&quot;cvresults_A_iitaAugmented.rds&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb23-3"><a href="#cb23-3"></a><span class="st">  </span><span class="kw">bind_rows</span>(<span class="kw">readRDS</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;output&quot;</span>,<span class="st">&quot;cvresults_A_nrOnly.rds&quot;</span>))) <span class="op">%&gt;%</span><span class="st"> </span></span>
@@ -1335,6 +1367,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/wolfemd/NRCRI_2020GS/blob/c4017579c973dea7f71a02a1aa31c4e8b594df08/docs/figure/04-CrossValidation.Rmd/unnamed-chunk-15-1.png" target="_blank">c401757</a>
+</td>
+<td>
+wolfemd
+</td>
+<td>
+2020-04-28
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/wolfemd/NRCRI_2020GS/blob/f3f6163b319d8633e807c1c45ed2da79e2d747ed/docs/figure/04-CrossValidation.Rmd/unnamed-chunk-15-1.png" target="_blank">f3f6163</a>
@@ -1395,6 +1438,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/wolfemd/NRCRI_2020GS/blob/c4017579c973dea7f71a02a1aa31c4e8b594df08/docs/figure/04-CrossValidation.Rmd/unnamed-chunk-16-1.png" target="_blank">c401757</a>
+</td>
+<td>
+wolfemd
+</td>
+<td>
+2020-04-28
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/wolfemd/NRCRI_2020GS/blob/f3f6163b319d8633e807c1c45ed2da79e2d747ed/docs/figure/04-CrossValidation.Rmd/unnamed-chunk-16-1.png" target="_blank">f3f6163</a>
 </td>
 <td>
@@ -1441,7 +1495,7 @@ attached base packages:
 other attached packages:
  [1] magrittr_1.5    forcats_0.5.0   stringr_1.4.0   dplyr_0.8.5    
  [5] purrr_0.3.4     readr_1.3.1     tidyr_1.0.2     tibble_3.0.1   
- [9] ggplot2_3.3.0   tidyverse_1.3.0 workflowr_1.6.1
+ [9] ggplot2_3.3.0   tidyverse_1.3.0
 
 loaded via a namespace (and not attached):
  [1] tidyselect_1.0.0  xfun_0.13         haven_2.2.0       lattice_0.20-41  
@@ -1449,16 +1503,17 @@ loaded via a namespace (and not attached):
  [9] htmltools_0.4.0   yaml_2.2.1        rlang_0.4.5       later_1.0.0      
 [13] pillar_1.4.3      withr_2.2.0       glue_1.4.0        DBI_1.1.0        
 [17] dbplyr_1.4.3      modelr_0.1.6      readxl_1.3.1      lifecycle_0.2.0  
-[21] munsell_0.5.0     gtable_0.3.0      cellranger_1.1.0  rvest_0.3.5      
-[25] evaluate_0.14     labeling_0.3      knitr_1.28        httpuv_1.5.2     
-[29] fansi_0.4.1       broom_0.5.6       Rcpp_1.0.4.6      promises_1.1.0   
-[33] backports_1.1.6   scales_1.1.0      jsonlite_1.6.1    farver_2.0.3     
-[37] fs_1.4.1          hms_0.5.3         digest_0.6.25     stringi_1.4.6    
-[41] grid_3.6.1        rprojroot_1.3-2   here_0.1          cli_2.0.2        
-[45] tools_3.6.1       crayon_1.3.4      whisker_0.4       pkgconfig_2.0.3  
-[49] ellipsis_0.3.0    xml2_1.3.2        reprex_0.3.0      lubridate_1.7.8  
-[53] rstudioapi_0.11   assertthat_0.2.1  rmarkdown_2.1     httr_1.4.1       
-[57] R6_2.4.1          nlme_3.1-147      git2r_0.26.1      compiler_3.6.1   </code></pre>
+[21] munsell_0.5.0     gtable_0.3.0      workflowr_1.6.1   cellranger_1.1.0 
+[25] rvest_0.3.5       evaluate_0.14     labeling_0.3      knitr_1.28       
+[29] httpuv_1.5.2      fansi_0.4.1       broom_0.5.6       Rcpp_1.0.4.6     
+[33] promises_1.1.0    backports_1.1.6   scales_1.1.0      jsonlite_1.6.1   
+[37] farver_2.0.3      fs_1.4.1          hms_0.5.3         digest_0.6.25    
+[41] stringi_1.4.6     grid_3.6.1        rprojroot_1.3-2   here_0.1         
+[45] cli_2.0.2         tools_3.6.1       crayon_1.3.4      whisker_0.4      
+[49] pkgconfig_2.0.3   ellipsis_0.3.0    xml2_1.3.2        reprex_0.3.0     
+[53] lubridate_1.7.8   rstudioapi_0.11   assertthat_0.2.1  rmarkdown_2.1    
+[57] httr_1.4.1        R6_2.4.1          nlme_3.1-147      git2r_0.26.1     
+[61] compiler_3.6.1   </code></pre>
 </div>
 </div>
 

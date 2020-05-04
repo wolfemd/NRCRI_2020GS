@@ -251,6 +251,9 @@ saveRDS(dbdata,file=here::here("output","NRCRI_CuratedTrials_2020April27.rds"))
 ```{r}
 dbdata<-readRDS(file=here::here("output","NRCRI_CuratedTrials_2020April27.rds"))
 ```
+```{r}
+dbdata
+```
 
 ```{r}
 dbdata %>% 
