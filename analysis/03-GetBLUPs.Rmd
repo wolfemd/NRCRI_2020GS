@@ -62,6 +62,9 @@ dbdata<-nestForMultiTrialAnalysis(dbdata)
 ```{r}
 dbdata %>% mutate(N_blups=map_dbl(MultiTrialTraitData,nrow))
 ```
+```{r}
+dbdata$MultiTrialTraitData[[1]] %>% count(GID)
+```
 
 ## Question for NRCRI
 

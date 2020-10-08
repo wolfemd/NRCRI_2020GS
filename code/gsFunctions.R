@@ -464,3 +464,21 @@ runGenomicPredictions<-function(blups,modelType,grms,ncores=1,gid="GID",...){
                                                               modelType=modelType,grms=grms)))
   return(predictions)
 }
+
+# runCrossVal(TrainTestData=traintestdf,
+#             modelType="A",
+#             grms=list(A=A),
+#             byGroup=FALSE,augmentTP=NULL,
+#             nrepeats=5,nfolds=4,ncores=1,gid="GID")
+#
+# runCrossVal(TrainTestData=traintestdf,
+#             modelType="A",
+#             grms=list(A=A),
+#             byGroup=FALSE,augmentTP=augmentDF,
+#             nrepeats=5,nfolds=4,ncores=1,gid="GID")
+#
+# runCrossVal(TrainTestData=traintestdf,
+#             modelType="A",
+#             grms=list(A=A),
+#             byGroup=TRUE,augmentTP=augmentDF,
+#             nrepeats=5,nfolds=4,ncores=1,gid="GID")

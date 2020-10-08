@@ -22,6 +22,7 @@ Start with cleaned data from previous step.
 rm(list=ls())
 library(tidyverse); library(magrittr);
 dbdata<-readRDS(here::here("data","NRCRI_CleanedTrialData_2020April21.rds"))
+dbdata
 ```
 
 All downstream analyses in this step will by on a per-trial (location-year-studyName combination). 
@@ -127,11 +128,16 @@ detectExptDesigns<-function(nestedDBdata){
 Detect designs
 ```{r}
 dbdata<-detectExptDesigns(dbdata)
+dbdata
 ```
 ```{r}
 dbdata %>% 
     count(programName,CompleteBlocks,IncompleteBlocks) # %>% spread(IncompleteBlocks,n)
 ```
+```{r}
+dbdata$TrialData[[1]]
+```
+
 ## Output file
 ```{r}
 saveRDS(dbdata,file=here::here("data","NRCRI_ExptDesignsDetected_2020April21.rds"))
@@ -165,7 +171,11 @@ nestTrialsByTrait<-function(indata,traits){
 ```
 ```{r}
 dbdata<-nestTrialsByTrait(dbdata,traits)
-#dbdata %>% head
+dbdata %>% head
+
+```
+```{r}
+dbdata$TraitByTrialData[[1]]
 ```
 
 Minor support function: calc. proportion missing given a numeric vector.
@@ -250,8 +260,6 @@ saveRDS(dbdata,file=here::here("output","NRCRI_CuratedTrials_2020April27.rds"))
 ## Plot Results
 ```{r}
 dbdata<-readRDS(file=here::here("output","NRCRI_CuratedTrials_2020April27.rds"))
-```
-```{r}
 dbdata
 ```
 

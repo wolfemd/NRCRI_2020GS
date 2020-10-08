@@ -212,6 +212,9 @@ cv2do<-blups_nrcri %>%
 cv2do$TrainTestData[[6]] %>%
   count(Group)
 ```
+```{r}
+cv2do$TrainTestData[[6]] %>% head
+```
 
 ```{r, eval=F}
 # test arguments to function
@@ -625,6 +628,10 @@ cv_ADE_iitaAugmented %<>% mutate(Dataset="IITAaugmented",modelType="ADE") %>% dp
 saveRDS(cv_ADE_iitaAugmented,file=here::here("output","cvresults_ADE_iitaAugmented.rds"))
 
 
+```
+```{r}
+cv<-readRDS(here::here("output","cvresults_A_iitaAugmented.rds"))
+cv$CVresults[[1]]
 ```
 
 ## PLOT RESULTS
