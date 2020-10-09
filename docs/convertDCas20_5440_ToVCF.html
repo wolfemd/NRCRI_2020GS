@@ -9,10 +9,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="wolfemd" />
 
 
-<title>Get BLUPs combining all trial data</title>
+<title>Convert NRCRI DCas20-5440 to VCF</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -580,9 +579,8 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Get BLUPs combining all trial data</h1>
-<h4 class="author">wolfemd</h4>
-<h4 class="date">2020-April-27</h4>
+<h1 class="title toc-ignore">Convert NRCRI DCas20-5440 to VCF</h1>
+<h4 class="date">2020-October-8</h4>
 
 </div>
 
@@ -913,7 +911,7 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/03-GetBLUPs.Rmd</code>) and HTML (<code>docs/03-GetBLUPs.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/convertDCas20_5440_ToVCF.Rmd</code>) and HTML (<code>docs/convertDCas20_5440_ToVCF.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -942,50 +940,16 @@ Message
 Rmd
 </td>
 <td>
-<a href="https://github.com/wolfemd/NRCRI_2020GS/blob/8506715579aef8c81990340206998d027cf7aeb2/analysis/03-GetBLUPs.Rmd" target="_blank">8506715</a>
+<a href="https://github.com/wolfemd/NRCRI_2020GS/blob/63fe5fa2c6ce9b1d611e0b9d6fc88b86c3c4208b/analysis/convertDCas20_5440_ToVCF.Rmd" target="_blank">63fe5fa</a>
 </td>
 <td>
 wolfemd
 </td>
 <td>
-2020-10-08
+2020-10-09
 </td>
 <td>
-Changes remaining uncommited since “final” anlaysis in April/May.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/wolfemd/NRCRI_2020GS/f3f6163b319d8633e807c1c45ed2da79e2d747ed/docs/03-GetBLUPs.html" target="_blank">f3f6163</a>
-</td>
-<td>
-wolfemd
-</td>
-<td>
-2020-04-28
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/wolfemd/NRCRI_2020GS/blob/8c45991c54b45231c2af415bba3e69e8d6d7c28c/analysis/03-GetBLUPs.Rmd" target="_blank">8c45991</a>
-</td>
-<td>
-wolfemd
-</td>
-<td>
-2020-04-28
-</td>
-<td>
-Publish the first set of analyses and files for NRCRI 2020 GS.
+Publish imputations for 2020 of DCAs20_5440 and restructure page for
 </td>
 </tr>
 </tbody>
@@ -995,146 +959,96 @@ Publish the first set of analyses and files for NRCRI 2020 GS.
 </div>
 </div>
 </div>
-<div id="previous-step" class="section level1">
-<h1>Previous step</h1>
-<ol start="2" style="list-style-type: decimal">
-<li><a href="02-curateByTrial.html">Curate by trait-trial</a>: Model each trait-trial separately, remove outliers, get BLUPs.</li>
-</ol>
+<div id="input-parameters" class="section level1">
+<h1>Input Parameters</h1>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co">#&#39; @dartvcfInput input name and path of &quot;vcf&quot; file from DArT</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="co">#&#39; @dartcountsInput input name and path of counts file from DArT</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="co">#&#39; @outName output path and name</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="co">#&#39; @nskipvcf number of &quot;VCF&quot; rows to skip on read-in</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="co">#&#39; @nskipcounts number of &quot;counts file&quot; rows to skip on read in</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="co">#&#39; @ncores number of cores to use, could be VERY memory intensive</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="co">#&#39; @dartVars chr vector, column names that _are not_ sample IDs in the read-counts file. I use this internally to assign the sampleIDs in the VCF file</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="kw">library</span>(tidyverse); <span class="kw">library</span>(magrittr)</span>
+<span id="cb1-10"><a href="#cb1-10"></a>dartvcfInput&lt;-here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data/Report-DCas20-5440&quot;</span>,<span class="st">&quot;Report_5440_VCF_Ref_Version6.txt&quot;</span>)</span>
+<span id="cb1-11"><a href="#cb1-11"></a>dartcountsInput&lt;-here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data/Report-DCas20-5440&quot;</span>,<span class="st">&quot;Report_5440_Counts_Ref_Version6.csv&quot;</span>)</span>
+<span id="cb1-12"><a href="#cb1-12"></a>outName&lt;-here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data/Report-DCas20-5440&quot;</span>,<span class="st">&quot;DCas20_5440&quot;</span>)</span>
+<span id="cb1-13"><a href="#cb1-13"></a>nskipvcf&lt;-<span class="dv">2</span> </span>
+<span id="cb1-14"><a href="#cb1-14"></a>nskipcounts&lt;-<span class="dv">3</span></span>
+<span id="cb1-15"><a href="#cb1-15"></a>ncores&lt;-<span class="dv">10</span></span></code></pre></div>
 </div>
-<div id="objective" class="section level1">
-<h1>Objective</h1>
-<p><strong>Two-stage</strong> genomic prediction refers to the following procedure:</p>
-<p><strong>Stage 1:</strong> Fit a linear mixed model to the data <em>without</em> genomic data. Individuals (e.g. clones / accessions) are modeled as independent and identically distributed (<em>i.i.d.</em>) random effects. The BLUPs for this random effect represent the measurable total genetic values of each individual. All the experimental design variation, e.g. replication and blocking effects have been controlled for in the creation of our new response variable, the BLUPs from the gneotype random effect.</p>
-<p><strong>Stage 2:</strong> Using a modified version of the BLUPs from step 1 as the response variable, fit a genomic prediction model, which now has reduced size because the number of observations is now the same as the number of individuals.</p>
-<p><strong>NOTE:</strong> In the animal breeding literature <strong>single-step</strong> often refers to predictions that combine pedigree and marker information simultaneously. That <em>is not</em> our meaning here.</p>
-<p>The code below represents Stage I.</p>
+<div id="prelim.-check-format" class="section level1">
+<h1>Prelim. check format</h1>
+<p>Start manual. Check that the files read in according to previous code. Adjust code if necessary. Make a function and apply it to the input files.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># vcf&lt;-read.table(dartvcfInput,</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="co">#                 stringsAsFactors = F,skip = nskipvcf, header = T, sep = &quot;\t&quot;, comment.char = &quot;&quot;)</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="co"># readCounts&lt;-read.csv(dartcountsInput, stringsAsFactors = F,header = T,skip=nskipcounts)</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="co"># </span></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="co"># dim(vcf)</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="co"># # [1] 13603   260</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="co"># dim(readCounts)</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="co"># # [1] 27206   294</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a></span>
+<span id="cb2-10"><a href="#cb2-10"></a><span class="co"># # Initial look at names....</span></span>
+<span id="cb2-11"><a href="#cb2-11"></a><span class="co"># colnames(readCounts)[1:100]</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a><span class="co"># [44] &quot;NR.NG.DM.Cass.0001_A02...NR18S1P0075&quot;       </span></span>
+<span id="cb2-13"><a href="#cb2-13"></a><span class="co">#  [45] &quot;NR.NG.DM.Cass.0001_B02...NR18S1P0088&quot;       </span></span>
+<span id="cb2-14"><a href="#cb2-14"></a><span class="co">#  [46] &quot;NR.NG.DM.Cass.0001_D02...NR18S1P0022&quot;       </span></span>
+<span id="cb2-15"><a href="#cb2-15"></a><span class="co">#  [47] &quot;NR.NG.DM.Cass.0001_G02...NR18S1P0011&quot;       </span></span>
+<span id="cb2-16"><a href="#cb2-16"></a><span class="co">#  [48] &quot;NR.NG.DM.Cass.0001_A03...NR18S1P0182&quot;       </span></span>
+<span id="cb2-17"><a href="#cb2-17"></a><span class="co">#  [49] &quot;NR.NG.DM.Cass.0001_B03...NR18S1P0106&quot;       </span></span>
+<span id="cb2-18"><a href="#cb2-18"></a><span class="co">#  [50] &quot;NR.NG.DM.Cass.0001_C03...NR18S1P0230&quot;       </span></span>
+<span id="cb2-19"><a href="#cb2-19"></a><span class="co">#  [51] &quot;NR.NG.DM.Cass.0001_D03...NR18S1P0093&quot;       </span></span>
+<span id="cb2-20"><a href="#cb2-20"></a><span class="co">#  [52] &quot;NR.NG.DM.Cass.0001_E03...NR18S1P0201&quot;       </span></span>
+<span id="cb2-21"><a href="#cb2-21"></a><span class="co">#  [53] &quot;NR.NG.DM.Cass.0001_F03...IITA.TMS.IBA070337&quot;</span></span>
+<span id="cb2-22"><a href="#cb2-22"></a><span class="co"># colnames(vcf)[1:30]</span></span>
+<span id="cb2-23"><a href="#cb2-23"></a><span class="co"># [10] &quot;NR.NG.DM.Cass.0001_A01...NR18S1P0018&quot;       </span></span>
+<span id="cb2-24"><a href="#cb2-24"></a><span class="co"># [11] &quot;NR.NG.DM.Cass.0001_A10...NR18S1P0067&quot;       </span></span>
+<span id="cb2-25"><a href="#cb2-25"></a><span class="co"># [12] &quot;NR.NG.DM.Cass.0001_A11...NR18S1P0085&quot;       </span></span>
+<span id="cb2-26"><a href="#cb2-26"></a><span class="co"># [13] &quot;NR.NG.DM.Cass.0001_A12...NR18S1P0052&quot;       </span></span>
+<span id="cb2-27"><a href="#cb2-27"></a><span class="co"># [14] &quot;NR.NG.DM.Cass.0001_A02...NR18S1P0075&quot;       </span></span>
+<span id="cb2-28"><a href="#cb2-28"></a><span class="co"># [15] &quot;NR.NG.DM.Cass.0001_A03...NR18S1P0182&quot;       </span></span>
+<span id="cb2-29"><a href="#cb2-29"></a><span class="co"># [16] &quot;NR.NG.DM.Cass.0001_A04...NR18S1P0224&quot;       </span></span>
+<span id="cb2-30"><a href="#cb2-30"></a><span class="co"># [17] &quot;NR.NG.DM.Cass.0001_A05...NR18S1P0079&quot;       </span></span>
+<span id="cb2-31"><a href="#cb2-31"></a><span class="co"># [18] &quot;NR.NG.DM.Cass.0001_A06...NR18S1P0043&quot;       </span></span>
+<span id="cb2-32"><a href="#cb2-32"></a><span class="co"># [19] &quot;NR.NG.DM.Cass.0001_A07...NR18S1P0119&quot;       </span></span>
+<span id="cb2-33"><a href="#cb2-33"></a><span class="co"># [20] &quot;NR.NG.DM.Cass.0001_A08...NR18S1P0084&quot;       </span></span>
+<span id="cb2-34"><a href="#cb2-34"></a><span class="co"># [21] &quot;NR.NG.DM.Cass.0001_A09...NR18S1P0242&quot;       </span></span>
+<span id="cb2-35"><a href="#cb2-35"></a><span class="co"># [22] &quot;NR.NG.DM.Cass.0001_B01...IITA.TMS.IBA980581&quot;</span></span>
+<span id="cb2-36"><a href="#cb2-36"></a><span class="co"># [23] &quot;NR.NG.DM.Cass.0001_B10...NR18S1P0237&quot;       </span></span>
+<span id="cb2-37"><a href="#cb2-37"></a><span class="co"># [24] &quot;NR.NG.DM.Cass.0001_B11...NR18S1P0207&quot;       </span></span>
+<span id="cb2-38"><a href="#cb2-38"></a><span class="co"># [25] &quot;NR.NG.DM.Cass.0001_B12...NR18S1P0236&quot;       </span></span>
+<span id="cb2-39"><a href="#cb2-39"></a><span class="co"># [26] &quot;NR.NG.DM.Cass.0001_B02...NR18S1P0088&quot;       </span></span>
+<span id="cb2-40"><a href="#cb2-40"></a><span class="co"># [27] &quot;NR.NG.DM.Cass.0001_B03...NR18S1P0106&quot;       </span></span>
+<span id="cb2-41"><a href="#cb2-41"></a><span class="co"># [28] &quot;NR.NG.DM.Cass.0001_B04...NR18S1P0116&quot;       </span></span>
+<span id="cb2-42"><a href="#cb2-42"></a><span class="co"># [29] &quot;NR.NG.DM.Cass.0001_B05...NR18S1P0169&quot;       </span></span>
+<span id="cb2-43"><a href="#cb2-43"></a><span class="co"># [30] &quot;NR.NG.DM.Cass.0001_B06...NR18S1P0015&quot;   </span></span></code></pre></div>
 </div>
-<div id="set-up-training-datasets" class="section level1">
-<h1>Set-up training datasets</h1>
-<p>This next step fits models to each trait, combining curated data (BLUPs) from each trial, which we computed in the previous step.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">rm</span>(<span class="dt">list=</span><span class="kw">ls</span>())</span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">library</span>(tidyverse); <span class="kw">library</span>(magrittr);</span>
-<span id="cb1-3"><a href="#cb1-3"></a>dbdata&lt;-<span class="kw">readRDS</span>(<span class="dt">file=</span>here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;output&quot;</span>,<span class="st">&quot;NRCRI_CuratedTrials_2020April27.rds&quot;</span>))</span>
-<span id="cb1-4"><a href="#cb1-4"></a>traits&lt;-<span class="kw">c</span>(<span class="st">&quot;CGM&quot;</span>,<span class="st">&quot;CGMS1&quot;</span>,<span class="st">&quot;CGMS2&quot;</span>,<span class="st">&quot;MCMDS&quot;</span>,<span class="st">&quot;DM&quot;</span>,<span class="st">&quot;PLTHT&quot;</span>,<span class="st">&quot;BRNHT1&quot;</span>,<span class="st">&quot;HI&quot;</span>,<span class="st">&quot;logFYLD&quot;</span>,<span class="st">&quot;logTOPYLD&quot;</span>,<span class="st">&quot;logRTNO&quot;</span>)</span></code></pre></div>
-<p>Starting with the curated trial data (which correspond to per-trait, per-trial BLUPs) from the previous step.</p>
-<p><strong>Nest by trait.</strong> Need to restructure the data from per-trial BLUPs by regrouping by trait.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>nestForMultiTrialAnalysis&lt;-<span class="cf">function</span>(curatedTrialData){</span>
-<span id="cb2-2"><a href="#cb2-2"></a>  nested_trialdata&lt;-curatedTrialData <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="st">    </span><span class="co"># remove trait-trial models that failed</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="st">    </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(H2)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="st">    </span><span class="co"># remove some per-trial summaries we don&#39;t want at this stage</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a><span class="st">    </span><span class="kw">select</span>(<span class="op">-</span>H2,<span class="op">-</span>VarComps,<span class="op">-</span>Model,<span class="op">-</span>Noutliers,<span class="op">-</span>propMiss) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="st">    </span><span class="kw">unnest</span>(BLUPs) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb2-8"><a href="#cb2-8"></a><span class="st">    </span><span class="kw">nest</span>(<span class="dt">MultiTrialTraitData=</span><span class="kw">c</span>(<span class="op">-</span>Trait))</span>
-<span id="cb2-9"><a href="#cb2-9"></a>  <span class="kw">return</span>(nested_trialdata)</span>
-<span id="cb2-10"><a href="#cb2-10"></a>}</span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>dbdata&lt;-<span class="kw">nestForMultiTrialAnalysis</span>(dbdata)</span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>dbdata <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">N_blups=</span><span class="kw">map_dbl</span>(MultiTrialTraitData,nrow))</span></code></pre></div>
-<pre><code># A tibble: 10 x 3
-   Trait     MultiTrialTraitData    N_blups
-   &lt;chr&gt;     &lt;list&gt;                   &lt;dbl&gt;
- 1 CGMS1     &lt;tibble [10,152 × 12]&gt;   10152
- 2 CGMS2     &lt;tibble [5,461 × 12]&gt;     5461
- 3 MCMDS     &lt;tibble [6,952 × 12]&gt;     6952
- 4 PLTHT     &lt;tibble [5,163 × 12]&gt;     5163
- 5 BRNHT1    &lt;tibble [3,523 × 12]&gt;     3523
- 6 HI        &lt;tibble [6,352 × 12]&gt;     6352
- 7 logFYLD   &lt;tibble [6,355 × 12]&gt;     6355
- 8 logTOPYLD &lt;tibble [6,352 × 12]&gt;     6352
- 9 logRTNO   &lt;tibble [6,118 × 12]&gt;     6118
-10 DM        &lt;tibble [3,699 × 12]&gt;     3699</code></pre>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>dbdata<span class="op">$</span>MultiTrialTraitData[[<span class="dv">1</span>]] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">count</span>(GID)</span></code></pre></div>
-<pre><code># A tibble: 3,638 x 2
-   GID         n
-   &lt;chr&gt;   &lt;int&gt;
- 1 101330      2
- 2 101403      2
- 3 101431      2
- 4 101447      1
- 5 101499      1
- 6 101634      1
- 7 10499       1
- 8 106224      5
- 9 10649       2
-10 1070576     1
-# … with 3,628 more rows</code></pre>
-<div id="question-for-nrcri" class="section level2">
-<h2>Question for NRCRI</h2>
-<p>Where is the data from Ugo Ikeogu’s (and subsequent) work on NIRs? I’m thinking someone needs to be trying to use esp. the <strong>DM</strong> NIRs data for genomic prediction!?</p>
+<div id="conversion-function" class="section level1">
+<h1>Conversion function</h1>
+<p>Available and sourced from <code>code/</code> subdirectory: <code>convertDart2vcf.R</code>.</p>
 </div>
+<div id="run-conversion-function" class="section level1">
+<h1>Run conversion function</h1>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">source</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;code/&quot;</span>,<span class="st">&quot;convertDart2vcf.R&quot;</span>))</span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="kw">convertDart2vcf</span>(dartvcfInput,dartcountsInput,outName,</span>
+<span id="cb3-3"><a href="#cb3-3"></a>                <span class="dt">nskipvcf=</span><span class="dv">2</span>,<span class="dt">nskipcounts=</span><span class="dv">3</span>,ncores)</span></code></pre></div>
 </div>
-<div id="model-multiple-trials" class="section level1">
-<h1>Model multiple trials</h1>
-<p>The function below takes de-regressed BLUPs as response and corresponding weights on error variances are applied. Output includes BLUPs for each clone that combine data across trials and are suitable for downstream genomic prediction work.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># curatedTrialData&lt;-dbdata$MultiTrialTraitData[[1]]</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="co"># rm(curatedTrialData)</span></span>
-<span id="cb8-3"><a href="#cb8-3"></a>fitMultiTrialModel&lt;-<span class="cf">function</span>(curatedTrialData,<span class="dt">GID=</span><span class="st">&quot;GID&quot;</span>){</span>
-<span id="cb8-4"><a href="#cb8-4"></a>  <span class="kw">require</span>(lme4)</span>
-<span id="cb8-5"><a href="#cb8-5"></a>  modelFormula&lt;-<span class="kw">paste0</span>(<span class="st">&quot;drgBLUP ~ (1|&quot;</span>,GID,<span class="st">&quot;)&quot;</span>)</span>
-<span id="cb8-6"><a href="#cb8-6"></a>  fit_model&lt;-<span class="kw">possibly</span>(<span class="cf">function</span>(modelFormula,curatedTrialData){</span>
-<span id="cb8-7"><a href="#cb8-7"></a>    model_out&lt;-<span class="kw">lmer</span>(<span class="kw">as.formula</span>(modelFormula),</span>
-<span id="cb8-8"><a href="#cb8-8"></a>                    <span class="dt">data=</span>curatedTrialData,</span>
-<span id="cb8-9"><a href="#cb8-9"></a>                    <span class="dt">weights =</span> WT)</span>
-<span id="cb8-10"><a href="#cb8-10"></a>    <span class="kw">return</span>(model_out) },</span>
-<span id="cb8-11"><a href="#cb8-11"></a>    <span class="dt">otherwise =</span> <span class="ot">NA</span>)</span>
-<span id="cb8-12"><a href="#cb8-12"></a>  model_out&lt;-<span class="kw">fit_model</span>(modelFormula,curatedTrialData)</span>
-<span id="cb8-13"><a href="#cb8-13"></a>  <span class="kw">summary</span>(model_out)</span>
-<span id="cb8-14"><a href="#cb8-14"></a>  <span class="cf">if</span>(<span class="kw">is.na</span>(model_out)){</span>
-<span id="cb8-15"><a href="#cb8-15"></a>    out &lt;-<span class="kw">tibble</span>(<span class="dt">H2=</span><span class="ot">NA</span>,<span class="dt">VarComps=</span><span class="kw">list</span>(<span class="ot">NULL</span>),<span class="dt">BLUPs=</span><span class="kw">list</span>(<span class="ot">NULL</span>),<span class="dt">Model=</span>modelFormula) </span>
-<span id="cb8-16"><a href="#cb8-16"></a>  } <span class="cf">else</span> {</span>
-<span id="cb8-17"><a href="#cb8-17"></a>    varcomps&lt;-<span class="kw">as.data.frame</span>(<span class="kw">VarCorr</span>(model_out))[,<span class="kw">c</span>(<span class="st">&quot;grp&quot;</span>,<span class="st">&quot;vcov&quot;</span>)] <span class="op">%&gt;%</span></span>
-<span id="cb8-18"><a href="#cb8-18"></a><span class="st">      </span><span class="kw">spread</span>(grp,vcov)</span>
-<span id="cb8-19"><a href="#cb8-19"></a>    Vg&lt;-varcomps<span class="op">$</span>GID</span>
-<span id="cb8-20"><a href="#cb8-20"></a>    H2&lt;-Vg<span class="op">/</span>(Vg<span class="op">+</span>varcomps<span class="op">$</span>Residual)</span>
-<span id="cb8-21"><a href="#cb8-21"></a>    BLUP&lt;-<span class="kw">ranef</span>(model_out, <span class="dt">condVar=</span><span class="ot">TRUE</span>)[[GID]]</span>
-<span id="cb8-22"><a href="#cb8-22"></a>    PEV &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">attr</span>(BLUP, <span class="st">&quot;postVar&quot;</span>))</span>
-<span id="cb8-23"><a href="#cb8-23"></a>    blups&lt;-<span class="kw">tibble</span>(<span class="dt">GID=</span><span class="kw">rownames</span>(BLUP),<span class="dt">BLUP=</span>BLUP<span class="op">$</span><span class="st">`</span><span class="dt">(Intercept)</span><span class="st">`</span>,<span class="dt">PEV=</span>PEV) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb8-24"><a href="#cb8-24"></a><span class="st">      </span><span class="kw">mutate</span>(<span class="dt">REL=</span><span class="dv">1</span><span class="op">-</span>(PEV<span class="op">/</span>Vg),</span>
-<span id="cb8-25"><a href="#cb8-25"></a>             <span class="dt">drgBLUP=</span>BLUP<span class="op">/</span>REL,</span>
-<span id="cb8-26"><a href="#cb8-26"></a>             <span class="dt">WT=</span>(<span class="dv">1</span><span class="op">-</span>H2)<span class="op">/</span>((<span class="fl">0.1</span> <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">-</span>REL)<span class="op">/</span>REL)<span class="op">*</span>H2))</span>
-<span id="cb8-27"><a href="#cb8-27"></a>    out &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">H2=</span>H2, </span>
-<span id="cb8-28"><a href="#cb8-28"></a>                  <span class="dt">VarComps=</span><span class="kw">list</span>(varcomps), </span>
-<span id="cb8-29"><a href="#cb8-29"></a>                  <span class="dt">BLUPs=</span><span class="kw">list</span>(blups),</span>
-<span id="cb8-30"><a href="#cb8-30"></a>                  <span class="dt">Model=</span>modelFormula) }</span>
-<span id="cb8-31"><a href="#cb8-31"></a>  <span class="kw">return</span>(out) </span>
-<span id="cb8-32"><a href="#cb8-32"></a>}</span></code></pre></div>
-<p>Run the function with the simplest possible loop using the <code>purrr</code> function <code>map()</code>.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>dbdata <span class="op">%&lt;&gt;%</span><span class="st"> </span></span>
-<span id="cb9-2"><a href="#cb9-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">modelOutput=</span><span class="kw">map</span>(MultiTrialTraitData,fitMultiTrialModel))</span></code></pre></div>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>dbdata <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb10-2"><a href="#cb10-2"></a><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>MultiTrialTraitData) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb10-3"><a href="#cb10-3"></a><span class="st">  </span><span class="kw">unnest</span>(modelOutput)</span></code></pre></div>
-<pre><code># A tibble: 10 x 5
-   Trait          H2 VarComps         BLUPs                Model            
-   &lt;chr&gt;       &lt;dbl&gt; &lt;list&gt;           &lt;list&gt;               &lt;chr&gt;            
- 1 CGMS1     0.113   &lt;df[,2] [1 × 2]&gt; &lt;tibble [3,226 × 6]&gt; drgBLUP ~ (1|GID)
- 2 CGMS2     0.00168 &lt;df[,2] [1 × 2]&gt; &lt;tibble [2,333 × 6]&gt; drgBLUP ~ (1|GID)
- 3 MCMDS     0.0796  &lt;df[,2] [1 × 2]&gt; &lt;tibble [3,597 × 6]&gt; drgBLUP ~ (1|GID)
- 4 PLTHT     0.0556  &lt;df[,2] [1 × 2]&gt; &lt;tibble [2,703 × 6]&gt; drgBLUP ~ (1|GID)
- 5 BRNHT1    0.0337  &lt;df[,2] [1 × 2]&gt; &lt;tibble [1,981 × 6]&gt; drgBLUP ~ (1|GID)
- 6 HI        0.127   &lt;df[,2] [1 × 2]&gt; &lt;tibble [3,292 × 6]&gt; drgBLUP ~ (1|GID)
- 7 logFYLD   0.0341  &lt;df[,2] [1 × 2]&gt; &lt;tibble [3,302 × 6]&gt; drgBLUP ~ (1|GID)
- 8 logTOPYLD 0.0678  &lt;df[,2] [1 × 2]&gt; &lt;tibble [3,200 × 6]&gt; drgBLUP ~ (1|GID)
- 9 logRTNO   0.0305  &lt;df[,2] [1 × 2]&gt; &lt;tibble [3,218 × 6]&gt; drgBLUP ~ (1|GID)
-10 DM        0.105   &lt;df[,2] [1 × 2]&gt; &lt;tibble [2,425 × 6]&gt; drgBLUP ~ (1|GID)</code></pre>
-<div id="output-file" class="section level2">
-<h2>Output file</h2>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">saveRDS</span>(dbdata,<span class="dt">file=</span>here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;output&quot;</span>,<span class="st">&quot;nrcri_blupsForModelTraining_2020April27.rds&quot;</span>))</span></code></pre></div>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co"># dbdata&lt;-readRDS(here::here(&quot;output&quot;,&quot;nrcri_blupsForModelTraining_2020April21.rds&quot;))</span></span>
-<span id="cb13-2"><a href="#cb13-2"></a><span class="co"># dbdata %&gt;% </span></span>
-<span id="cb13-3"><a href="#cb13-3"></a><span class="co">#   #filter(studyName==&quot;18C2acrossingblockCETubiaja&quot;) %&gt;% </span></span>
-<span id="cb13-4"><a href="#cb13-4"></a><span class="co">#   select(Trait,modelOutput) %&gt;% </span></span>
-<span id="cb13-5"><a href="#cb13-5"></a><span class="co">#   unnest(modelOutput) %&gt;% </span></span>
-<span id="cb13-6"><a href="#cb13-6"></a><span class="co">#   select(Trait,BLUPs) %&gt;% </span></span>
-<span id="cb13-7"><a href="#cb13-7"></a><span class="co">#   unnest(BLUPs) %&gt;% </span></span>
-<span id="cb13-8"><a href="#cb13-8"></a><span class="co">#   filter(grepl(&quot;c2&quot;,GID,ignore.case = T)) %&gt;% count(GID)</span></span></code></pre></div>
-</div>
-</div>
-<div id="next-step" class="section level1">
-<h1>Next step</h1>
-<ol start="4" style="list-style-type: decimal">
-<li><a href="04-CrossValidation.html">Check prediction accuracy</a>: Evaluate prediction accuracy with cross-validation.</li>
-</ol>
+<div id="genomewide-to-per-chrom-vcfs" class="section level1">
+<h1>Genomewide to per-chrom VCFs</h1>
+<p>Split the genome-wide VCF into per-chromosome VCFs for imputation.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">require</span>(furrr); <span class="kw">options</span>(<span class="dt">mc.cores=</span><span class="dv">18</span>); <span class="kw">plan</span>(multiprocess)</span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="kw">source</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;code&quot;</span>,<span class="st">&quot;imputationFunctions.R&quot;</span>))</span>
+<span id="cb4-3"><a href="#cb4-3"></a></span>
+<span id="cb4-4"><a href="#cb4-4"></a>vcfIn&lt;-here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data/Report-DCas20-5440&quot;</span>,<span class="st">&quot;DCas20_5440.vcf.gz&quot;</span>)</span>
+<span id="cb4-5"><a href="#cb4-5"></a>filters&lt;-<span class="st">&quot;--minDP 4 --maxDP 50&quot;</span> <span class="co"># because using GT not PL for impute (Beagle5)</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a>outPath&lt;-here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data/Report-DCas20-5440/&quot;</span>)</span>
+<span id="cb4-7"><a href="#cb4-7"></a>outSuffix&lt;-<span class="st">&quot;DCas20_5440&quot;</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a></span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="kw">future_map</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">18</span>,</span>
+<span id="cb4-10"><a href="#cb4-10"></a>           <span class="op">~</span><span class="kw">splitVCFbyChr</span>(<span class="dt">Chr=</span>.,</span>
+<span id="cb4-11"><a href="#cb4-11"></a>                          <span class="dt">vcfIn=</span>vcfIn,<span class="dt">filters=</span>filters,</span>
+<span id="cb4-12"><a href="#cb4-12"></a>                          <span class="dt">outPath=</span>outPath,<span class="dt">outSuffix=</span>outSuffix))</span></code></pre></div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1142,7 +1056,7 @@ Publish the first set of analyses and files for NRCRI 2020 GS.
 </button>
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="kw">sessionInfo</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">sessionInfo</span>()</span></code></pre></div>
 <pre><code>R version 4.0.2 (2020-06-22)
 Platform: x86_64-apple-darwin17.0 (64-bit)
 Running under: macOS Mojave 10.14.6
@@ -1158,29 +1072,17 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] lme4_1.1-23     Matrix_1.2-18   magrittr_1.5    forcats_0.5.0  
- [5] stringr_1.4.0   dplyr_1.0.2     purrr_0.3.4     readr_1.3.1    
- [9] tidyr_1.1.2     tibble_3.0.3    ggplot2_3.3.2   tidyverse_1.3.0
-[13] workflowr_1.6.2
+[1] workflowr_1.6.2
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.5       lubridate_1.7.9  here_0.1         lattice_0.20-41 
- [5] assertthat_0.2.1 rprojroot_1.3-2  digest_0.6.25    utf8_1.1.4      
- [9] R6_2.4.1         cellranger_1.1.0 backports_1.1.10 reprex_0.3.0    
-[13] evaluate_0.14    httr_1.4.2       pillar_1.4.6     rlang_0.4.7     
-[17] readxl_1.3.1     minqa_1.2.4      rstudioapi_0.11  nloptr_1.2.2.2  
-[21] whisker_0.4      blob_1.2.1       rmarkdown_2.4    splines_4.0.2   
-[25] statmod_1.4.34   munsell_0.5.0    broom_0.7.0      compiler_4.0.2  
-[29] httpuv_1.5.4     modelr_0.1.8     xfun_0.18        pkgconfig_2.0.3 
-[33] htmltools_0.5.0  tidyselect_1.1.0 fansi_0.4.1      crayon_1.3.4    
-[37] dbplyr_1.4.4     withr_2.3.0      later_1.1.0.1    MASS_7.3-53     
-[41] grid_4.0.2       nlme_3.1-149     jsonlite_1.7.1   gtable_0.3.0    
-[45] lifecycle_0.2.0  DBI_1.1.0        git2r_0.27.1     scales_1.1.1    
-[49] cli_2.0.2        stringi_1.5.3    fs_1.5.0         promises_1.1.1  
-[53] xml2_1.3.2       ellipsis_0.3.1   generics_0.0.2   vctrs_0.3.4     
-[57] boot_1.3-25      tools_4.0.2      glue_1.4.2       hms_0.5.3       
-[61] yaml_2.2.1       colorspace_1.4-1 rvest_0.3.6      knitr_1.30      
-[65] haven_2.3.1     </code></pre>
+ [1] Rcpp_1.0.5       whisker_0.4      knitr_1.30       magrittr_1.5    
+ [5] R6_2.4.1         rlang_0.4.7      stringr_1.4.0    tools_4.0.2     
+ [9] xfun_0.18        git2r_0.27.1     htmltools_0.5.0  ellipsis_0.3.1  
+[13] yaml_2.2.1       digest_0.6.25    rprojroot_1.3-2  tibble_3.0.3    
+[17] lifecycle_0.2.0  crayon_1.3.4     later_1.1.0.1    vctrs_0.3.4     
+[21] promises_1.1.1   fs_1.5.0         glue_1.4.2       evaluate_0.14   
+[25] rmarkdown_2.4    stringi_1.5.3    compiler_4.0.2   pillar_1.4.6    
+[29] backports_1.1.10 httpuv_1.5.4     pkgconfig_2.0.3 </code></pre>
 </div>
 </div>
 

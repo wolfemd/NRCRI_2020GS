@@ -16,7 +16,7 @@
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/darkly.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -24,6 +24,7 @@
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
@@ -34,6 +35,77 @@ div.section {
   padding-top: 12px;
 }
 </style>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+      code.sourceCode > span { display: inline-block; line-height: 1.25; }
+  code.sourceCode > span { color: inherit; text-decoration: inherit; }
+  code.sourceCode > span:empty { height: 1.2em; }
+  .sourceCode { overflow: visible; }
+  code.sourceCode { white-space: pre; position: relative; }
+  div.sourceCode { margin: 1em 0; }
+  pre.sourceCode { margin: 0; }
+  @media screen {
+  div.sourceCode { overflow: auto; }
+  }
+  @media print {
+  code.sourceCode { white-space: pre-wrap; }
+  code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+  }
+  pre.numberSource code
+    { counter-reset: source-line 0; }
+  pre.numberSource code > span
+    { position: relative; left: -4em; counter-increment: source-line; }
+  pre.numberSource code > span > a:first-child::before
+    { content: counter(source-line);
+      position: relative; left: -1em; text-align: right; vertical-align: baseline;
+      border: none; display: inline-block;
+      -webkit-touch-callout: none; -webkit-user-select: none;
+      -khtml-user-select: none; -moz-user-select: none;
+      -ms-user-select: none; user-select: none;
+      padding: 0 4px; width: 4em;
+      color: #aaaaaa;
+    }
+  pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+  div.sourceCode
+    {  background-color: #f8f8f8; }
+  @media screen {
+  code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+  }
+  code span.al { color: #ef2929; } /* Alert */
+  code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+  code span.at { color: #c4a000; } /* Attribute */
+  code span.bn { color: #0000cf; } /* BaseN */
+  code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+  code span.ch { color: #4e9a06; } /* Char */
+  code span.cn { color: #000000; } /* Constant */
+  code span.co { color: #8f5902; font-style: italic; } /* Comment */
+  code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+  code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+  code span.dt { color: #204a87; } /* DataType */
+  code span.dv { color: #0000cf; } /* DecVal */
+  code span.er { color: #a40000; font-weight: bold; } /* Error */
+  code span.ex { } /* Extension */
+  code span.fl { color: #0000cf; } /* Float */
+  code span.fu { color: #000000; } /* Function */
+  code span.im { } /* Import */
+  code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+  code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+  code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+  code span.ot { color: #8f5902; } /* Other */
+  code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+  code span.sc { color: #000000; } /* SpecialChar */
+  code span.ss { color: #4e9a06; } /* SpecialString */
+  code span.st { color: #4e9a06; } /* String */
+  code span.va { color: #000000; } /* Variable */
+  code span.vs { color: #4e9a06; } /* VerbatimString */
+  code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+    </style>
 
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -436,23 +508,59 @@ div.tocify {
         <li>
   <a href="index.html">Synopsis</a>
 </li>
-<li>
-  <a href="01-cleanTPdata.html">Data Cleaning</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    April2020 Predictions
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="01-cleanTPdata.html">Data Cleaning</a>
+    </li>
+    <li>
+      <a href="02-curateByTrial.html">Curate Data</a>
+    </li>
+    <li>
+      <a href="03-GetBLUPs.html">Get BLUPs</a>
+    </li>
+    <li>
+      <a href="04-CrossValidation.html">Check prediction accuracy</a>
+    </li>
+    <li>
+      <a href="05-GetGEBVs.html">Get GEBV for GS C2</a>
+    </li>
+  </ul>
 </li>
-<li>
-  <a href="02-curateByTrial.html">Curate Data</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    October2020 Impute
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="convertDCas20_5440_ToVCF.html">Conversion DArT report DCas20_5440 to VCF</a>
+    </li>
+    <li>
+      <a href="ImputeDCas20_5440.html">Impute DCas20_5440</a>
+    </li>
+  </ul>
 </li>
-<li>
-  <a href="03-GetBLUPs.html">Get BLUPs</a>
-</li>
-<li>
-  <a href="04-CrossValidation.html">Check prediction accuracy</a>
-</li>
-<li>
-  <a href="05-GetGEBVs.html">Get GEBV for GS C2</a>
-</li>
-<li>
-  <a href="license.html">License</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Other
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="about.html">About</a>
+    </li>
+    <li>
+      <a href="license.html">License</a>
+    </li>
+  </ul>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -499,7 +607,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-04-28
+<strong>Last updated:</strong> 2020-10-09
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -509,7 +617,7 @@ div.tocify {
 </p>
 <p>
 This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.1). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -590,16 +698,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrong8c45991"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> 8c45991 </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomwolfemdNRCRI2020GStree63fe5fa2c6ce9b1d611e0b9d6fc88b86c3c4208btargetblank63fe5faa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/wolfemd/NRCRI_2020GS/tree/63fe5fa2c6ce9b1d611e0b9d6fc88b86c3c4208b" target="_blank">63fe5fa</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrong8c45991" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomwolfemdNRCRI2020GStree63fe5fa2c6ce9b1d611e0b9d6fc88b86c3c4208btargetblank63fe5faa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version 8c45991. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/wolfemd/NRCRI_2020GS/tree/63fe5fa2c6ce9b1d611e0b9d6fc88b86c3c4208b" target="_blank">63fe5fa</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -614,38 +722,183 @@ Ignored files:
     Ignored:    output/.DS_Store
 
 Untracked files:
-    Untracked:  NRCRI 2020 GS.gslides
-    Untracked:  data/DatabaseDownload_42120/
-    Untracked:  data/GBSdataMasterList_31818.csv
-    Untracked:  data/IITA_GBStoPhenoMaster_33018.csv
-    Untracked:  data/NRCRI_CleanedTrialData_2020April21.rds
-    Untracked:  data/NRCRI_ExptDesignsDetected_2020April21.rds
-    Untracked:  data/NRCRI_GBStoPhenoMaster_40318.csv
-    Untracked:  data/iita_blupsForCrossVal_72619.rds
-    Untracked:  data/iita_blupsForCrossVal_outliersRemoved_73019.rds
+    Untracked:  CrossValidationFunction_PlusNRCRI_2020GSnotes.gslides
     Untracked:  output/DosageMatrix_NRCRI_SamplesForGP_2020April27.rds
-    Untracked:  output/GEBV_NRCRI_IITAaugmented_ModelADE_2020April27.rds
-    Untracked:  output/GEBV_NRCRI_IITAaugmented_ModelA_2020April27.rds
-    Untracked:  output/GEBV_NRCRI_NRCRIalone_ModelADE_2020April27.rds
-    Untracked:  output/GEBV_NRCRI_NRCRIalone_ModelA_2020April27.rds
-    Untracked:  output/GETGV_NRCRI_IITAaugmented_ModelADE_2020April27.rds
-    Untracked:  output/GETGV_NRCRI_NRCRIalone_ModelADE_2020April27.rds
     Untracked:  output/Kinship_AA_NRCRI_2020April27.rds
     Untracked:  output/Kinship_AD_NRCRI_2020April27.rds
     Untracked:  output/Kinship_A_NRCRI_2020April27.rds
     Untracked:  output/Kinship_DD_NRCRI_2020April27.rds
     Untracked:  output/Kinship_D_NRCRI_2020April27.rds
-    Untracked:  output/NRCRI_CuratedTrials_2020April21.rds
-    Untracked:  output/NRCRI_CuratedTrials_2020April27.rds
-    Untracked:  output/cvresults_AD_nrOnly.rds
-    Untracked:  output/cvresults_A_iitaAugmented.rds
-    Untracked:  output/cvresults_A_nrOnly.rds
-    Untracked:  output/genomicPredictions_ModelADE_NRCRI_2020April27.rds
-    Untracked:  output/genomicPredictions_ModelA_NRCRI_2020April27.rds
-    Untracked:  output/maxNOHAV_byStudy_NRCRI_2020April27.csv
-    Untracked:  output/nrcri_blupsForModelTraining_2020April21.rds
-    Untracked:  output/nrcri_blupsForModelTraining_2020April27.rds
+    Untracked:  output/chr10_DCas20_5440_WA_REFimputed.log
+    Untracked:  output/chr10_DCas20_5440_WA_REFimputed.vcf.gz
+    Untracked:  output/chr10_DCas20_5440_WA_REFimputedAndFiltered.bed
+    Untracked:  output/chr10_DCas20_5440_WA_REFimputedAndFiltered.bim
+    Untracked:  output/chr10_DCas20_5440_WA_REFimputedAndFiltered.fam
+    Untracked:  output/chr10_DCas20_5440_WA_REFimputedAndFiltered.log
+    Untracked:  output/chr10_DCas20_5440_WA_REFimputedAndFiltered.nosex
+    Untracked:  output/chr10_DCas20_5440_WA_REFimputedAndFiltered.raw
+    Untracked:  output/chr10_DCas20_5440_WA_REFimputedAndFiltered.vcf.gz
+    Untracked:  output/chr11_DCas20_5440_WA_REFimputed.log
+    Untracked:  output/chr11_DCas20_5440_WA_REFimputed.vcf.gz
+    Untracked:  output/chr11_DCas20_5440_WA_REFimputedAndFiltered.bed
+    Untracked:  output/chr11_DCas20_5440_WA_REFimputedAndFiltered.bim
+    Untracked:  output/chr11_DCas20_5440_WA_REFimputedAndFiltered.fam
+    Untracked:  output/chr11_DCas20_5440_WA_REFimputedAndFiltered.log
+    Untracked:  output/chr11_DCas20_5440_WA_REFimputedAndFiltered.nosex
+    Untracked:  output/chr11_DCas20_5440_WA_REFimputedAndFiltered.raw
+    Untracked:  output/chr11_DCas20_5440_WA_REFimputedAndFiltered.vcf.gz
+    Untracked:  output/chr12_DCas20_5440_WA_REFimputed.log
+    Untracked:  output/chr12_DCas20_5440_WA_REFimputed.vcf.gz
+    Untracked:  output/chr12_DCas20_5440_WA_REFimputedAndFiltered.bed
+    Untracked:  output/chr12_DCas20_5440_WA_REFimputedAndFiltered.bim
+    Untracked:  output/chr12_DCas20_5440_WA_REFimputedAndFiltered.fam
+    Untracked:  output/chr12_DCas20_5440_WA_REFimputedAndFiltered.log
+    Untracked:  output/chr12_DCas20_5440_WA_REFimputedAndFiltered.nosex
+    Untracked:  output/chr12_DCas20_5440_WA_REFimputedAndFiltered.raw
+    Untracked:  output/chr12_DCas20_5440_WA_REFimputedAndFiltered.vcf.gz
+    Untracked:  output/chr13_DCas20_5440_WA_REFimputed.log
+    Untracked:  output/chr13_DCas20_5440_WA_REFimputed.vcf.gz
+    Untracked:  output/chr13_DCas20_5440_WA_REFimputedAndFiltered.bed
+    Untracked:  output/chr13_DCas20_5440_WA_REFimputedAndFiltered.bim
+    Untracked:  output/chr13_DCas20_5440_WA_REFimputedAndFiltered.fam
+    Untracked:  output/chr13_DCas20_5440_WA_REFimputedAndFiltered.log
+    Untracked:  output/chr13_DCas20_5440_WA_REFimputedAndFiltered.nosex
+    Untracked:  output/chr13_DCas20_5440_WA_REFimputedAndFiltered.raw
+    Untracked:  output/chr13_DCas20_5440_WA_REFimputedAndFiltered.vcf.gz
+    Untracked:  output/chr14_DCas20_5440_WA_REFimputed.log
+    Untracked:  output/chr14_DCas20_5440_WA_REFimputed.vcf.gz
+    Untracked:  output/chr14_DCas20_5440_WA_REFimputedAndFiltered.bed
+    Untracked:  output/chr14_DCas20_5440_WA_REFimputedAndFiltered.bim
+    Untracked:  output/chr14_DCas20_5440_WA_REFimputedAndFiltered.fam
+    Untracked:  output/chr14_DCas20_5440_WA_REFimputedAndFiltered.log
+    Untracked:  output/chr14_DCas20_5440_WA_REFimputedAndFiltered.nosex
+    Untracked:  output/chr14_DCas20_5440_WA_REFimputedAndFiltered.raw
+    Untracked:  output/chr14_DCas20_5440_WA_REFimputedAndFiltered.vcf.gz
+    Untracked:  output/chr15_DCas20_5440_WA_REFimputed.log
+    Untracked:  output/chr15_DCas20_5440_WA_REFimputed.vcf.gz
+    Untracked:  output/chr15_DCas20_5440_WA_REFimputedAndFiltered.bed
+    Untracked:  output/chr15_DCas20_5440_WA_REFimputedAndFiltered.bim
+    Untracked:  output/chr15_DCas20_5440_WA_REFimputedAndFiltered.fam
+    Untracked:  output/chr15_DCas20_5440_WA_REFimputedAndFiltered.log
+    Untracked:  output/chr15_DCas20_5440_WA_REFimputedAndFiltered.nosex
+    Untracked:  output/chr15_DCas20_5440_WA_REFimputedAndFiltered.raw
+    Untracked:  output/chr15_DCas20_5440_WA_REFimputedAndFiltered.vcf.gz
+    Untracked:  output/chr16_DCas20_5440_WA_REFimputed.log
+    Untracked:  output/chr16_DCas20_5440_WA_REFimputed.vcf.gz
+    Untracked:  output/chr16_DCas20_5440_WA_REFimputedAndFiltered.bed
+    Untracked:  output/chr16_DCas20_5440_WA_REFimputedAndFiltered.bim
+    Untracked:  output/chr16_DCas20_5440_WA_REFimputedAndFiltered.fam
+    Untracked:  output/chr16_DCas20_5440_WA_REFimputedAndFiltered.log
+    Untracked:  output/chr16_DCas20_5440_WA_REFimputedAndFiltered.nosex
+    Untracked:  output/chr16_DCas20_5440_WA_REFimputedAndFiltered.raw
+    Untracked:  output/chr16_DCas20_5440_WA_REFimputedAndFiltered.vcf.gz
+    Untracked:  output/chr17_DCas20_5440_WA_REFimputed.log
+    Untracked:  output/chr17_DCas20_5440_WA_REFimputed.vcf.gz
+    Untracked:  output/chr17_DCas20_5440_WA_REFimputedAndFiltered.bed
+    Untracked:  output/chr17_DCas20_5440_WA_REFimputedAndFiltered.bim
+    Untracked:  output/chr17_DCas20_5440_WA_REFimputedAndFiltered.fam
+    Untracked:  output/chr17_DCas20_5440_WA_REFimputedAndFiltered.log
+    Untracked:  output/chr17_DCas20_5440_WA_REFimputedAndFiltered.nosex
+    Untracked:  output/chr17_DCas20_5440_WA_REFimputedAndFiltered.raw
+    Untracked:  output/chr17_DCas20_5440_WA_REFimputedAndFiltered.vcf.gz
+    Untracked:  output/chr18_DCas20_5440_WA_REFimputed.log
+    Untracked:  output/chr18_DCas20_5440_WA_REFimputed.vcf.gz
+    Untracked:  output/chr18_DCas20_5440_WA_REFimputedAndFiltered.bed
+    Untracked:  output/chr18_DCas20_5440_WA_REFimputedAndFiltered.bim
+    Untracked:  output/chr18_DCas20_5440_WA_REFimputedAndFiltered.fam
+    Untracked:  output/chr18_DCas20_5440_WA_REFimputedAndFiltered.log
+    Untracked:  output/chr18_DCas20_5440_WA_REFimputedAndFiltered.nosex
+    Untracked:  output/chr18_DCas20_5440_WA_REFimputedAndFiltered.raw
+    Untracked:  output/chr18_DCas20_5440_WA_REFimputedAndFiltered.vcf.gz
+    Untracked:  output/chr1_DCas20_5440_WA_REFimputed.log
+    Untracked:  output/chr1_DCas20_5440_WA_REFimputed.vcf.gz
+    Untracked:  output/chr1_DCas20_5440_WA_REFimputedAndFiltered.bed
+    Untracked:  output/chr1_DCas20_5440_WA_REFimputedAndFiltered.bim
+    Untracked:  output/chr1_DCas20_5440_WA_REFimputedAndFiltered.fam
+    Untracked:  output/chr1_DCas20_5440_WA_REFimputedAndFiltered.log
+    Untracked:  output/chr1_DCas20_5440_WA_REFimputedAndFiltered.nosex
+    Untracked:  output/chr1_DCas20_5440_WA_REFimputedAndFiltered.raw
+    Untracked:  output/chr1_DCas20_5440_WA_REFimputedAndFiltered.vcf.gz
+    Untracked:  output/chr2_DCas20_5440_WA_REFimputed.log
+    Untracked:  output/chr2_DCas20_5440_WA_REFimputed.vcf.gz
+    Untracked:  output/chr2_DCas20_5440_WA_REFimputedAndFiltered.bed
+    Untracked:  output/chr2_DCas20_5440_WA_REFimputedAndFiltered.bim
+    Untracked:  output/chr2_DCas20_5440_WA_REFimputedAndFiltered.fam
+    Untracked:  output/chr2_DCas20_5440_WA_REFimputedAndFiltered.log
+    Untracked:  output/chr2_DCas20_5440_WA_REFimputedAndFiltered.nosex
+    Untracked:  output/chr2_DCas20_5440_WA_REFimputedAndFiltered.raw
+    Untracked:  output/chr2_DCas20_5440_WA_REFimputedAndFiltered.vcf.gz
+    Untracked:  output/chr3_DCas20_5440_WA_REFimputed.log
+    Untracked:  output/chr3_DCas20_5440_WA_REFimputed.vcf.gz
+    Untracked:  output/chr3_DCas20_5440_WA_REFimputedAndFiltered.bed
+    Untracked:  output/chr3_DCas20_5440_WA_REFimputedAndFiltered.bim
+    Untracked:  output/chr3_DCas20_5440_WA_REFimputedAndFiltered.fam
+    Untracked:  output/chr3_DCas20_5440_WA_REFimputedAndFiltered.log
+    Untracked:  output/chr3_DCas20_5440_WA_REFimputedAndFiltered.nosex
+    Untracked:  output/chr3_DCas20_5440_WA_REFimputedAndFiltered.raw
+    Untracked:  output/chr3_DCas20_5440_WA_REFimputedAndFiltered.vcf.gz
+    Untracked:  output/chr4_DCas20_5440_WA_REFimputed.log
+    Untracked:  output/chr4_DCas20_5440_WA_REFimputed.vcf.gz
+    Untracked:  output/chr4_DCas20_5440_WA_REFimputedAndFiltered.bed
+    Untracked:  output/chr4_DCas20_5440_WA_REFimputedAndFiltered.bim
+    Untracked:  output/chr4_DCas20_5440_WA_REFimputedAndFiltered.fam
+    Untracked:  output/chr4_DCas20_5440_WA_REFimputedAndFiltered.log
+    Untracked:  output/chr4_DCas20_5440_WA_REFimputedAndFiltered.nosex
+    Untracked:  output/chr4_DCas20_5440_WA_REFimputedAndFiltered.raw
+    Untracked:  output/chr4_DCas20_5440_WA_REFimputedAndFiltered.vcf.gz
+    Untracked:  output/chr5_DCas20_5440_WA_REFimputed.log
+    Untracked:  output/chr5_DCas20_5440_WA_REFimputed.vcf.gz
+    Untracked:  output/chr5_DCas20_5440_WA_REFimputedAndFiltered.bed
+    Untracked:  output/chr5_DCas20_5440_WA_REFimputedAndFiltered.bim
+    Untracked:  output/chr5_DCas20_5440_WA_REFimputedAndFiltered.fam
+    Untracked:  output/chr5_DCas20_5440_WA_REFimputedAndFiltered.log
+    Untracked:  output/chr5_DCas20_5440_WA_REFimputedAndFiltered.nosex
+    Untracked:  output/chr5_DCas20_5440_WA_REFimputedAndFiltered.raw
+    Untracked:  output/chr5_DCas20_5440_WA_REFimputedAndFiltered.vcf.gz
+    Untracked:  output/chr6_DCas20_5440_WA_REFimputed.log
+    Untracked:  output/chr6_DCas20_5440_WA_REFimputed.vcf.gz
+    Untracked:  output/chr6_DCas20_5440_WA_REFimputedAndFiltered.bed
+    Untracked:  output/chr6_DCas20_5440_WA_REFimputedAndFiltered.bim
+    Untracked:  output/chr6_DCas20_5440_WA_REFimputedAndFiltered.fam
+    Untracked:  output/chr6_DCas20_5440_WA_REFimputedAndFiltered.log
+    Untracked:  output/chr6_DCas20_5440_WA_REFimputedAndFiltered.nosex
+    Untracked:  output/chr6_DCas20_5440_WA_REFimputedAndFiltered.raw
+    Untracked:  output/chr6_DCas20_5440_WA_REFimputedAndFiltered.vcf.gz
+    Untracked:  output/chr7_DCas20_5440_WA_REFimputed.log
+    Untracked:  output/chr7_DCas20_5440_WA_REFimputed.vcf.gz
+    Untracked:  output/chr7_DCas20_5440_WA_REFimputedAndFiltered.bed
+    Untracked:  output/chr7_DCas20_5440_WA_REFimputedAndFiltered.bim
+    Untracked:  output/chr7_DCas20_5440_WA_REFimputedAndFiltered.fam
+    Untracked:  output/chr7_DCas20_5440_WA_REFimputedAndFiltered.log
+    Untracked:  output/chr7_DCas20_5440_WA_REFimputedAndFiltered.nosex
+    Untracked:  output/chr7_DCas20_5440_WA_REFimputedAndFiltered.raw
+    Untracked:  output/chr7_DCas20_5440_WA_REFimputedAndFiltered.vcf.gz
+    Untracked:  output/chr8_DCas20_5440_WA_REFimputed.log
+    Untracked:  output/chr8_DCas20_5440_WA_REFimputed.vcf.gz
+    Untracked:  output/chr8_DCas20_5440_WA_REFimputedAndFiltered.bed
+    Untracked:  output/chr8_DCas20_5440_WA_REFimputedAndFiltered.bim
+    Untracked:  output/chr8_DCas20_5440_WA_REFimputedAndFiltered.fam
+    Untracked:  output/chr8_DCas20_5440_WA_REFimputedAndFiltered.log
+    Untracked:  output/chr8_DCas20_5440_WA_REFimputedAndFiltered.nosex
+    Untracked:  output/chr8_DCas20_5440_WA_REFimputedAndFiltered.raw
+    Untracked:  output/chr8_DCas20_5440_WA_REFimputedAndFiltered.vcf.gz
+    Untracked:  output/chr9_DCas20_5440_WA_REFimputed.log
+    Untracked:  output/chr9_DCas20_5440_WA_REFimputed.vcf.gz
+    Untracked:  output/chr9_DCas20_5440_WA_REFimputedAndFiltered.bed
+    Untracked:  output/chr9_DCas20_5440_WA_REFimputedAndFiltered.bim
+    Untracked:  output/chr9_DCas20_5440_WA_REFimputedAndFiltered.fam
+    Untracked:  output/chr9_DCas20_5440_WA_REFimputedAndFiltered.log
+    Untracked:  output/chr9_DCas20_5440_WA_REFimputedAndFiltered.nosex
+    Untracked:  output/chr9_DCas20_5440_WA_REFimputedAndFiltered.raw
+    Untracked:  output/chr9_DCas20_5440_WA_REFimputedAndFiltered.vcf.gz
     Untracked:  workflowr_log.R
+
+Unstaged changes:
+    Modified:   analysis/04-CrossValidation.Rmd
+    Modified:   data/NRCRI_CleanedTrialData_2020April21.rds
+    Modified:   data/NRCRI_ExptDesignsDetected_2020April21.rds
+    Modified:   output/NRCRI_CuratedTrials_2020April27.rds
+    Modified:   output/nrcri_blupsForModelTraining_2020April27.rds
 
 </code></pre>
 <p>
@@ -689,7 +942,41 @@ Message
 Rmd
 </td>
 <td>
-8c45991
+<a href="https://github.com/wolfemd/NRCRI_2020GS/blob/94e7f314acc40825631582b277ba8105984caf2d/analysis/05-GetGEBVs.Rmd" target="_blank">94e7f31</a>
+</td>
+<td>
+wolfemd
+</td>
+<td>
+2020-04-28
+</td>
+<td>
+Host with GitHub.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/wolfemd/NRCRI_2020GS/f3f6163b319d8633e807c1c45ed2da79e2d747ed/docs/05-GetGEBVs.html" target="_blank">f3f6163</a>
+</td>
+<td>
+wolfemd
+</td>
+<td>
+2020-04-28
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/wolfemd/NRCRI_2020GS/blob/8c45991c54b45231c2af415bba3e69e8d6d7c28c/analysis/05-GetGEBVs.Rmd" target="_blank">8c45991</a>
 </td>
 <td>
 wolfemd
@@ -859,6 +1146,43 @@ Publish the first set of analyses and files for NRCRI 2020 GS.
 <span id="cb7-23"><a href="#cb7-23"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>Trait, <span class="dt">scales =</span> <span class="st">&#39;free&#39;</span>) <span class="op">+</span><span class="st"> </span></span>
 <span id="cb7-24"><a href="#cb7-24"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;Compare GEBV from A-only model to GEBV from A+D+E model&quot;</span>)</span></code></pre></div>
 <p><img src="figure/05-GetGEBVs.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
+Past versions of unnamed-chunk-6-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-6-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wolfemd/NRCRI_2020GS/blob/f3f6163b319d8633e807c1c45ed2da79e2d747ed/docs/figure/05-GetGEBVs.Rmd/unnamed-chunk-6-1.png" target="_blank">f3f6163</a>
+</td>
+<td>
+wolfemd
+</td>
+<td>
+2020-04-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>predModelADE <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb8-2"><a href="#cb8-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">islgl=</span><span class="kw">map_lgl</span>(genomicPredOut,is.logical)) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb8-3"><a href="#cb8-3"></a><span class="st">  </span><span class="kw">filter</span>(islgl<span class="op">==</span><span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
@@ -878,6 +1202,43 @@ Publish the first set of analyses and files for NRCRI 2020 GS.
 <span id="cb8-17"><a href="#cb8-17"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>Trait, <span class="dt">scales =</span> <span class="st">&#39;free&#39;</span>) <span class="op">+</span></span>
 <span id="cb8-18"><a href="#cb8-18"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;Model: ADE - Compare GEBV to GETGV&quot;</span>)</span></code></pre></div>
 <p><img src="figure/05-GetGEBVs.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
+Past versions of unnamed-chunk-7-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-7-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wolfemd/NRCRI_2020GS/blob/f3f6163b319d8633e807c1c45ed2da79e2d747ed/docs/figure/05-GetGEBVs.Rmd/unnamed-chunk-7-1.png" target="_blank">f3f6163</a>
+</td>
+<td>
+wolfemd
+</td>
+<td>
+2020-04-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="write-gebvs" class="section level2">
 <h2>Write GEBVs</h2>
@@ -895,7 +1256,7 @@ Publish the first set of analyses and files for NRCRI 2020 GS.
 <span id="cb9-12"><a href="#cb9-12"></a>                                           <span class="kw">ifelse</span>(<span class="kw">grepl</span>(<span class="st">&quot;C1b&quot;</span>,GID,</span>
 <span id="cb9-13"><a href="#cb9-13"></a>                                                        <span class="dt">ignore.case =</span> T),<span class="st">&quot;C1b&quot;</span>,<span class="st">&quot;TrainingPop&quot;</span>))))) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb9-14"><a href="#cb9-14"></a><span class="st">  </span><span class="kw">nest</span>(<span class="dt">GEBVs=</span><span class="op">-</span>Dataset) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb9-15"><a href="#cb9-15"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">write=</span><span class="kw">map2</span>(Dataset,GEBVs,<span class="op">~</span><span class="kw">write.csv</span>(<span class="dt">x =</span> .y, <span class="dt">file =</span> here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;output&quot;</span>,<span class="kw">paste0</span>(<span class="st">&quot;GEBV_NRCRI_&quot;</span>,.x,<span class="st">&quot;_ModelA_2020April27.rds&quot;</span>)))))</span></code></pre></div>
+<span id="cb9-15"><a href="#cb9-15"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">write=</span><span class="kw">map2</span>(Dataset,GEBVs,<span class="op">~</span><span class="kw">write.csv</span>(<span class="dt">x =</span> .y, <span class="dt">file =</span> here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;output&quot;</span>,<span class="kw">paste0</span>(<span class="st">&quot;GEBV_NRCRI_&quot;</span>,.x,<span class="st">&quot;_ModelA_2020April27.csv&quot;</span>)))))</span></code></pre></div>
 <pre><code># A tibble: 2 x 3
   Dataset       GEBVs                 write 
   &lt;chr&gt;         &lt;list&gt;                &lt;list&gt;
@@ -918,7 +1279,7 @@ Publish the first set of analyses and files for NRCRI 2020 GS.
 <span id="cb11-15"><a href="#cb11-15"></a>                                           <span class="kw">ifelse</span>(<span class="kw">grepl</span>(<span class="st">&quot;C1b&quot;</span>,GID,</span>
 <span id="cb11-16"><a href="#cb11-16"></a>                                                        <span class="dt">ignore.case =</span> T),<span class="st">&quot;C1b&quot;</span>,<span class="st">&quot;TrainingPop&quot;</span>))))) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb11-17"><a href="#cb11-17"></a><span class="st">  </span><span class="kw">nest</span>(<span class="dt">GEBVs=</span><span class="op">-</span>Dataset) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb11-18"><a href="#cb11-18"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">write=</span><span class="kw">map2</span>(Dataset,GEBVs,<span class="op">~</span><span class="kw">write.csv</span>(<span class="dt">x =</span> .y, <span class="dt">file =</span> here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;output&quot;</span>,<span class="kw">paste0</span>(<span class="st">&quot;GEBV_NRCRI_&quot;</span>,.x,<span class="st">&quot;_ModelADE_2020April27.rds&quot;</span>)))))</span></code></pre></div>
+<span id="cb11-18"><a href="#cb11-18"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">write=</span><span class="kw">map2</span>(Dataset,GEBVs,<span class="op">~</span><span class="kw">write.csv</span>(<span class="dt">x =</span> .y, <span class="dt">file =</span> here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;output&quot;</span>,<span class="kw">paste0</span>(<span class="st">&quot;GEBV_NRCRI_&quot;</span>,.x,<span class="st">&quot;_ModelADE_2020April27.csv&quot;</span>)))))</span></code></pre></div>
 <pre><code># A tibble: 2 x 3
   Dataset       GEBVs                 write 
   &lt;chr&gt;         &lt;list&gt;                &lt;list&gt;
@@ -943,7 +1304,7 @@ Publish the first set of analyses and files for NRCRI 2020 GS.
 <span id="cb13-17"><a href="#cb13-17"></a><span class="st">  </span><span class="kw">nest</span>(<span class="dt">GETGVs=</span><span class="op">-</span>Dataset) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb13-18"><a href="#cb13-18"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">write=</span><span class="kw">map2</span>(Dataset,GETGVs,</span>
 <span id="cb13-19"><a href="#cb13-19"></a>                    <span class="op">~</span><span class="kw">write.csv</span>(<span class="dt">x =</span> .y, </span>
-<span id="cb13-20"><a href="#cb13-20"></a>                               <span class="dt">file =</span> here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;output&quot;</span>,<span class="kw">paste0</span>(<span class="st">&quot;GETGV_NRCRI_&quot;</span>,.x,<span class="st">&quot;_ModelADE_2020April27.rds&quot;</span>)))))</span></code></pre></div>
+<span id="cb13-20"><a href="#cb13-20"></a>                               <span class="dt">file =</span> here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;output&quot;</span>,<span class="kw">paste0</span>(<span class="st">&quot;GETGV_NRCRI_&quot;</span>,.x,<span class="st">&quot;_ModelADE_2020April27.csv&quot;</span>)))))</span></code></pre></div>
 <pre><code># A tibble: 2 x 3
   Dataset       GETGVs                write 
   &lt;chr&gt;         &lt;list&gt;                &lt;list&gt;
@@ -964,13 +1325,13 @@ Publish the first set of analyses and files for NRCRI 2020 GS.
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="kw">sessionInfo</span>()</span></code></pre></div>
-<pre><code>R version 3.6.1 (2019-07-05)
-Platform: x86_64-apple-darwin15.6.0 (64-bit)
+<pre><code>R version 4.0.2 (2020-06-22)
+Platform: x86_64-apple-darwin17.0 (64-bit)
 Running under: macOS Mojave 10.14.6
 
 Matrix products: default
-BLAS:   /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRblas.0.dylib
-LAPACK: /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRlapack.dylib
+BLAS:   /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRlapack.dylib
 
 locale:
 [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
@@ -979,26 +1340,26 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] magrittr_1.5    forcats_0.5.0   stringr_1.4.0   dplyr_0.8.5    
- [5] purrr_0.3.4     readr_1.3.1     tidyr_1.0.2     tibble_3.0.1   
- [9] ggplot2_3.3.0   tidyverse_1.3.0 workflowr_1.6.1
+ [1] magrittr_1.5    forcats_0.5.0   stringr_1.4.0   dplyr_1.0.2    
+ [5] purrr_0.3.4     readr_1.3.1     tidyr_1.1.2     tibble_3.0.3   
+ [9] ggplot2_3.3.2   tidyverse_1.3.0 workflowr_1.6.2
 
 loaded via a namespace (and not attached):
- [1] tidyselect_1.0.0 xfun_0.13        haven_2.2.0      lattice_0.20-41 
- [5] colorspace_1.4-1 vctrs_0.2.4      generics_0.0.2   htmltools_0.4.0 
- [9] yaml_2.2.1       utf8_1.1.4       rlang_0.4.5      later_1.0.0     
-[13] pillar_1.4.3     withr_2.2.0      glue_1.4.0       DBI_1.1.0       
-[17] dbplyr_1.4.3     modelr_0.1.6     readxl_1.3.1     lifecycle_0.2.0 
-[21] munsell_0.5.0    gtable_0.3.0     cellranger_1.1.0 rvest_0.3.5     
-[25] evaluate_0.14    labeling_0.3     knitr_1.28       httpuv_1.5.2    
-[29] fansi_0.4.1      broom_0.5.6      Rcpp_1.0.4.6     promises_1.1.0  
-[33] backports_1.1.6  scales_1.1.0     jsonlite_1.6.1   farver_2.0.3    
-[37] fs_1.4.1         hms_0.5.3        digest_0.6.25    stringi_1.4.6   
-[41] grid_3.6.1       rprojroot_1.3-2  here_0.1         cli_2.0.2       
-[45] tools_3.6.1      crayon_1.3.4     whisker_0.4      pkgconfig_2.0.3 
-[49] ellipsis_0.3.0   xml2_1.3.2       reprex_0.3.0     lubridate_1.7.8 
-[53] rstudioapi_0.11  assertthat_0.2.1 rmarkdown_2.1    httr_1.4.1      
-[57] R6_2.4.1         nlme_3.1-147     git2r_0.26.1     compiler_3.6.1  </code></pre>
+ [1] tidyselect_1.1.0 xfun_0.18        haven_2.3.1      colorspace_1.4-1
+ [5] vctrs_0.3.4      generics_0.0.2   htmltools_0.5.0  yaml_2.2.1      
+ [9] utf8_1.1.4       blob_1.2.1       rlang_0.4.7      later_1.1.0.1   
+[13] pillar_1.4.6     withr_2.3.0      glue_1.4.2       DBI_1.1.0       
+[17] dbplyr_1.4.4     modelr_0.1.8     readxl_1.3.1     lifecycle_0.2.0 
+[21] munsell_0.5.0    gtable_0.3.0     cellranger_1.1.0 rvest_0.3.6     
+[25] evaluate_0.14    labeling_0.3     knitr_1.30       httpuv_1.5.4    
+[29] fansi_0.4.1      broom_0.7.0      Rcpp_1.0.5       promises_1.1.1  
+[33] backports_1.1.10 scales_1.1.1     jsonlite_1.7.1   farver_2.0.3    
+[37] fs_1.5.0         hms_0.5.3        digest_0.6.25    stringi_1.5.3   
+[41] rprojroot_1.3-2  grid_4.0.2       here_0.1         cli_2.0.2       
+[45] tools_4.0.2      crayon_1.3.4     whisker_0.4      pkgconfig_2.0.3 
+[49] ellipsis_0.3.1   xml2_1.3.2       reprex_0.3.0     lubridate_1.7.9 
+[53] rstudioapi_0.11  assertthat_0.2.1 rmarkdown_2.4    httr_1.4.2      
+[57] R6_2.4.1         git2r_0.27.1     compiler_4.0.2  </code></pre>
 </div>
 </div>
 
@@ -1064,7 +1425,7 @@ $(document).ready(function ()  {
       theme: "bootstrap3",
       context: '.toc-content',
       hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
       },
       ignoreSelector: ".toc-ignore",
       scrollTo: 0

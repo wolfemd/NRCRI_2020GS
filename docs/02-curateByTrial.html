@@ -16,7 +16,7 @@
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/darkly.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -24,6 +24,7 @@
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
@@ -34,6 +35,77 @@ div.section {
   padding-top: 12px;
 }
 </style>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+      code.sourceCode > span { display: inline-block; line-height: 1.25; }
+  code.sourceCode > span { color: inherit; text-decoration: inherit; }
+  code.sourceCode > span:empty { height: 1.2em; }
+  .sourceCode { overflow: visible; }
+  code.sourceCode { white-space: pre; position: relative; }
+  div.sourceCode { margin: 1em 0; }
+  pre.sourceCode { margin: 0; }
+  @media screen {
+  div.sourceCode { overflow: auto; }
+  }
+  @media print {
+  code.sourceCode { white-space: pre-wrap; }
+  code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+  }
+  pre.numberSource code
+    { counter-reset: source-line 0; }
+  pre.numberSource code > span
+    { position: relative; left: -4em; counter-increment: source-line; }
+  pre.numberSource code > span > a:first-child::before
+    { content: counter(source-line);
+      position: relative; left: -1em; text-align: right; vertical-align: baseline;
+      border: none; display: inline-block;
+      -webkit-touch-callout: none; -webkit-user-select: none;
+      -khtml-user-select: none; -moz-user-select: none;
+      -ms-user-select: none; user-select: none;
+      padding: 0 4px; width: 4em;
+      color: #aaaaaa;
+    }
+  pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+  div.sourceCode
+    {  background-color: #f8f8f8; }
+  @media screen {
+  code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+  }
+  code span.al { color: #ef2929; } /* Alert */
+  code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+  code span.at { color: #c4a000; } /* Attribute */
+  code span.bn { color: #0000cf; } /* BaseN */
+  code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+  code span.ch { color: #4e9a06; } /* Char */
+  code span.cn { color: #000000; } /* Constant */
+  code span.co { color: #8f5902; font-style: italic; } /* Comment */
+  code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+  code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+  code span.dt { color: #204a87; } /* DataType */
+  code span.dv { color: #0000cf; } /* DecVal */
+  code span.er { color: #a40000; font-weight: bold; } /* Error */
+  code span.ex { } /* Extension */
+  code span.fl { color: #0000cf; } /* Float */
+  code span.fu { color: #000000; } /* Function */
+  code span.im { } /* Import */
+  code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+  code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+  code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+  code span.ot { color: #8f5902; } /* Other */
+  code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+  code span.sc { color: #000000; } /* SpecialChar */
+  code span.ss { color: #4e9a06; } /* SpecialString */
+  code span.st { color: #4e9a06; } /* String */
+  code span.va { color: #000000; } /* Variable */
+  code span.vs { color: #4e9a06; } /* VerbatimString */
+  code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+    </style>
 
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -436,23 +508,59 @@ div.tocify {
         <li>
   <a href="index.html">Synopsis</a>
 </li>
-<li>
-  <a href="01-cleanTPdata.html">Data Cleaning</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    April2020 Predictions
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="01-cleanTPdata.html">Data Cleaning</a>
+    </li>
+    <li>
+      <a href="02-curateByTrial.html">Curate Data</a>
+    </li>
+    <li>
+      <a href="03-GetBLUPs.html">Get BLUPs</a>
+    </li>
+    <li>
+      <a href="04-CrossValidation.html">Check prediction accuracy</a>
+    </li>
+    <li>
+      <a href="05-GetGEBVs.html">Get GEBV for GS C2</a>
+    </li>
+  </ul>
 </li>
-<li>
-  <a href="02-curateByTrial.html">Curate Data</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    October2020 Impute
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="convertDCas20_5440_ToVCF.html">Conversion DArT report DCas20_5440 to VCF</a>
+    </li>
+    <li>
+      <a href="ImputeDCas20_5440.html">Impute DCas20_5440</a>
+    </li>
+  </ul>
 </li>
-<li>
-  <a href="03-GetBLUPs.html">Get BLUPs</a>
-</li>
-<li>
-  <a href="04-CrossValidation.html">Check prediction accuracy</a>
-</li>
-<li>
-  <a href="05-GetGEBVs.html">Get GEBV for GS C2</a>
-</li>
-<li>
-  <a href="license.html">License</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Other
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="about.html">About</a>
+    </li>
+    <li>
+      <a href="license.html">License</a>
+    </li>
+  </ul>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -499,7 +607,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-04-28
+<strong>Last updated:</strong> 2020-10-09
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -509,7 +617,7 @@ div.tocify {
 </p>
 <p>
 This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.1). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -590,16 +698,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrong8c45991"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> 8c45991 </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomwolfemdNRCRI2020GStree63fe5fa2c6ce9b1d611e0b9d6fc88b86c3c4208btargetblank63fe5faa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/wolfemd/NRCRI_2020GS/tree/63fe5fa2c6ce9b1d611e0b9d6fc88b86c3c4208b" target="_blank">63fe5fa</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrong8c45991" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomwolfemdNRCRI2020GStree63fe5fa2c6ce9b1d611e0b9d6fc88b86c3c4208btargetblank63fe5faa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version 8c45991. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/wolfemd/NRCRI_2020GS/tree/63fe5fa2c6ce9b1d611e0b9d6fc88b86c3c4208b" target="_blank">63fe5fa</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -614,38 +722,183 @@ Ignored files:
     Ignored:    output/.DS_Store
 
 Untracked files:
-    Untracked:  NRCRI 2020 GS.gslides
-    Untracked:  data/DatabaseDownload_42120/
-    Untracked:  data/GBSdataMasterList_31818.csv
-    Untracked:  data/IITA_GBStoPhenoMaster_33018.csv
-    Untracked:  data/NRCRI_CleanedTrialData_2020April21.rds
-    Untracked:  data/NRCRI_ExptDesignsDetected_2020April21.rds
-    Untracked:  data/NRCRI_GBStoPhenoMaster_40318.csv
-    Untracked:  data/iita_blupsForCrossVal_72619.rds
-    Untracked:  data/iita_blupsForCrossVal_outliersRemoved_73019.rds
+    Untracked:  CrossValidationFunction_PlusNRCRI_2020GSnotes.gslides
     Untracked:  output/DosageMatrix_NRCRI_SamplesForGP_2020April27.rds
-    Untracked:  output/GEBV_NRCRI_IITAaugmented_ModelADE_2020April27.rds
-    Untracked:  output/GEBV_NRCRI_IITAaugmented_ModelA_2020April27.rds
-    Untracked:  output/GEBV_NRCRI_NRCRIalone_ModelADE_2020April27.rds
-    Untracked:  output/GEBV_NRCRI_NRCRIalone_ModelA_2020April27.rds
-    Untracked:  output/GETGV_NRCRI_IITAaugmented_ModelADE_2020April27.rds
-    Untracked:  output/GETGV_NRCRI_NRCRIalone_ModelADE_2020April27.rds
     Untracked:  output/Kinship_AA_NRCRI_2020April27.rds
     Untracked:  output/Kinship_AD_NRCRI_2020April27.rds
     Untracked:  output/Kinship_A_NRCRI_2020April27.rds
     Untracked:  output/Kinship_DD_NRCRI_2020April27.rds
     Untracked:  output/Kinship_D_NRCRI_2020April27.rds
-    Untracked:  output/NRCRI_CuratedTrials_2020April21.rds
-    Untracked:  output/NRCRI_CuratedTrials_2020April27.rds
-    Untracked:  output/cvresults_AD_nrOnly.rds
-    Untracked:  output/cvresults_A_iitaAugmented.rds
-    Untracked:  output/cvresults_A_nrOnly.rds
-    Untracked:  output/genomicPredictions_ModelADE_NRCRI_2020April27.rds
-    Untracked:  output/genomicPredictions_ModelA_NRCRI_2020April27.rds
-    Untracked:  output/maxNOHAV_byStudy_NRCRI_2020April27.csv
-    Untracked:  output/nrcri_blupsForModelTraining_2020April21.rds
-    Untracked:  output/nrcri_blupsForModelTraining_2020April27.rds
+    Untracked:  output/chr10_DCas20_5440_WA_REFimputed.log
+    Untracked:  output/chr10_DCas20_5440_WA_REFimputed.vcf.gz
+    Untracked:  output/chr10_DCas20_5440_WA_REFimputedAndFiltered.bed
+    Untracked:  output/chr10_DCas20_5440_WA_REFimputedAndFiltered.bim
+    Untracked:  output/chr10_DCas20_5440_WA_REFimputedAndFiltered.fam
+    Untracked:  output/chr10_DCas20_5440_WA_REFimputedAndFiltered.log
+    Untracked:  output/chr10_DCas20_5440_WA_REFimputedAndFiltered.nosex
+    Untracked:  output/chr10_DCas20_5440_WA_REFimputedAndFiltered.raw
+    Untracked:  output/chr10_DCas20_5440_WA_REFimputedAndFiltered.vcf.gz
+    Untracked:  output/chr11_DCas20_5440_WA_REFimputed.log
+    Untracked:  output/chr11_DCas20_5440_WA_REFimputed.vcf.gz
+    Untracked:  output/chr11_DCas20_5440_WA_REFimputedAndFiltered.bed
+    Untracked:  output/chr11_DCas20_5440_WA_REFimputedAndFiltered.bim
+    Untracked:  output/chr11_DCas20_5440_WA_REFimputedAndFiltered.fam
+    Untracked:  output/chr11_DCas20_5440_WA_REFimputedAndFiltered.log
+    Untracked:  output/chr11_DCas20_5440_WA_REFimputedAndFiltered.nosex
+    Untracked:  output/chr11_DCas20_5440_WA_REFimputedAndFiltered.raw
+    Untracked:  output/chr11_DCas20_5440_WA_REFimputedAndFiltered.vcf.gz
+    Untracked:  output/chr12_DCas20_5440_WA_REFimputed.log
+    Untracked:  output/chr12_DCas20_5440_WA_REFimputed.vcf.gz
+    Untracked:  output/chr12_DCas20_5440_WA_REFimputedAndFiltered.bed
+    Untracked:  output/chr12_DCas20_5440_WA_REFimputedAndFiltered.bim
+    Untracked:  output/chr12_DCas20_5440_WA_REFimputedAndFiltered.fam
+    Untracked:  output/chr12_DCas20_5440_WA_REFimputedAndFiltered.log
+    Untracked:  output/chr12_DCas20_5440_WA_REFimputedAndFiltered.nosex
+    Untracked:  output/chr12_DCas20_5440_WA_REFimputedAndFiltered.raw
+    Untracked:  output/chr12_DCas20_5440_WA_REFimputedAndFiltered.vcf.gz
+    Untracked:  output/chr13_DCas20_5440_WA_REFimputed.log
+    Untracked:  output/chr13_DCas20_5440_WA_REFimputed.vcf.gz
+    Untracked:  output/chr13_DCas20_5440_WA_REFimputedAndFiltered.bed
+    Untracked:  output/chr13_DCas20_5440_WA_REFimputedAndFiltered.bim
+    Untracked:  output/chr13_DCas20_5440_WA_REFimputedAndFiltered.fam
+    Untracked:  output/chr13_DCas20_5440_WA_REFimputedAndFiltered.log
+    Untracked:  output/chr13_DCas20_5440_WA_REFimputedAndFiltered.nosex
+    Untracked:  output/chr13_DCas20_5440_WA_REFimputedAndFiltered.raw
+    Untracked:  output/chr13_DCas20_5440_WA_REFimputedAndFiltered.vcf.gz
+    Untracked:  output/chr14_DCas20_5440_WA_REFimputed.log
+    Untracked:  output/chr14_DCas20_5440_WA_REFimputed.vcf.gz
+    Untracked:  output/chr14_DCas20_5440_WA_REFimputedAndFiltered.bed
+    Untracked:  output/chr14_DCas20_5440_WA_REFimputedAndFiltered.bim
+    Untracked:  output/chr14_DCas20_5440_WA_REFimputedAndFiltered.fam
+    Untracked:  output/chr14_DCas20_5440_WA_REFimputedAndFiltered.log
+    Untracked:  output/chr14_DCas20_5440_WA_REFimputedAndFiltered.nosex
+    Untracked:  output/chr14_DCas20_5440_WA_REFimputedAndFiltered.raw
+    Untracked:  output/chr14_DCas20_5440_WA_REFimputedAndFiltered.vcf.gz
+    Untracked:  output/chr15_DCas20_5440_WA_REFimputed.log
+    Untracked:  output/chr15_DCas20_5440_WA_REFimputed.vcf.gz
+    Untracked:  output/chr15_DCas20_5440_WA_REFimputedAndFiltered.bed
+    Untracked:  output/chr15_DCas20_5440_WA_REFimputedAndFiltered.bim
+    Untracked:  output/chr15_DCas20_5440_WA_REFimputedAndFiltered.fam
+    Untracked:  output/chr15_DCas20_5440_WA_REFimputedAndFiltered.log
+    Untracked:  output/chr15_DCas20_5440_WA_REFimputedAndFiltered.nosex
+    Untracked:  output/chr15_DCas20_5440_WA_REFimputedAndFiltered.raw
+    Untracked:  output/chr15_DCas20_5440_WA_REFimputedAndFiltered.vcf.gz
+    Untracked:  output/chr16_DCas20_5440_WA_REFimputed.log
+    Untracked:  output/chr16_DCas20_5440_WA_REFimputed.vcf.gz
+    Untracked:  output/chr16_DCas20_5440_WA_REFimputedAndFiltered.bed
+    Untracked:  output/chr16_DCas20_5440_WA_REFimputedAndFiltered.bim
+    Untracked:  output/chr16_DCas20_5440_WA_REFimputedAndFiltered.fam
+    Untracked:  output/chr16_DCas20_5440_WA_REFimputedAndFiltered.log
+    Untracked:  output/chr16_DCas20_5440_WA_REFimputedAndFiltered.nosex
+    Untracked:  output/chr16_DCas20_5440_WA_REFimputedAndFiltered.raw
+    Untracked:  output/chr16_DCas20_5440_WA_REFimputedAndFiltered.vcf.gz
+    Untracked:  output/chr17_DCas20_5440_WA_REFimputed.log
+    Untracked:  output/chr17_DCas20_5440_WA_REFimputed.vcf.gz
+    Untracked:  output/chr17_DCas20_5440_WA_REFimputedAndFiltered.bed
+    Untracked:  output/chr17_DCas20_5440_WA_REFimputedAndFiltered.bim
+    Untracked:  output/chr17_DCas20_5440_WA_REFimputedAndFiltered.fam
+    Untracked:  output/chr17_DCas20_5440_WA_REFimputedAndFiltered.log
+    Untracked:  output/chr17_DCas20_5440_WA_REFimputedAndFiltered.nosex
+    Untracked:  output/chr17_DCas20_5440_WA_REFimputedAndFiltered.raw
+    Untracked:  output/chr17_DCas20_5440_WA_REFimputedAndFiltered.vcf.gz
+    Untracked:  output/chr18_DCas20_5440_WA_REFimputed.log
+    Untracked:  output/chr18_DCas20_5440_WA_REFimputed.vcf.gz
+    Untracked:  output/chr18_DCas20_5440_WA_REFimputedAndFiltered.bed
+    Untracked:  output/chr18_DCas20_5440_WA_REFimputedAndFiltered.bim
+    Untracked:  output/chr18_DCas20_5440_WA_REFimputedAndFiltered.fam
+    Untracked:  output/chr18_DCas20_5440_WA_REFimputedAndFiltered.log
+    Untracked:  output/chr18_DCas20_5440_WA_REFimputedAndFiltered.nosex
+    Untracked:  output/chr18_DCas20_5440_WA_REFimputedAndFiltered.raw
+    Untracked:  output/chr18_DCas20_5440_WA_REFimputedAndFiltered.vcf.gz
+    Untracked:  output/chr1_DCas20_5440_WA_REFimputed.log
+    Untracked:  output/chr1_DCas20_5440_WA_REFimputed.vcf.gz
+    Untracked:  output/chr1_DCas20_5440_WA_REFimputedAndFiltered.bed
+    Untracked:  output/chr1_DCas20_5440_WA_REFimputedAndFiltered.bim
+    Untracked:  output/chr1_DCas20_5440_WA_REFimputedAndFiltered.fam
+    Untracked:  output/chr1_DCas20_5440_WA_REFimputedAndFiltered.log
+    Untracked:  output/chr1_DCas20_5440_WA_REFimputedAndFiltered.nosex
+    Untracked:  output/chr1_DCas20_5440_WA_REFimputedAndFiltered.raw
+    Untracked:  output/chr1_DCas20_5440_WA_REFimputedAndFiltered.vcf.gz
+    Untracked:  output/chr2_DCas20_5440_WA_REFimputed.log
+    Untracked:  output/chr2_DCas20_5440_WA_REFimputed.vcf.gz
+    Untracked:  output/chr2_DCas20_5440_WA_REFimputedAndFiltered.bed
+    Untracked:  output/chr2_DCas20_5440_WA_REFimputedAndFiltered.bim
+    Untracked:  output/chr2_DCas20_5440_WA_REFimputedAndFiltered.fam
+    Untracked:  output/chr2_DCas20_5440_WA_REFimputedAndFiltered.log
+    Untracked:  output/chr2_DCas20_5440_WA_REFimputedAndFiltered.nosex
+    Untracked:  output/chr2_DCas20_5440_WA_REFimputedAndFiltered.raw
+    Untracked:  output/chr2_DCas20_5440_WA_REFimputedAndFiltered.vcf.gz
+    Untracked:  output/chr3_DCas20_5440_WA_REFimputed.log
+    Untracked:  output/chr3_DCas20_5440_WA_REFimputed.vcf.gz
+    Untracked:  output/chr3_DCas20_5440_WA_REFimputedAndFiltered.bed
+    Untracked:  output/chr3_DCas20_5440_WA_REFimputedAndFiltered.bim
+    Untracked:  output/chr3_DCas20_5440_WA_REFimputedAndFiltered.fam
+    Untracked:  output/chr3_DCas20_5440_WA_REFimputedAndFiltered.log
+    Untracked:  output/chr3_DCas20_5440_WA_REFimputedAndFiltered.nosex
+    Untracked:  output/chr3_DCas20_5440_WA_REFimputedAndFiltered.raw
+    Untracked:  output/chr3_DCas20_5440_WA_REFimputedAndFiltered.vcf.gz
+    Untracked:  output/chr4_DCas20_5440_WA_REFimputed.log
+    Untracked:  output/chr4_DCas20_5440_WA_REFimputed.vcf.gz
+    Untracked:  output/chr4_DCas20_5440_WA_REFimputedAndFiltered.bed
+    Untracked:  output/chr4_DCas20_5440_WA_REFimputedAndFiltered.bim
+    Untracked:  output/chr4_DCas20_5440_WA_REFimputedAndFiltered.fam
+    Untracked:  output/chr4_DCas20_5440_WA_REFimputedAndFiltered.log
+    Untracked:  output/chr4_DCas20_5440_WA_REFimputedAndFiltered.nosex
+    Untracked:  output/chr4_DCas20_5440_WA_REFimputedAndFiltered.raw
+    Untracked:  output/chr4_DCas20_5440_WA_REFimputedAndFiltered.vcf.gz
+    Untracked:  output/chr5_DCas20_5440_WA_REFimputed.log
+    Untracked:  output/chr5_DCas20_5440_WA_REFimputed.vcf.gz
+    Untracked:  output/chr5_DCas20_5440_WA_REFimputedAndFiltered.bed
+    Untracked:  output/chr5_DCas20_5440_WA_REFimputedAndFiltered.bim
+    Untracked:  output/chr5_DCas20_5440_WA_REFimputedAndFiltered.fam
+    Untracked:  output/chr5_DCas20_5440_WA_REFimputedAndFiltered.log
+    Untracked:  output/chr5_DCas20_5440_WA_REFimputedAndFiltered.nosex
+    Untracked:  output/chr5_DCas20_5440_WA_REFimputedAndFiltered.raw
+    Untracked:  output/chr5_DCas20_5440_WA_REFimputedAndFiltered.vcf.gz
+    Untracked:  output/chr6_DCas20_5440_WA_REFimputed.log
+    Untracked:  output/chr6_DCas20_5440_WA_REFimputed.vcf.gz
+    Untracked:  output/chr6_DCas20_5440_WA_REFimputedAndFiltered.bed
+    Untracked:  output/chr6_DCas20_5440_WA_REFimputedAndFiltered.bim
+    Untracked:  output/chr6_DCas20_5440_WA_REFimputedAndFiltered.fam
+    Untracked:  output/chr6_DCas20_5440_WA_REFimputedAndFiltered.log
+    Untracked:  output/chr6_DCas20_5440_WA_REFimputedAndFiltered.nosex
+    Untracked:  output/chr6_DCas20_5440_WA_REFimputedAndFiltered.raw
+    Untracked:  output/chr6_DCas20_5440_WA_REFimputedAndFiltered.vcf.gz
+    Untracked:  output/chr7_DCas20_5440_WA_REFimputed.log
+    Untracked:  output/chr7_DCas20_5440_WA_REFimputed.vcf.gz
+    Untracked:  output/chr7_DCas20_5440_WA_REFimputedAndFiltered.bed
+    Untracked:  output/chr7_DCas20_5440_WA_REFimputedAndFiltered.bim
+    Untracked:  output/chr7_DCas20_5440_WA_REFimputedAndFiltered.fam
+    Untracked:  output/chr7_DCas20_5440_WA_REFimputedAndFiltered.log
+    Untracked:  output/chr7_DCas20_5440_WA_REFimputedAndFiltered.nosex
+    Untracked:  output/chr7_DCas20_5440_WA_REFimputedAndFiltered.raw
+    Untracked:  output/chr7_DCas20_5440_WA_REFimputedAndFiltered.vcf.gz
+    Untracked:  output/chr8_DCas20_5440_WA_REFimputed.log
+    Untracked:  output/chr8_DCas20_5440_WA_REFimputed.vcf.gz
+    Untracked:  output/chr8_DCas20_5440_WA_REFimputedAndFiltered.bed
+    Untracked:  output/chr8_DCas20_5440_WA_REFimputedAndFiltered.bim
+    Untracked:  output/chr8_DCas20_5440_WA_REFimputedAndFiltered.fam
+    Untracked:  output/chr8_DCas20_5440_WA_REFimputedAndFiltered.log
+    Untracked:  output/chr8_DCas20_5440_WA_REFimputedAndFiltered.nosex
+    Untracked:  output/chr8_DCas20_5440_WA_REFimputedAndFiltered.raw
+    Untracked:  output/chr8_DCas20_5440_WA_REFimputedAndFiltered.vcf.gz
+    Untracked:  output/chr9_DCas20_5440_WA_REFimputed.log
+    Untracked:  output/chr9_DCas20_5440_WA_REFimputed.vcf.gz
+    Untracked:  output/chr9_DCas20_5440_WA_REFimputedAndFiltered.bed
+    Untracked:  output/chr9_DCas20_5440_WA_REFimputedAndFiltered.bim
+    Untracked:  output/chr9_DCas20_5440_WA_REFimputedAndFiltered.fam
+    Untracked:  output/chr9_DCas20_5440_WA_REFimputedAndFiltered.log
+    Untracked:  output/chr9_DCas20_5440_WA_REFimputedAndFiltered.nosex
+    Untracked:  output/chr9_DCas20_5440_WA_REFimputedAndFiltered.raw
+    Untracked:  output/chr9_DCas20_5440_WA_REFimputedAndFiltered.vcf.gz
     Untracked:  workflowr_log.R
+
+Unstaged changes:
+    Modified:   analysis/04-CrossValidation.Rmd
+    Modified:   data/NRCRI_CleanedTrialData_2020April21.rds
+    Modified:   data/NRCRI_ExptDesignsDetected_2020April21.rds
+    Modified:   output/NRCRI_CuratedTrials_2020April27.rds
+    Modified:   output/nrcri_blupsForModelTraining_2020April27.rds
 
 </code></pre>
 <p>
@@ -689,7 +942,58 @@ Message
 Rmd
 </td>
 <td>
-8c45991
+<a href="https://github.com/wolfemd/NRCRI_2020GS/blob/8506715579aef8c81990340206998d027cf7aeb2/analysis/02-curateByTrial.Rmd" target="_blank">8506715</a>
+</td>
+<td>
+wolfemd
+</td>
+<td>
+2020-10-08
+</td>
+<td>
+Changes remaining uncommited since “final” anlaysis in April/May.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/wolfemd/NRCRI_2020GS/blob/4fee5488fdab09046a3f607cc8b0578a7768f822/analysis/02-curateByTrial.Rmd" target="_blank">4fee548</a>
+</td>
+<td>
+wolfemd
+</td>
+<td>
+2020-05-04
+</td>
+<td>
+Add R script with all functions to code/
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/wolfemd/NRCRI_2020GS/f3f6163b319d8633e807c1c45ed2da79e2d747ed/docs/02-curateByTrial.html" target="_blank">f3f6163</a>
+</td>
+<td>
+wolfemd
+</td>
+<td>
+2020-04-28
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/wolfemd/NRCRI_2020GS/blob/8c45991c54b45231c2af415bba3e69e8d6d7c28c/analysis/02-curateByTrial.Rmd" target="_blank">8c45991</a>
 </td>
 <td>
 wolfemd
@@ -719,21 +1023,43 @@ Publish the first set of analyses and files for NRCRI 2020 GS.
 <p>Start with cleaned data from previous step.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">rm</span>(<span class="dt">list=</span><span class="kw">ls</span>())</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="kw">library</span>(tidyverse); <span class="kw">library</span>(magrittr);</span>
-<span id="cb1-3"><a href="#cb1-3"></a>dbdata&lt;-<span class="kw">readRDS</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>,<span class="st">&quot;NRCRI_CleanedTrialData_2020April21.rds&quot;</span>))</span></code></pre></div>
+<span id="cb1-3"><a href="#cb1-3"></a>dbdata&lt;-<span class="kw">readRDS</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>,<span class="st">&quot;NRCRI_CleanedTrialData_2020April21.rds&quot;</span>))</span>
+<span id="cb1-4"><a href="#cb1-4"></a>dbdata</span></code></pre></div>
+<pre><code># A tibble: 32,478 x 37
+   studyYear programName locationName studyName studyDesign plotWidth plotLength
+       &lt;int&gt; &lt;chr&gt;       &lt;chr&gt;        &lt;chr&gt;     &lt;chr&gt;           &lt;dbl&gt;      &lt;dbl&gt;
+ 1      2012 NRCRI       Umudike      12CET500… Alpha               1          5
+ 2      2012 NRCRI       Umudike      12CET500… Alpha               1          5
+ 3      2012 NRCRI       Umudike      12CET500… Alpha               1          5
+ 4      2012 NRCRI       Umudike      12CET500… Alpha               1          5
+ 5      2012 NRCRI       Umudike      12CET500… Alpha               1          5
+ 6      2012 NRCRI       Umudike      12CET500… Alpha               1          5
+ 7      2012 NRCRI       Umudike      12CET500… Alpha               1          5
+ 8      2012 NRCRI       Umudike      12CET500… Alpha               1          5
+ 9      2012 NRCRI       Umudike      12CET500… Alpha               1          5
+10      2012 NRCRI       Umudike      12CET500… Alpha               1          5
+# … with 32,468 more rows, and 30 more variables: fieldSize &lt;dbl&gt;,
+#   plantingDate &lt;chr&gt;, harvestDate &lt;chr&gt;, germplasmName &lt;chr&gt;,
+#   replicate &lt;int&gt;, blockNumber &lt;int&gt;, plotNumber &lt;int&gt;, rowNumber &lt;lgl&gt;,
+#   colNumber &lt;int&gt;, entryType &lt;chr&gt;, TrialType &lt;chr&gt;, CGM &lt;lgl&gt;, CGMS1 &lt;dbl&gt;,
+#   CGMS2 &lt;dbl&gt;, DM &lt;dbl&gt;, PLTHT &lt;dbl&gt;, BRNHT1 &lt;dbl&gt;, NOHAV &lt;dbl&gt;, HI &lt;dbl&gt;,
+#   PlotSpacing &lt;dbl&gt;, MaxNOHAV &lt;dbl&gt;, logFYLD &lt;dbl&gt;, logTOPYLD &lt;dbl&gt;,
+#   logRTNO &lt;dbl&gt;, PropNOHAV &lt;dbl&gt;, MCMDS &lt;dbl&gt;, OrigKeyFile &lt;chr&gt;,
+#   OriginOfSample &lt;chr&gt;, FullSampleName &lt;chr&gt;, GID &lt;chr&gt;</code></pre>
 <p>All downstream analyses in this step will by on a per-trial (location-year-studyName combination).</p>
 <p>This function converts a data.frame where each row is a <strong>plot</strong> to one where each row is a <strong>trial</strong>, with a list-type column <strong>TrialData</strong> containing the corresponding trial’s plot-data.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>nestByTrials&lt;-<span class="cf">function</span>(indata){ </span>
-<span id="cb2-2"><a href="#cb2-2"></a>  nested_indata&lt;-indata <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="st">    </span><span class="co"># Create some explicitly nested variables including loc and year to nest with the trial data</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="st">        </span><span class="kw">mutate</span>(<span class="dt">yearInLoc=</span><span class="kw">paste0</span>(programName,<span class="st">&quot;_&quot;</span>,locationName,<span class="st">&quot;_&quot;</span>,studyYear),</span>
-<span id="cb2-5"><a href="#cb2-5"></a>               <span class="dt">trialInLocYr=</span><span class="kw">paste0</span>(yearInLoc,<span class="st">&quot;_&quot;</span>,studyName),</span>
-<span id="cb2-6"><a href="#cb2-6"></a>               <span class="dt">repInTrial=</span><span class="kw">paste0</span>(trialInLocYr,<span class="st">&quot;_&quot;</span>,replicate),</span>
-<span id="cb2-7"><a href="#cb2-7"></a>               <span class="dt">blockInRep=</span><span class="kw">paste0</span>(repInTrial,<span class="st">&quot;_&quot;</span>,blockNumber)) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb2-8"><a href="#cb2-8"></a><span class="st">    </span><span class="kw">nest</span>(<span class="dt">TrialData=</span><span class="op">-</span><span class="kw">c</span>(programName,locationName,studyYear,TrialType,studyName))</span>
-<span id="cb2-9"><a href="#cb2-9"></a>  <span class="kw">return</span>(nested_indata) </span>
-<span id="cb2-10"><a href="#cb2-10"></a>}</span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>dbdata&lt;-<span class="kw">nestByTrials</span>(dbdata)</span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>dbdata <span class="op">%&gt;%</span><span class="st"> </span>head</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>nestByTrials&lt;-<span class="cf">function</span>(indata){ </span>
+<span id="cb3-2"><a href="#cb3-2"></a>  nested_indata&lt;-indata <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="st">    </span><span class="co"># Create some explicitly nested variables including loc and year to nest with the trial data</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="st">        </span><span class="kw">mutate</span>(<span class="dt">yearInLoc=</span><span class="kw">paste0</span>(programName,<span class="st">&quot;_&quot;</span>,locationName,<span class="st">&quot;_&quot;</span>,studyYear),</span>
+<span id="cb3-5"><a href="#cb3-5"></a>               <span class="dt">trialInLocYr=</span><span class="kw">paste0</span>(yearInLoc,<span class="st">&quot;_&quot;</span>,studyName),</span>
+<span id="cb3-6"><a href="#cb3-6"></a>               <span class="dt">repInTrial=</span><span class="kw">paste0</span>(trialInLocYr,<span class="st">&quot;_&quot;</span>,replicate),</span>
+<span id="cb3-7"><a href="#cb3-7"></a>               <span class="dt">blockInRep=</span><span class="kw">paste0</span>(repInTrial,<span class="st">&quot;_&quot;</span>,blockNumber)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="st">    </span><span class="kw">nest</span>(<span class="dt">TrialData=</span><span class="op">-</span><span class="kw">c</span>(programName,locationName,studyYear,TrialType,studyName))</span>
+<span id="cb3-9"><a href="#cb3-9"></a>  <span class="kw">return</span>(nested_indata) </span>
+<span id="cb3-10"><a href="#cb3-10"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>dbdata&lt;-<span class="kw">nestByTrials</span>(dbdata)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>dbdata <span class="op">%&gt;%</span><span class="st"> </span>head</span></code></pre></div>
 <pre><code># A tibble: 6 x 6
   studyYear programName locationName studyName       TrialType TrialData        
       &lt;int&gt; &lt;chr&gt;       &lt;chr&gt;        &lt;chr&gt;           &lt;chr&gt;     &lt;list&gt;           
@@ -743,7 +1069,7 @@ Publish the first set of analyses and files for NRCRI 2020 GS.
 4      2013 NRCRI       Umudike      13CET518TP1umu  TP1       &lt;tibble [1,554 ×…
 5      2013 NRCRI       Kano         13TP1CET518kano TP1       &lt;tibble [1,554 ×…
 6      2015 NRCRI       Kano         14CETtp2set2ka… TP2       &lt;tibble [250 × 3…</code></pre>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>dbdata<span class="op">$</span>TrialData[[<span class="dv">1</span>]] <span class="op">%&gt;%</span><span class="st"> </span>head</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>dbdata<span class="op">$</span>TrialData[[<span class="dv">1</span>]] <span class="op">%&gt;%</span><span class="st"> </span>head</span></code></pre></div>
 <pre><code># A tibble: 6 x 36
   studyDesign plotWidth plotLength fieldSize plantingDate harvestDate
   &lt;chr&gt;           &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;      
@@ -773,64 +1099,82 @@ Publish the first set of analyses and files for NRCRI 2020 GS.
 </ul>
 <p>One reason it might be important to get this right is that the variance among complete blocks might not be the same among incomplete blocks. If we treat a mixture of complete and incomplete blocks as part of the same random-effect (replicated-within-trial), we assume they have the same variance.</p>
 <p>Also error variances might be heterogeneous among different trial-types (blocking scheme available) <em>and/or</em> plot sizes (maxNOHAV).</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>detectExptDesigns&lt;-<span class="cf">function</span>(nestedDBdata){</span>
-<span id="cb8-2"><a href="#cb8-2"></a>    <span class="co"># Define complete blocks</span></span>
-<span id="cb8-3"><a href="#cb8-3"></a>  nestedDBdata <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb8-4"><a href="#cb8-4"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">Nobs=</span><span class="kw">map_dbl</span>(TrialData,<span class="op">~</span><span class="kw">nrow</span>(.)),</span>
-<span id="cb8-5"><a href="#cb8-5"></a>           <span class="dt">MaxNOHAV=</span><span class="kw">map_dbl</span>(TrialData,<span class="op">~</span><span class="kw">unique</span>(.<span class="op">$</span>MaxNOHAV)),</span>
-<span id="cb8-6"><a href="#cb8-6"></a>           <span class="dt">Nrep=</span><span class="kw">map_dbl</span>(TrialData,<span class="op">~</span><span class="kw">length</span>(<span class="kw">unique</span>(.<span class="op">$</span>replicate))),</span>
-<span id="cb8-7"><a href="#cb8-7"></a>           <span class="dt">Nblock=</span><span class="kw">map_dbl</span>(TrialData,<span class="op">~</span><span class="kw">length</span>(<span class="kw">unique</span>(.<span class="op">$</span>blockInRep))),</span>
-<span id="cb8-8"><a href="#cb8-8"></a>           <span class="dt">Nclone=</span><span class="kw">map_dbl</span>(TrialData,<span class="op">~</span><span class="kw">length</span>(<span class="kw">unique</span>(.<span class="op">$</span>germplasmName))),</span>
-<span id="cb8-9"><a href="#cb8-9"></a>           <span class="co"># median number of obs per clone</span></span>
-<span id="cb8-10"><a href="#cb8-10"></a>           <span class="dt">medObsPerClone=</span><span class="kw">map_dbl</span>(TrialData,<span class="op">~</span><span class="kw">count</span>(.,germplasmName) <span class="op">%$%</span><span class="st"> </span><span class="kw">round</span>(<span class="kw">median</span>(n),<span class="dv">1</span>)), </span>
-<span id="cb8-11"><a href="#cb8-11"></a>           <span class="co"># median number of obs per replicate</span></span>
-<span id="cb8-12"><a href="#cb8-12"></a>           <span class="dt">medObsPerRep=</span><span class="kw">map_dbl</span>(TrialData,<span class="op">~</span><span class="kw">count</span>(.,replicate) <span class="op">%$%</span><span class="st"> </span><span class="kw">round</span>(<span class="kw">median</span>(n),<span class="dv">1</span>)), </span>
-<span id="cb8-13"><a href="#cb8-13"></a>           <span class="co"># Define complete block effects based on the &quot;replicate&quot; variable</span></span>
-<span id="cb8-14"><a href="#cb8-14"></a>           <span class="dt">CompleteBlocks=</span><span class="kw">ifelse</span>(Nrep<span class="op">&gt;</span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>medObsPerClone<span class="op">==</span>Nrep <span class="op">&amp;</span><span class="st"> </span>Nobs<span class="op">!=</span>Nrep,<span class="ot">TRUE</span>,<span class="ot">FALSE</span>), </span>
-<span id="cb8-15"><a href="#cb8-15"></a>           <span class="co"># Additional trials with imperfect complete blocks</span></span>
-<span id="cb8-16"><a href="#cb8-16"></a>           <span class="dt">CompleteBlocks=</span><span class="kw">ifelse</span>(Nrep<span class="op">&gt;</span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>medObsPerClone<span class="op">!=</span>Nrep <span class="op">&amp;</span><span class="st"> </span>medObsPerClone<span class="op">&gt;</span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>Nobs<span class="op">!=</span>Nrep,<span class="ot">TRUE</span>,CompleteBlocks)) -&gt;<span class="st"> </span>x </span>
-<span id="cb8-17"><a href="#cb8-17"></a>  x <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb8-18"><a href="#cb8-18"></a><span class="st">    </span><span class="co"># Some complete blocks may only be represented by the &quot;blockNumber&quot; column</span></span>
-<span id="cb8-19"><a href="#cb8-19"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">medBlocksPerClone=</span><span class="kw">map_dbl</span>(TrialData,<span class="op">~</span><span class="kw">select</span>(.,blockInRep,germplasmName) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb8-20"><a href="#cb8-20"></a><span class="st">                                       </span><span class="co"># median number of blockInRep per clone</span></span>
-<span id="cb8-21"><a href="#cb8-21"></a><span class="st">                                       </span>distinct <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb8-22"><a href="#cb8-22"></a><span class="st">                                       </span><span class="kw">count</span>(germplasmName) <span class="op">%$%</span><span class="st"> </span></span>
-<span id="cb8-23"><a href="#cb8-23"></a><span class="st">                                       </span><span class="kw">round</span>(<span class="kw">median</span>(n))),</span>
-<span id="cb8-24"><a href="#cb8-24"></a>           <span class="co"># If CompleteBlocks==FALSE (complete blocks not detected based on replicate)</span></span>
-<span id="cb8-25"><a href="#cb8-25"></a>           <span class="co"># and if more than half the clones are represented in more than one block based on the blockInRep variable</span></span>
-<span id="cb8-26"><a href="#cb8-26"></a>           <span class="co"># Copy the blockInRep values into the repInTrial column</span></span>
-<span id="cb8-27"><a href="#cb8-27"></a>           <span class="co"># Recompute Nrep</span></span>
-<span id="cb8-28"><a href="#cb8-28"></a>           <span class="co"># and declare CompleteBlocks==TRUE</span></span>
-<span id="cb8-29"><a href="#cb8-29"></a>           <span class="dt">TrialData=</span><span class="kw">ifelse</span>(medBlocksPerClone<span class="op">&gt;</span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>CompleteBlocks<span class="op">==</span><span class="ot">FALSE</span>,<span class="kw">map</span>(TrialData,<span class="op">~</span><span class="kw">mutate</span>(.,<span class="dt">repInTrial=</span>blockInRep)),TrialData),  </span>
-<span id="cb8-30"><a href="#cb8-30"></a>           <span class="dt">Nrep=</span><span class="kw">map_dbl</span>(TrialData,<span class="op">~</span><span class="kw">length</span>(<span class="kw">unique</span>(.<span class="op">$</span>repInTrial))),</span>
-<span id="cb8-31"><a href="#cb8-31"></a>           <span class="dt">CompleteBlocks=</span><span class="kw">ifelse</span>(medBlocksPerClone<span class="op">&gt;</span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>CompleteBlocks<span class="op">==</span><span class="ot">FALSE</span>,<span class="ot">TRUE</span>,CompleteBlocks)) -&gt;<span class="st"> </span>y</span>
-<span id="cb8-32"><a href="#cb8-32"></a>  <span class="co"># Define incomplete blocks</span></span>
-<span id="cb8-33"><a href="#cb8-33"></a>  y <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb8-34"><a href="#cb8-34"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">repsEqualBlocks=</span><span class="kw">map_lgl</span>(TrialData,<span class="op">~</span><span class="kw">all</span>(.<span class="op">$</span>replicate<span class="op">==</span>.<span class="op">$</span>blockNumber)),  </span>
-<span id="cb8-35"><a href="#cb8-35"></a>           <span class="dt">NrepEqualNblock=</span><span class="kw">ifelse</span>(Nrep<span class="op">==</span>Nblock,<span class="ot">TRUE</span>,<span class="ot">FALSE</span>),</span>
-<span id="cb8-36"><a href="#cb8-36"></a>           <span class="dt">medObsPerBlockInRep=</span><span class="kw">map_dbl</span>(TrialData,<span class="op">~</span><span class="kw">count</span>(.,blockInRep) <span class="op">%$%</span><span class="st"> </span><span class="kw">round</span>(<span class="kw">median</span>(n),<span class="dv">1</span>))) -&gt;<span class="st"> </span>z</span>
-<span id="cb8-37"><a href="#cb8-37"></a>  <span class="co"># Define complete blocked trials with nested sub-blocks</span></span>
-<span id="cb8-38"><a href="#cb8-38"></a>  z <span class="op">%&lt;&gt;%</span></span>
-<span id="cb8-39"><a href="#cb8-39"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">IncompleteBlocks=</span><span class="kw">ifelse</span>(CompleteBlocks<span class="op">==</span><span class="ot">TRUE</span> <span class="op">&amp;</span><span class="st"> </span>Nobs<span class="op">!=</span>Nblock <span class="op">&amp;</span><span class="st"> </span>Nblock<span class="op">&gt;</span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>medObsPerBlockInRep<span class="op">&gt;</span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>NrepEqualNblock<span class="op">==</span><span class="ot">FALSE</span>,<span class="ot">TRUE</span>,<span class="ot">FALSE</span>))</span>
-<span id="cb8-40"><a href="#cb8-40"></a>  <span class="co"># Define clearly unreplicated (CompleteBlocks==FALSE &amp; Nrep==1) trials with nested sub-blocks</span></span>
-<span id="cb8-41"><a href="#cb8-41"></a>  z <span class="op">%&lt;&gt;%</span><span class="st"> </span></span>
-<span id="cb8-42"><a href="#cb8-42"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">IncompleteBlocks=</span><span class="kw">ifelse</span>(CompleteBlocks<span class="op">==</span><span class="ot">FALSE</span> <span class="op">&amp;</span><span class="st"> </span>Nobs<span class="op">!=</span>Nblock <span class="op">&amp;</span><span class="st"> </span>Nblock<span class="op">&gt;</span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>medObsPerBlockInRep<span class="op">&gt;</span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>Nrep<span class="op">==</span><span class="dv">1</span>,<span class="ot">TRUE</span>,IncompleteBlocks))</span>
-<span id="cb8-43"><a href="#cb8-43"></a>  <span class="co"># Define additional trials with incomplete blocks (blockInRep) where CompleteBlocks==FALSE but Nrep&gt;1 and Nrep==Block</span></span>
-<span id="cb8-44"><a href="#cb8-44"></a>  z <span class="op">%&lt;&gt;%</span><span class="st"> </span></span>
-<span id="cb8-45"><a href="#cb8-45"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">IncompleteBlocks=</span><span class="kw">ifelse</span>(CompleteBlocks<span class="op">==</span><span class="ot">FALSE</span> <span class="op">&amp;</span><span class="st"> </span>IncompleteBlocks<span class="op">==</span><span class="ot">FALSE</span> <span class="op">&amp;</span><span class="st"> </span></span>
-<span id="cb8-46"><a href="#cb8-46"></a><span class="st">                                     </span>Nobs<span class="op">!=</span>Nblock <span class="op">&amp;</span><span class="st"> </span>Nblock<span class="op">&gt;</span><span class="dv">1</span> <span class="op">&amp;</span><span class="st">  </span>Nobs<span class="op">!=</span>Nrep <span class="op">&amp;</span><span class="st"> </span></span>
-<span id="cb8-47"><a href="#cb8-47"></a><span class="st">                                     </span>medObsPerBlockInRep<span class="op">&gt;</span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>Nrep<span class="op">&gt;</span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>NrepEqualNblock<span class="op">==</span><span class="ot">TRUE</span>,<span class="ot">TRUE</span>,IncompleteBlocks))</span>
-<span id="cb8-48"><a href="#cb8-48"></a>  <span class="co"># Last few cases (2 trials actually) where Nrep&gt;1 and Nblock&gt;1 and Nrep!=Nblock but CompleteBlocks==FALSE</span></span>
-<span id="cb8-49"><a href="#cb8-49"></a>  z <span class="op">%&lt;&gt;%</span><span class="st"> </span></span>
-<span id="cb8-50"><a href="#cb8-50"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">IncompleteBlocks=</span><span class="kw">ifelse</span>(CompleteBlocks<span class="op">==</span><span class="ot">FALSE</span> <span class="op">&amp;</span><span class="st"> </span>IncompleteBlocks<span class="op">==</span><span class="ot">FALSE</span> <span class="op">&amp;</span></span>
-<span id="cb8-51"><a href="#cb8-51"></a><span class="st">                                     </span>Nobs<span class="op">!=</span>Nblock <span class="op">&amp;</span><span class="st"> </span>Nobs<span class="op">!=</span>Nrep <span class="op">&amp;</span><span class="st"> </span></span>
-<span id="cb8-52"><a href="#cb8-52"></a><span class="st">                                     </span>medObsPerBlockInRep<span class="op">&gt;</span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>Nrep<span class="op">&gt;</span><span class="dv">1</span>,<span class="ot">TRUE</span>,IncompleteBlocks))</span>
-<span id="cb8-53"><a href="#cb8-53"></a>  <span class="kw">return</span>(z)</span>
-<span id="cb8-54"><a href="#cb8-54"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>detectExptDesigns&lt;-<span class="cf">function</span>(nestedDBdata){</span>
+<span id="cb9-2"><a href="#cb9-2"></a>    <span class="co"># Define complete blocks</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a>  nestedDBdata <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">Nobs=</span><span class="kw">map_dbl</span>(TrialData,<span class="op">~</span><span class="kw">nrow</span>(.)),</span>
+<span id="cb9-5"><a href="#cb9-5"></a>           <span class="dt">MaxNOHAV=</span><span class="kw">map_dbl</span>(TrialData,<span class="op">~</span><span class="kw">unique</span>(.<span class="op">$</span>MaxNOHAV)),</span>
+<span id="cb9-6"><a href="#cb9-6"></a>           <span class="dt">Nrep=</span><span class="kw">map_dbl</span>(TrialData,<span class="op">~</span><span class="kw">length</span>(<span class="kw">unique</span>(.<span class="op">$</span>replicate))),</span>
+<span id="cb9-7"><a href="#cb9-7"></a>           <span class="dt">Nblock=</span><span class="kw">map_dbl</span>(TrialData,<span class="op">~</span><span class="kw">length</span>(<span class="kw">unique</span>(.<span class="op">$</span>blockInRep))),</span>
+<span id="cb9-8"><a href="#cb9-8"></a>           <span class="dt">Nclone=</span><span class="kw">map_dbl</span>(TrialData,<span class="op">~</span><span class="kw">length</span>(<span class="kw">unique</span>(.<span class="op">$</span>germplasmName))),</span>
+<span id="cb9-9"><a href="#cb9-9"></a>           <span class="co"># median number of obs per clone</span></span>
+<span id="cb9-10"><a href="#cb9-10"></a>           <span class="dt">medObsPerClone=</span><span class="kw">map_dbl</span>(TrialData,<span class="op">~</span><span class="kw">count</span>(.,germplasmName) <span class="op">%$%</span><span class="st"> </span><span class="kw">round</span>(<span class="kw">median</span>(n),<span class="dv">1</span>)), </span>
+<span id="cb9-11"><a href="#cb9-11"></a>           <span class="co"># median number of obs per replicate</span></span>
+<span id="cb9-12"><a href="#cb9-12"></a>           <span class="dt">medObsPerRep=</span><span class="kw">map_dbl</span>(TrialData,<span class="op">~</span><span class="kw">count</span>(.,replicate) <span class="op">%$%</span><span class="st"> </span><span class="kw">round</span>(<span class="kw">median</span>(n),<span class="dv">1</span>)), </span>
+<span id="cb9-13"><a href="#cb9-13"></a>           <span class="co"># Define complete block effects based on the &quot;replicate&quot; variable</span></span>
+<span id="cb9-14"><a href="#cb9-14"></a>           <span class="dt">CompleteBlocks=</span><span class="kw">ifelse</span>(Nrep<span class="op">&gt;</span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>medObsPerClone<span class="op">==</span>Nrep <span class="op">&amp;</span><span class="st"> </span>Nobs<span class="op">!=</span>Nrep,<span class="ot">TRUE</span>,<span class="ot">FALSE</span>), </span>
+<span id="cb9-15"><a href="#cb9-15"></a>           <span class="co"># Additional trials with imperfect complete blocks</span></span>
+<span id="cb9-16"><a href="#cb9-16"></a>           <span class="dt">CompleteBlocks=</span><span class="kw">ifelse</span>(Nrep<span class="op">&gt;</span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>medObsPerClone<span class="op">!=</span>Nrep <span class="op">&amp;</span><span class="st"> </span>medObsPerClone<span class="op">&gt;</span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>Nobs<span class="op">!=</span>Nrep,<span class="ot">TRUE</span>,CompleteBlocks)) -&gt;<span class="st"> </span>x </span>
+<span id="cb9-17"><a href="#cb9-17"></a>  x <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb9-18"><a href="#cb9-18"></a><span class="st">    </span><span class="co"># Some complete blocks may only be represented by the &quot;blockNumber&quot; column</span></span>
+<span id="cb9-19"><a href="#cb9-19"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">medBlocksPerClone=</span><span class="kw">map_dbl</span>(TrialData,<span class="op">~</span><span class="kw">select</span>(.,blockInRep,germplasmName) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb9-20"><a href="#cb9-20"></a><span class="st">                                       </span><span class="co"># median number of blockInRep per clone</span></span>
+<span id="cb9-21"><a href="#cb9-21"></a><span class="st">                                       </span>distinct <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb9-22"><a href="#cb9-22"></a><span class="st">                                       </span><span class="kw">count</span>(germplasmName) <span class="op">%$%</span><span class="st"> </span></span>
+<span id="cb9-23"><a href="#cb9-23"></a><span class="st">                                       </span><span class="kw">round</span>(<span class="kw">median</span>(n))),</span>
+<span id="cb9-24"><a href="#cb9-24"></a>           <span class="co"># If CompleteBlocks==FALSE (complete blocks not detected based on replicate)</span></span>
+<span id="cb9-25"><a href="#cb9-25"></a>           <span class="co"># and if more than half the clones are represented in more than one block based on the blockInRep variable</span></span>
+<span id="cb9-26"><a href="#cb9-26"></a>           <span class="co"># Copy the blockInRep values into the repInTrial column</span></span>
+<span id="cb9-27"><a href="#cb9-27"></a>           <span class="co"># Recompute Nrep</span></span>
+<span id="cb9-28"><a href="#cb9-28"></a>           <span class="co"># and declare CompleteBlocks==TRUE</span></span>
+<span id="cb9-29"><a href="#cb9-29"></a>           <span class="dt">TrialData=</span><span class="kw">ifelse</span>(medBlocksPerClone<span class="op">&gt;</span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>CompleteBlocks<span class="op">==</span><span class="ot">FALSE</span>,<span class="kw">map</span>(TrialData,<span class="op">~</span><span class="kw">mutate</span>(.,<span class="dt">repInTrial=</span>blockInRep)),TrialData),  </span>
+<span id="cb9-30"><a href="#cb9-30"></a>           <span class="dt">Nrep=</span><span class="kw">map_dbl</span>(TrialData,<span class="op">~</span><span class="kw">length</span>(<span class="kw">unique</span>(.<span class="op">$</span>repInTrial))),</span>
+<span id="cb9-31"><a href="#cb9-31"></a>           <span class="dt">CompleteBlocks=</span><span class="kw">ifelse</span>(medBlocksPerClone<span class="op">&gt;</span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>CompleteBlocks<span class="op">==</span><span class="ot">FALSE</span>,<span class="ot">TRUE</span>,CompleteBlocks)) -&gt;<span class="st"> </span>y</span>
+<span id="cb9-32"><a href="#cb9-32"></a>  <span class="co"># Define incomplete blocks</span></span>
+<span id="cb9-33"><a href="#cb9-33"></a>  y <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb9-34"><a href="#cb9-34"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">repsEqualBlocks=</span><span class="kw">map_lgl</span>(TrialData,<span class="op">~</span><span class="kw">all</span>(.<span class="op">$</span>replicate<span class="op">==</span>.<span class="op">$</span>blockNumber)),  </span>
+<span id="cb9-35"><a href="#cb9-35"></a>           <span class="dt">NrepEqualNblock=</span><span class="kw">ifelse</span>(Nrep<span class="op">==</span>Nblock,<span class="ot">TRUE</span>,<span class="ot">FALSE</span>),</span>
+<span id="cb9-36"><a href="#cb9-36"></a>           <span class="dt">medObsPerBlockInRep=</span><span class="kw">map_dbl</span>(TrialData,<span class="op">~</span><span class="kw">count</span>(.,blockInRep) <span class="op">%$%</span><span class="st"> </span><span class="kw">round</span>(<span class="kw">median</span>(n),<span class="dv">1</span>))) -&gt;<span class="st"> </span>z</span>
+<span id="cb9-37"><a href="#cb9-37"></a>  <span class="co"># Define complete blocked trials with nested sub-blocks</span></span>
+<span id="cb9-38"><a href="#cb9-38"></a>  z <span class="op">%&lt;&gt;%</span></span>
+<span id="cb9-39"><a href="#cb9-39"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">IncompleteBlocks=</span><span class="kw">ifelse</span>(CompleteBlocks<span class="op">==</span><span class="ot">TRUE</span> <span class="op">&amp;</span><span class="st"> </span>Nobs<span class="op">!=</span>Nblock <span class="op">&amp;</span><span class="st"> </span>Nblock<span class="op">&gt;</span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>medObsPerBlockInRep<span class="op">&gt;</span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>NrepEqualNblock<span class="op">==</span><span class="ot">FALSE</span>,<span class="ot">TRUE</span>,<span class="ot">FALSE</span>))</span>
+<span id="cb9-40"><a href="#cb9-40"></a>  <span class="co"># Define clearly unreplicated (CompleteBlocks==FALSE &amp; Nrep==1) trials with nested sub-blocks</span></span>
+<span id="cb9-41"><a href="#cb9-41"></a>  z <span class="op">%&lt;&gt;%</span><span class="st"> </span></span>
+<span id="cb9-42"><a href="#cb9-42"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">IncompleteBlocks=</span><span class="kw">ifelse</span>(CompleteBlocks<span class="op">==</span><span class="ot">FALSE</span> <span class="op">&amp;</span><span class="st"> </span>Nobs<span class="op">!=</span>Nblock <span class="op">&amp;</span><span class="st"> </span>Nblock<span class="op">&gt;</span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>medObsPerBlockInRep<span class="op">&gt;</span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>Nrep<span class="op">==</span><span class="dv">1</span>,<span class="ot">TRUE</span>,IncompleteBlocks))</span>
+<span id="cb9-43"><a href="#cb9-43"></a>  <span class="co"># Define additional trials with incomplete blocks (blockInRep) where CompleteBlocks==FALSE but Nrep&gt;1 and Nrep==Block</span></span>
+<span id="cb9-44"><a href="#cb9-44"></a>  z <span class="op">%&lt;&gt;%</span><span class="st"> </span></span>
+<span id="cb9-45"><a href="#cb9-45"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">IncompleteBlocks=</span><span class="kw">ifelse</span>(CompleteBlocks<span class="op">==</span><span class="ot">FALSE</span> <span class="op">&amp;</span><span class="st"> </span>IncompleteBlocks<span class="op">==</span><span class="ot">FALSE</span> <span class="op">&amp;</span><span class="st"> </span></span>
+<span id="cb9-46"><a href="#cb9-46"></a><span class="st">                                     </span>Nobs<span class="op">!=</span>Nblock <span class="op">&amp;</span><span class="st"> </span>Nblock<span class="op">&gt;</span><span class="dv">1</span> <span class="op">&amp;</span><span class="st">  </span>Nobs<span class="op">!=</span>Nrep <span class="op">&amp;</span><span class="st"> </span></span>
+<span id="cb9-47"><a href="#cb9-47"></a><span class="st">                                     </span>medObsPerBlockInRep<span class="op">&gt;</span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>Nrep<span class="op">&gt;</span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>NrepEqualNblock<span class="op">==</span><span class="ot">TRUE</span>,<span class="ot">TRUE</span>,IncompleteBlocks))</span>
+<span id="cb9-48"><a href="#cb9-48"></a>  <span class="co"># Last few cases (2 trials actually) where Nrep&gt;1 and Nblock&gt;1 and Nrep!=Nblock but CompleteBlocks==FALSE</span></span>
+<span id="cb9-49"><a href="#cb9-49"></a>  z <span class="op">%&lt;&gt;%</span><span class="st"> </span></span>
+<span id="cb9-50"><a href="#cb9-50"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">IncompleteBlocks=</span><span class="kw">ifelse</span>(CompleteBlocks<span class="op">==</span><span class="ot">FALSE</span> <span class="op">&amp;</span><span class="st"> </span>IncompleteBlocks<span class="op">==</span><span class="ot">FALSE</span> <span class="op">&amp;</span></span>
+<span id="cb9-51"><a href="#cb9-51"></a><span class="st">                                     </span>Nobs<span class="op">!=</span>Nblock <span class="op">&amp;</span><span class="st"> </span>Nobs<span class="op">!=</span>Nrep <span class="op">&amp;</span><span class="st"> </span></span>
+<span id="cb9-52"><a href="#cb9-52"></a><span class="st">                                     </span>medObsPerBlockInRep<span class="op">&gt;</span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>Nrep<span class="op">&gt;</span><span class="dv">1</span>,<span class="ot">TRUE</span>,IncompleteBlocks))</span>
+<span id="cb9-53"><a href="#cb9-53"></a>  <span class="kw">return</span>(z)</span>
+<span id="cb9-54"><a href="#cb9-54"></a>}</span></code></pre></div>
 <p>Detect designs</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>dbdata&lt;-<span class="kw">detectExptDesigns</span>(dbdata)</span></code></pre></div>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>dbdata <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb10-2"><a href="#cb10-2"></a><span class="st">    </span><span class="kw">count</span>(programName,CompleteBlocks,IncompleteBlocks) <span class="co"># %&gt;% spread(IncompleteBlocks,n)</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>dbdata&lt;-<span class="kw">detectExptDesigns</span>(dbdata)</span>
+<span id="cb10-2"><a href="#cb10-2"></a>dbdata</span></code></pre></div>
+<pre><code># A tibble: 122 x 19
+   studyYear programName locationName studyName TrialType TrialData  Nobs
+       &lt;int&gt; &lt;chr&gt;       &lt;chr&gt;        &lt;chr&gt;     &lt;chr&gt;     &lt;list&gt;    &lt;dbl&gt;
+ 1      2012 NRCRI       Umudike      12CET500… TP1       &lt;tibble …  1500
+ 2      2013 NRCRI       Umudike      13CET489… TP2       &lt;tibble …  1500
+ 3      2013 NRCRI       Otobi        13CET518… TP1       &lt;tibble …  1554
+ 4      2013 NRCRI       Umudike      13CET518… TP1       &lt;tibble …  1554
+ 5      2013 NRCRI       Kano         13TP1CET… TP1       &lt;tibble …  1554
+ 6      2015 NRCRI       Kano         14CETtp2… TP2       &lt;tibble …   250
+ 7      2014 NRCRI       Umudike      14CETtp2… TP2       &lt;tibble …   246
+ 8      2014 NRCRI       Umudike      15CET1tp… TP1       &lt;tibble …   672
+ 9      2015 NRCRI       Umudike      15CETtp1… TP1       &lt;tibble …   470
+10      2015 NRCRI       Umudike      15CETtp2… TP2       &lt;tibble …   249
+# … with 112 more rows, and 12 more variables: MaxNOHAV &lt;dbl&gt;, Nrep &lt;dbl&gt;,
+#   Nblock &lt;dbl&gt;, Nclone &lt;dbl&gt;, medObsPerClone &lt;dbl&gt;, medObsPerRep &lt;dbl&gt;,
+#   CompleteBlocks &lt;lgl&gt;, medBlocksPerClone &lt;dbl&gt;, repsEqualBlocks &lt;lgl&gt;,
+#   NrepEqualNblock &lt;lgl&gt;, medObsPerBlockInRep &lt;dbl&gt;, IncompleteBlocks &lt;lgl&gt;</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>dbdata <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="st">    </span><span class="kw">count</span>(programName,CompleteBlocks,IncompleteBlocks) <span class="co"># %&gt;% spread(IncompleteBlocks,n)</span></span></code></pre></div>
 <pre><code># A tibble: 4 x 4
   programName CompleteBlocks IncompleteBlocks     n
   &lt;chr&gt;       &lt;lgl&gt;          &lt;lgl&gt;            &lt;int&gt;
@@ -838,98 +1182,153 @@ Publish the first set of analyses and files for NRCRI 2020 GS.
 2 NRCRI       FALSE          TRUE                15
 3 NRCRI       TRUE           FALSE               78
 4 NRCRI       TRUE           TRUE                26</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>dbdata<span class="op">$</span>TrialData[[<span class="dv">1</span>]]</span></code></pre></div>
+<pre><code># A tibble: 1,500 x 36
+   studyDesign plotWidth plotLength fieldSize plantingDate harvestDate
+   &lt;chr&gt;           &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;      
+ 1 Alpha               1          5       1.5 2012-Septem… 2013-Septe…
+ 2 Alpha               1          5       1.5 2012-Septem… 2013-Septe…
+ 3 Alpha               1          5       1.5 2012-Septem… 2013-Septe…
+ 4 Alpha               1          5       1.5 2012-Septem… 2013-Septe…
+ 5 Alpha               1          5       1.5 2012-Septem… 2013-Septe…
+ 6 Alpha               1          5       1.5 2012-Septem… 2013-Septe…
+ 7 Alpha               1          5       1.5 2012-Septem… 2013-Septe…
+ 8 Alpha               1          5       1.5 2012-Septem… 2013-Septe…
+ 9 Alpha               1          5       1.5 2012-Septem… 2013-Septe…
+10 Alpha               1          5       1.5 2012-Septem… 2013-Septe…
+# … with 1,490 more rows, and 30 more variables: germplasmName &lt;chr&gt;,
+#   replicate &lt;int&gt;, blockNumber &lt;int&gt;, plotNumber &lt;int&gt;, rowNumber &lt;lgl&gt;,
+#   colNumber &lt;int&gt;, entryType &lt;chr&gt;, CGM &lt;lgl&gt;, CGMS1 &lt;dbl&gt;, CGMS2 &lt;dbl&gt;,
+#   DM &lt;dbl&gt;, PLTHT &lt;dbl&gt;, BRNHT1 &lt;dbl&gt;, NOHAV &lt;dbl&gt;, HI &lt;dbl&gt;,
+#   PlotSpacing &lt;dbl&gt;, MaxNOHAV &lt;dbl&gt;, logFYLD &lt;dbl&gt;, logTOPYLD &lt;dbl&gt;,
+#   logRTNO &lt;dbl&gt;, PropNOHAV &lt;dbl&gt;, MCMDS &lt;dbl&gt;, OrigKeyFile &lt;chr&gt;,
+#   OriginOfSample &lt;chr&gt;, FullSampleName &lt;chr&gt;, GID &lt;chr&gt;, yearInLoc &lt;chr&gt;,
+#   trialInLocYr &lt;chr&gt;, repInTrial &lt;chr&gt;, blockInRep &lt;chr&gt;</code></pre>
 <div id="output-file" class="section level2">
 <h2>Output file</h2>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">saveRDS</span>(dbdata,<span class="dt">file=</span>here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>,<span class="st">&quot;NRCRI_ExptDesignsDetected_2020April21.rds&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="kw">saveRDS</span>(dbdata,<span class="dt">file=</span>here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>,<span class="st">&quot;NRCRI_ExptDesignsDetected_2020April21.rds&quot;</span>))</span></code></pre></div>
 </div>
 </div>
 <div id="model-by-trait-trial" class="section level1">
 <h1>Model by trait-trial</h1>
 <p>This next step fits models to each trial (for each trait)</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw">rm</span>(<span class="dt">list=</span><span class="kw">ls</span>())</span>
-<span id="cb13-2"><a href="#cb13-2"></a><span class="kw">library</span>(tidyverse); <span class="kw">library</span>(magrittr);</span>
-<span id="cb13-3"><a href="#cb13-3"></a>dbdata&lt;-<span class="kw">readRDS</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>,<span class="st">&quot;NRCRI_ExptDesignsDetected_2020April21.rds&quot;</span>))</span>
-<span id="cb13-4"><a href="#cb13-4"></a>traits&lt;-<span class="kw">c</span>(<span class="st">&quot;CGM&quot;</span>,<span class="st">&quot;CGMS1&quot;</span>,<span class="st">&quot;CGMS2&quot;</span>,<span class="st">&quot;MCMDS&quot;</span>,<span class="st">&quot;DM&quot;</span>,<span class="st">&quot;PLTHT&quot;</span>,<span class="st">&quot;BRNHT1&quot;</span>,<span class="st">&quot;HI&quot;</span>,<span class="st">&quot;logFYLD&quot;</span>,<span class="st">&quot;logTOPYLD&quot;</span>,<span class="st">&quot;logRTNO&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="kw">rm</span>(<span class="dt">list=</span><span class="kw">ls</span>())</span>
+<span id="cb17-2"><a href="#cb17-2"></a><span class="kw">library</span>(tidyverse); <span class="kw">library</span>(magrittr);</span>
+<span id="cb17-3"><a href="#cb17-3"></a>dbdata&lt;-<span class="kw">readRDS</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data&quot;</span>,<span class="st">&quot;NRCRI_ExptDesignsDetected_2020April21.rds&quot;</span>))</span>
+<span id="cb17-4"><a href="#cb17-4"></a>traits&lt;-<span class="kw">c</span>(<span class="st">&quot;CGM&quot;</span>,<span class="st">&quot;CGMS1&quot;</span>,<span class="st">&quot;CGMS2&quot;</span>,<span class="st">&quot;MCMDS&quot;</span>,<span class="st">&quot;DM&quot;</span>,<span class="st">&quot;PLTHT&quot;</span>,<span class="st">&quot;BRNHT1&quot;</span>,<span class="st">&quot;HI&quot;</span>,<span class="st">&quot;logFYLD&quot;</span>,<span class="st">&quot;logTOPYLD&quot;</span>,<span class="st">&quot;logRTNO&quot;</span>)</span></code></pre></div>
 <div id="functions" class="section level2">
 <h2>Functions</h2>
 <p><strong>Nest by trait-trial.</strong> This next function will structure input trial data by trait. This will facilitate looping downstream analyses over each trait for each trial.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>nestTrialsByTrait&lt;-<span class="cf">function</span>(indata,traits){ </span>
-<span id="cb14-2"><a href="#cb14-2"></a>  nested_trialdata&lt;-dbdata <span class="op">%&gt;%</span></span>
-<span id="cb14-3"><a href="#cb14-3"></a><span class="st">    </span><span class="kw">select</span>(<span class="op">-</span>MaxNOHAV) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb14-4"><a href="#cb14-4"></a><span class="st">    </span><span class="kw">unnest</span>(TrialData) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb14-5"><a href="#cb14-5"></a><span class="st">    </span><span class="kw">pivot_longer</span>(<span class="dt">cols =</span> <span class="kw">any_of</span>(traits),</span>
-<span id="cb14-6"><a href="#cb14-6"></a>                 <span class="dt">names_to =</span> <span class="st">&quot;Trait&quot;</span>,</span>
-<span id="cb14-7"><a href="#cb14-7"></a>                 <span class="dt">values_to =</span> <span class="st">&quot;TraitValue&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb14-8"><a href="#cb14-8"></a><span class="st">    </span><span class="kw">nest</span>(<span class="dt">TraitByTrialData=</span><span class="op">-</span><span class="kw">c</span>(Trait,studyYear,programName,locationName,studyName,TrialType))</span>
-<span id="cb14-9"><a href="#cb14-9"></a>  <span class="kw">return</span>(nested_trialdata) </span>
-<span id="cb14-10"><a href="#cb14-10"></a>}</span></code></pre></div>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>dbdata&lt;-<span class="kw">nestTrialsByTrait</span>(dbdata,traits)</span>
-<span id="cb15-2"><a href="#cb15-2"></a><span class="co">#dbdata %&gt;% head</span></span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>nestTrialsByTrait&lt;-<span class="cf">function</span>(indata,traits){ </span>
+<span id="cb18-2"><a href="#cb18-2"></a>  nested_trialdata&lt;-dbdata <span class="op">%&gt;%</span></span>
+<span id="cb18-3"><a href="#cb18-3"></a><span class="st">    </span><span class="kw">select</span>(<span class="op">-</span>MaxNOHAV) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb18-4"><a href="#cb18-4"></a><span class="st">    </span><span class="kw">unnest</span>(TrialData) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb18-5"><a href="#cb18-5"></a><span class="st">    </span><span class="kw">pivot_longer</span>(<span class="dt">cols =</span> <span class="kw">any_of</span>(traits),</span>
+<span id="cb18-6"><a href="#cb18-6"></a>                 <span class="dt">names_to =</span> <span class="st">&quot;Trait&quot;</span>,</span>
+<span id="cb18-7"><a href="#cb18-7"></a>                 <span class="dt">values_to =</span> <span class="st">&quot;TraitValue&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb18-8"><a href="#cb18-8"></a><span class="st">    </span><span class="kw">nest</span>(<span class="dt">TraitByTrialData=</span><span class="op">-</span><span class="kw">c</span>(Trait,studyYear,programName,locationName,studyName,TrialType))</span>
+<span id="cb18-9"><a href="#cb18-9"></a>  <span class="kw">return</span>(nested_trialdata) </span>
+<span id="cb18-10"><a href="#cb18-10"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>dbdata&lt;-<span class="kw">nestTrialsByTrait</span>(dbdata,traits)</span>
+<span id="cb19-2"><a href="#cb19-2"></a>dbdata <span class="op">%&gt;%</span><span class="st"> </span>head</span></code></pre></div>
+<pre><code># A tibble: 6 x 7
+  studyYear programName locationName studyName  TrialType Trait TraitByTrialData
+      &lt;int&gt; &lt;chr&gt;       &lt;chr&gt;        &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt; &lt;list&gt;          
+1      2012 NRCRI       Umudike      12CET500T… TP1       CGM   &lt;tibble [1,500 …
+2      2012 NRCRI       Umudike      12CET500T… TP1       CGMS1 &lt;tibble [1,500 …
+3      2012 NRCRI       Umudike      12CET500T… TP1       CGMS2 &lt;tibble [1,500 …
+4      2012 NRCRI       Umudike      12CET500T… TP1       MCMDS &lt;tibble [1,500 …
+5      2012 NRCRI       Umudike      12CET500T… TP1       DM    &lt;tibble [1,500 …
+6      2012 NRCRI       Umudike      12CET500T… TP1       PLTHT &lt;tibble [1,500 …</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>dbdata<span class="op">$</span>TraitByTrialData[[<span class="dv">1</span>]]</span></code></pre></div>
+<pre><code># A tibble: 1,500 x 38
+   studyDesign plotWidth plotLength fieldSize plantingDate harvestDate
+   &lt;chr&gt;           &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;      
+ 1 Alpha               1          5       1.5 2012-Septem… 2013-Septe…
+ 2 Alpha               1          5       1.5 2012-Septem… 2013-Septe…
+ 3 Alpha               1          5       1.5 2012-Septem… 2013-Septe…
+ 4 Alpha               1          5       1.5 2012-Septem… 2013-Septe…
+ 5 Alpha               1          5       1.5 2012-Septem… 2013-Septe…
+ 6 Alpha               1          5       1.5 2012-Septem… 2013-Septe…
+ 7 Alpha               1          5       1.5 2012-Septem… 2013-Septe…
+ 8 Alpha               1          5       1.5 2012-Septem… 2013-Septe…
+ 9 Alpha               1          5       1.5 2012-Septem… 2013-Septe…
+10 Alpha               1          5       1.5 2012-Septem… 2013-Septe…
+# … with 1,490 more rows, and 32 more variables: germplasmName &lt;chr&gt;,
+#   replicate &lt;int&gt;, blockNumber &lt;int&gt;, plotNumber &lt;int&gt;, rowNumber &lt;lgl&gt;,
+#   colNumber &lt;int&gt;, entryType &lt;chr&gt;, NOHAV &lt;dbl&gt;, PlotSpacing &lt;dbl&gt;,
+#   MaxNOHAV &lt;dbl&gt;, PropNOHAV &lt;dbl&gt;, OrigKeyFile &lt;chr&gt;, OriginOfSample &lt;chr&gt;,
+#   FullSampleName &lt;chr&gt;, GID &lt;chr&gt;, yearInLoc &lt;chr&gt;, trialInLocYr &lt;chr&gt;,
+#   repInTrial &lt;chr&gt;, blockInRep &lt;chr&gt;, Nobs &lt;dbl&gt;, Nrep &lt;dbl&gt;, Nblock &lt;dbl&gt;,
+#   Nclone &lt;dbl&gt;, medObsPerClone &lt;dbl&gt;, medObsPerRep &lt;dbl&gt;,
+#   CompleteBlocks &lt;lgl&gt;, medBlocksPerClone &lt;dbl&gt;, repsEqualBlocks &lt;lgl&gt;,
+#   NrepEqualNblock &lt;lgl&gt;, medObsPerBlockInRep &lt;dbl&gt;, IncompleteBlocks &lt;lgl&gt;,
+#   TraitValue &lt;dbl&gt;</code></pre>
 <p>Minor support function: calc. proportion missing given a numeric vector.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>calcPropMissing&lt;-<span class="cf">function</span>(TraitValues){ <span class="kw">length</span>(<span class="kw">which</span>(<span class="kw">is.na</span>(TraitValues))) <span class="op">/</span><span class="st"> </span><span class="kw">length</span>(TraitValues) }</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>calcPropMissing&lt;-<span class="cf">function</span>(TraitValues){ <span class="kw">length</span>(<span class="kw">which</span>(<span class="kw">is.na</span>(TraitValues))) <span class="op">/</span><span class="st"> </span><span class="kw">length</span>(TraitValues) }</span></code></pre></div>
 <p>Function to curate a single trait-trial data chunk.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="co"># Trait&lt;-&quot;logFYLD&quot;</span></span>
-<span id="cb17-2"><a href="#cb17-2"></a><span class="co"># TraitByTrialData&lt;-dbdata %&gt;% filter(studyName==&quot;18C2acrossingblockCETubiaja&quot;,Trait==&quot;logFYLD&quot;) %$% TraitByTrialData[[1]]</span></span>
-<span id="cb17-3"><a href="#cb17-3"></a><span class="co"># GID=&quot;GID&quot;</span></span>
-<span id="cb17-4"><a href="#cb17-4"></a><span class="co">#rm(Trait,TraitData,GID)</span></span>
-<span id="cb17-5"><a href="#cb17-5"></a>curateTrialOneTrait&lt;-<span class="cf">function</span>(Trait,TraitByTrialData,<span class="dt">GID=</span><span class="st">&quot;GID&quot;</span>){</span>
-<span id="cb17-6"><a href="#cb17-6"></a>  <span class="kw">require</span>(lme4)</span>
-<span id="cb17-7"><a href="#cb17-7"></a>  </span>
-<span id="cb17-8"><a href="#cb17-8"></a>  modelFormula&lt;-<span class="kw">paste0</span>(<span class="st">&quot;TraitValue ~ (1|&quot;</span>,GID,<span class="st">&quot;)&quot;</span>)</span>
-<span id="cb17-9"><a href="#cb17-9"></a>  modelFormula&lt;-<span class="kw">ifelse</span>(<span class="kw">all</span>(TraitByTrialData<span class="op">$</span>CompleteBlocks),</span>
-<span id="cb17-10"><a href="#cb17-10"></a>                       <span class="kw">paste0</span>(modelFormula,<span class="st">&quot;+(1|repInTrial)&quot;</span>),modelFormula)</span>
-<span id="cb17-11"><a href="#cb17-11"></a>  modelFormula&lt;-<span class="kw">ifelse</span>(<span class="kw">all</span>(TraitByTrialData<span class="op">$</span>IncompleteBlocks),</span>
-<span id="cb17-12"><a href="#cb17-12"></a>                       <span class="kw">paste0</span>(modelFormula,<span class="st">&quot;+(1|blockInRep)&quot;</span>),modelFormula)</span>
-<span id="cb17-13"><a href="#cb17-13"></a>  modelFormula&lt;-<span class="kw">ifelse</span>(<span class="kw">grepl</span>(<span class="st">&quot;logRTNO&quot;</span>,Trait) <span class="op">|</span><span class="st"> </span><span class="kw">grepl</span>(<span class="st">&quot;logFYLD&quot;</span>,Trait) <span class="op">|</span><span class="st"> </span><span class="kw">grepl</span>(<span class="st">&quot;logTOPYLD&quot;</span>,Trait),</span>
-<span id="cb17-14"><a href="#cb17-14"></a>                       <span class="kw">paste0</span>(modelFormula,<span class="st">&quot;+PropNOHAV&quot;</span>),modelFormula)</span>
-<span id="cb17-15"><a href="#cb17-15"></a>  </span>
-<span id="cb17-16"><a href="#cb17-16"></a>  propMiss&lt;-<span class="kw">calcPropMissing</span>(TraitByTrialData<span class="op">$</span>TraitValue)</span>
-<span id="cb17-17"><a href="#cb17-17"></a>  fit_model&lt;-<span class="kw">possibly</span>(<span class="cf">function</span>(modelFormula,TraitByTrialData){</span>
-<span id="cb17-18"><a href="#cb17-18"></a>    model_out&lt;-<span class="kw">lmer</span>(<span class="kw">as.formula</span>(modelFormula),<span class="dt">data=</span>TraitByTrialData)</span>
-<span id="cb17-19"><a href="#cb17-19"></a>    <span class="cf">if</span>(<span class="op">!</span><span class="kw">is.na</span>(model_out)){</span>
-<span id="cb17-20"><a href="#cb17-20"></a>      outliers&lt;-<span class="kw">which</span>(<span class="kw">abs</span>(<span class="kw">rstudent</span>(model_out))<span class="op">&gt;=</span><span class="fl">3.3</span>)</span>
-<span id="cb17-21"><a href="#cb17-21"></a>      <span class="cf">if</span>(<span class="kw">length</span>(outliers)<span class="op">&gt;</span><span class="dv">0</span>){</span>
-<span id="cb17-22"><a href="#cb17-22"></a>        model_out&lt;-<span class="kw">lmer</span>(<span class="kw">as.formula</span>(modelFormula),<span class="dt">data=</span>TraitByTrialData,</span>
-<span id="cb17-23"><a href="#cb17-23"></a>                        <span class="dt">subset=</span><span class="kw">abs</span>(<span class="kw">rstudent</span>(model_out))<span class="op">&lt;</span><span class="fl">3.3</span>)</span>
-<span id="cb17-24"><a href="#cb17-24"></a>      } </span>
-<span id="cb17-25"><a href="#cb17-25"></a>    }</span>
-<span id="cb17-26"><a href="#cb17-26"></a>    <span class="kw">return</span>(<span class="kw">list</span>(<span class="dt">model_out=</span>model_out,<span class="dt">outliers=</span>outliers)) },</span>
-<span id="cb17-27"><a href="#cb17-27"></a>    <span class="dt">otherwise =</span> <span class="ot">NA</span>)</span>
-<span id="cb17-28"><a href="#cb17-28"></a>  model_out&lt;-<span class="kw">fit_model</span>(modelFormula,TraitByTrialData)</span>
-<span id="cb17-29"><a href="#cb17-29"></a>  <span class="cf">if</span>(<span class="kw">is.na</span>(model_out)){</span>
-<span id="cb17-30"><a href="#cb17-30"></a>    out &lt;-<span class="kw">tibble</span>(<span class="dt">H2=</span><span class="ot">NA</span>,<span class="dt">VarComps=</span><span class="kw">list</span>(<span class="ot">NULL</span>),<span class="dt">BLUPs=</span><span class="kw">list</span>(<span class="ot">NULL</span>),<span class="dt">Model=</span>modelFormula,<span class="dt">Noutliers=</span><span class="ot">NA</span>,<span class="dt">Outliers=</span><span class="ot">NA</span>,<span class="dt">propMiss=</span>propMiss) </span>
-<span id="cb17-31"><a href="#cb17-31"></a>  } <span class="cf">else</span> {</span>
-<span id="cb17-32"><a href="#cb17-32"></a>    varcomps&lt;-<span class="kw">as.data.frame</span>(<span class="kw">VarCorr</span>(model_out[[<span class="st">&quot;model_out&quot;</span>]]))[,<span class="kw">c</span>(<span class="st">&quot;grp&quot;</span>,<span class="st">&quot;vcov&quot;</span>)] <span class="op">%&gt;%</span></span>
-<span id="cb17-33"><a href="#cb17-33"></a><span class="st">      </span><span class="kw">spread</span>(grp,vcov)</span>
-<span id="cb17-34"><a href="#cb17-34"></a>    Vg&lt;-varcomps<span class="op">$</span>GID</span>
-<span id="cb17-35"><a href="#cb17-35"></a>    H2&lt;-Vg<span class="op">/</span>(Vg<span class="op">+</span>varcomps<span class="op">$</span>Residual)</span>
-<span id="cb17-36"><a href="#cb17-36"></a>    BLUP&lt;-<span class="kw">ranef</span>(model_out[[<span class="st">&quot;model_out&quot;</span>]], <span class="dt">condVar=</span><span class="ot">TRUE</span>)[[GID]]</span>
-<span id="cb17-37"><a href="#cb17-37"></a>    PEV &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">attr</span>(BLUP, <span class="st">&quot;postVar&quot;</span>))</span>
-<span id="cb17-38"><a href="#cb17-38"></a>    blups&lt;-<span class="kw">tibble</span>(<span class="dt">GID=</span><span class="kw">rownames</span>(BLUP),<span class="dt">BLUP=</span>BLUP<span class="op">$</span><span class="st">`</span><span class="dt">(Intercept)</span><span class="st">`</span>,<span class="dt">PEV=</span>PEV) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb17-39"><a href="#cb17-39"></a><span class="st">      </span><span class="kw">mutate</span>(<span class="dt">REL=</span><span class="dv">1</span><span class="op">-</span>(PEV<span class="op">/</span>Vg),</span>
-<span id="cb17-40"><a href="#cb17-40"></a>             <span class="dt">drgBLUP=</span>BLUP<span class="op">/</span>REL,</span>
-<span id="cb17-41"><a href="#cb17-41"></a>             <span class="dt">WT=</span>(<span class="dv">1</span><span class="op">-</span>H2)<span class="op">/</span>((<span class="fl">0.1</span> <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">-</span>REL)<span class="op">/</span>REL)<span class="op">*</span>H2))</span>
-<span id="cb17-42"><a href="#cb17-42"></a>    out &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">H2=</span>H2, </span>
-<span id="cb17-43"><a href="#cb17-43"></a>                  <span class="dt">VarComps=</span><span class="kw">list</span>(varcomps), </span>
-<span id="cb17-44"><a href="#cb17-44"></a>                  <span class="dt">BLUPs=</span><span class="kw">list</span>(blups),</span>
-<span id="cb17-45"><a href="#cb17-45"></a>                  <span class="dt">Model=</span>modelFormula,</span>
-<span id="cb17-46"><a href="#cb17-46"></a>                  <span class="dt">Noutliers=</span><span class="kw">length</span>(model_out[[<span class="st">&quot;outliers&quot;</span>]]),</span>
-<span id="cb17-47"><a href="#cb17-47"></a>                  <span class="dt">Outliers=</span><span class="kw">list</span>(model_out[[<span class="st">&quot;outliers&quot;</span>]]),</span>
-<span id="cb17-48"><a href="#cb17-48"></a>                  <span class="dt">propMiss=</span>propMiss) }</span>
-<span id="cb17-49"><a href="#cb17-49"></a>  <span class="kw">return</span>(out) </span>
-<span id="cb17-50"><a href="#cb17-50"></a>}</span></code></pre></div>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>curateTrialsByTrait&lt;-<span class="cf">function</span>(nestedTrialData,traits){</span>
-<span id="cb18-2"><a href="#cb18-2"></a>  outdata&lt;-nestedTrialData <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb18-3"><a href="#cb18-3"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">modelOutput=</span><span class="kw">map2</span>(Trait,TraitByTrialData,<span class="op">~</span><span class="kw">curateTrialOneTrait</span>(<span class="dt">Trait =</span> .x,<span class="dt">TraitByTrialData =</span> .y))) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb18-4"><a href="#cb18-4"></a><span class="st">    </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="op">-</span>TraitByTrialData) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb18-5"><a href="#cb18-5"></a><span class="st">    </span><span class="kw">unnest</span>(modelOutput)</span>
-<span id="cb18-6"><a href="#cb18-6"></a>  <span class="kw">return</span>(outdata)</span>
-<span id="cb18-7"><a href="#cb18-7"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="co"># Trait&lt;-&quot;logFYLD&quot;</span></span>
+<span id="cb24-2"><a href="#cb24-2"></a><span class="co"># TraitByTrialData&lt;-dbdata %&gt;% filter(studyName==&quot;18C2acrossingblockCETubiaja&quot;,Trait==&quot;logFYLD&quot;) %$% TraitByTrialData[[1]]</span></span>
+<span id="cb24-3"><a href="#cb24-3"></a><span class="co"># GID=&quot;GID&quot;</span></span>
+<span id="cb24-4"><a href="#cb24-4"></a><span class="co">#rm(Trait,TraitData,GID)</span></span>
+<span id="cb24-5"><a href="#cb24-5"></a>curateTrialOneTrait&lt;-<span class="cf">function</span>(Trait,TraitByTrialData,<span class="dt">GID=</span><span class="st">&quot;GID&quot;</span>){</span>
+<span id="cb24-6"><a href="#cb24-6"></a>  <span class="kw">require</span>(lme4)</span>
+<span id="cb24-7"><a href="#cb24-7"></a>  </span>
+<span id="cb24-8"><a href="#cb24-8"></a>  modelFormula&lt;-<span class="kw">paste0</span>(<span class="st">&quot;TraitValue ~ (1|&quot;</span>,GID,<span class="st">&quot;)&quot;</span>)</span>
+<span id="cb24-9"><a href="#cb24-9"></a>  modelFormula&lt;-<span class="kw">ifelse</span>(<span class="kw">all</span>(TraitByTrialData<span class="op">$</span>CompleteBlocks),</span>
+<span id="cb24-10"><a href="#cb24-10"></a>                       <span class="kw">paste0</span>(modelFormula,<span class="st">&quot;+(1|repInTrial)&quot;</span>),modelFormula)</span>
+<span id="cb24-11"><a href="#cb24-11"></a>  modelFormula&lt;-<span class="kw">ifelse</span>(<span class="kw">all</span>(TraitByTrialData<span class="op">$</span>IncompleteBlocks),</span>
+<span id="cb24-12"><a href="#cb24-12"></a>                       <span class="kw">paste0</span>(modelFormula,<span class="st">&quot;+(1|blockInRep)&quot;</span>),modelFormula)</span>
+<span id="cb24-13"><a href="#cb24-13"></a>  modelFormula&lt;-<span class="kw">ifelse</span>(<span class="kw">grepl</span>(<span class="st">&quot;logRTNO&quot;</span>,Trait) <span class="op">|</span><span class="st"> </span><span class="kw">grepl</span>(<span class="st">&quot;logFYLD&quot;</span>,Trait) <span class="op">|</span><span class="st"> </span><span class="kw">grepl</span>(<span class="st">&quot;logTOPYLD&quot;</span>,Trait),</span>
+<span id="cb24-14"><a href="#cb24-14"></a>                       <span class="kw">paste0</span>(modelFormula,<span class="st">&quot;+PropNOHAV&quot;</span>),modelFormula)</span>
+<span id="cb24-15"><a href="#cb24-15"></a>  </span>
+<span id="cb24-16"><a href="#cb24-16"></a>  propMiss&lt;-<span class="kw">calcPropMissing</span>(TraitByTrialData<span class="op">$</span>TraitValue)</span>
+<span id="cb24-17"><a href="#cb24-17"></a>  fit_model&lt;-<span class="kw">possibly</span>(<span class="cf">function</span>(modelFormula,TraitByTrialData){</span>
+<span id="cb24-18"><a href="#cb24-18"></a>    model_out&lt;-<span class="kw">lmer</span>(<span class="kw">as.formula</span>(modelFormula),<span class="dt">data=</span>TraitByTrialData)</span>
+<span id="cb24-19"><a href="#cb24-19"></a>    <span class="cf">if</span>(<span class="op">!</span><span class="kw">is.na</span>(model_out)){</span>
+<span id="cb24-20"><a href="#cb24-20"></a>      outliers&lt;-<span class="kw">which</span>(<span class="kw">abs</span>(<span class="kw">rstudent</span>(model_out))<span class="op">&gt;=</span><span class="fl">3.3</span>)</span>
+<span id="cb24-21"><a href="#cb24-21"></a>      <span class="cf">if</span>(<span class="kw">length</span>(outliers)<span class="op">&gt;</span><span class="dv">0</span>){</span>
+<span id="cb24-22"><a href="#cb24-22"></a>        model_out&lt;-<span class="kw">lmer</span>(<span class="kw">as.formula</span>(modelFormula),<span class="dt">data=</span>TraitByTrialData,</span>
+<span id="cb24-23"><a href="#cb24-23"></a>                        <span class="dt">subset=</span><span class="kw">abs</span>(<span class="kw">rstudent</span>(model_out))<span class="op">&lt;</span><span class="fl">3.3</span>)</span>
+<span id="cb24-24"><a href="#cb24-24"></a>      } </span>
+<span id="cb24-25"><a href="#cb24-25"></a>    }</span>
+<span id="cb24-26"><a href="#cb24-26"></a>    <span class="kw">return</span>(<span class="kw">list</span>(<span class="dt">model_out=</span>model_out,<span class="dt">outliers=</span>outliers)) },</span>
+<span id="cb24-27"><a href="#cb24-27"></a>    <span class="dt">otherwise =</span> <span class="ot">NA</span>)</span>
+<span id="cb24-28"><a href="#cb24-28"></a>  model_out&lt;-<span class="kw">fit_model</span>(modelFormula,TraitByTrialData)</span>
+<span id="cb24-29"><a href="#cb24-29"></a>  <span class="cf">if</span>(<span class="kw">is.na</span>(model_out)){</span>
+<span id="cb24-30"><a href="#cb24-30"></a>    out &lt;-<span class="kw">tibble</span>(<span class="dt">H2=</span><span class="ot">NA</span>,<span class="dt">VarComps=</span><span class="kw">list</span>(<span class="ot">NULL</span>),<span class="dt">BLUPs=</span><span class="kw">list</span>(<span class="ot">NULL</span>),<span class="dt">Model=</span>modelFormula,<span class="dt">Noutliers=</span><span class="ot">NA</span>,<span class="dt">Outliers=</span><span class="ot">NA</span>,<span class="dt">propMiss=</span>propMiss) </span>
+<span id="cb24-31"><a href="#cb24-31"></a>  } <span class="cf">else</span> {</span>
+<span id="cb24-32"><a href="#cb24-32"></a>    varcomps&lt;-<span class="kw">as.data.frame</span>(<span class="kw">VarCorr</span>(model_out[[<span class="st">&quot;model_out&quot;</span>]]))[,<span class="kw">c</span>(<span class="st">&quot;grp&quot;</span>,<span class="st">&quot;vcov&quot;</span>)] <span class="op">%&gt;%</span></span>
+<span id="cb24-33"><a href="#cb24-33"></a><span class="st">      </span><span class="kw">spread</span>(grp,vcov)</span>
+<span id="cb24-34"><a href="#cb24-34"></a>    Vg&lt;-varcomps<span class="op">$</span>GID</span>
+<span id="cb24-35"><a href="#cb24-35"></a>    H2&lt;-Vg<span class="op">/</span>(Vg<span class="op">+</span>varcomps<span class="op">$</span>Residual)</span>
+<span id="cb24-36"><a href="#cb24-36"></a>    BLUP&lt;-<span class="kw">ranef</span>(model_out[[<span class="st">&quot;model_out&quot;</span>]], <span class="dt">condVar=</span><span class="ot">TRUE</span>)[[GID]]</span>
+<span id="cb24-37"><a href="#cb24-37"></a>    PEV &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">attr</span>(BLUP, <span class="st">&quot;postVar&quot;</span>))</span>
+<span id="cb24-38"><a href="#cb24-38"></a>    blups&lt;-<span class="kw">tibble</span>(<span class="dt">GID=</span><span class="kw">rownames</span>(BLUP),<span class="dt">BLUP=</span>BLUP<span class="op">$</span><span class="st">`</span><span class="dt">(Intercept)</span><span class="st">`</span>,<span class="dt">PEV=</span>PEV) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb24-39"><a href="#cb24-39"></a><span class="st">      </span><span class="kw">mutate</span>(<span class="dt">REL=</span><span class="dv">1</span><span class="op">-</span>(PEV<span class="op">/</span>Vg),</span>
+<span id="cb24-40"><a href="#cb24-40"></a>             <span class="dt">drgBLUP=</span>BLUP<span class="op">/</span>REL,</span>
+<span id="cb24-41"><a href="#cb24-41"></a>             <span class="dt">WT=</span>(<span class="dv">1</span><span class="op">-</span>H2)<span class="op">/</span>((<span class="fl">0.1</span> <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">-</span>REL)<span class="op">/</span>REL)<span class="op">*</span>H2))</span>
+<span id="cb24-42"><a href="#cb24-42"></a>    out &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">H2=</span>H2, </span>
+<span id="cb24-43"><a href="#cb24-43"></a>                  <span class="dt">VarComps=</span><span class="kw">list</span>(varcomps), </span>
+<span id="cb24-44"><a href="#cb24-44"></a>                  <span class="dt">BLUPs=</span><span class="kw">list</span>(blups),</span>
+<span id="cb24-45"><a href="#cb24-45"></a>                  <span class="dt">Model=</span>modelFormula,</span>
+<span id="cb24-46"><a href="#cb24-46"></a>                  <span class="dt">Noutliers=</span><span class="kw">length</span>(model_out[[<span class="st">&quot;outliers&quot;</span>]]),</span>
+<span id="cb24-47"><a href="#cb24-47"></a>                  <span class="dt">Outliers=</span><span class="kw">list</span>(model_out[[<span class="st">&quot;outliers&quot;</span>]]),</span>
+<span id="cb24-48"><a href="#cb24-48"></a>                  <span class="dt">propMiss=</span>propMiss) }</span>
+<span id="cb24-49"><a href="#cb24-49"></a>  <span class="kw">return</span>(out) </span>
+<span id="cb24-50"><a href="#cb24-50"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>curateTrialsByTrait&lt;-<span class="cf">function</span>(nestedTrialData,traits){</span>
+<span id="cb25-2"><a href="#cb25-2"></a>  outdata&lt;-nestedTrialData <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb25-3"><a href="#cb25-3"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">modelOutput=</span><span class="kw">map2</span>(Trait,TraitByTrialData,<span class="op">~</span><span class="kw">curateTrialOneTrait</span>(<span class="dt">Trait =</span> .x,<span class="dt">TraitByTrialData =</span> .y))) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb25-4"><a href="#cb25-4"></a><span class="st">    </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="op">-</span>TraitByTrialData) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb25-5"><a href="#cb25-5"></a><span class="st">    </span><span class="kw">unnest</span>(modelOutput)</span>
+<span id="cb25-6"><a href="#cb25-6"></a>  <span class="kw">return</span>(outdata)</span>
+<span id="cb25-7"><a href="#cb25-7"></a>}</span></code></pre></div>
 </div>
 <div id="fit-models" class="section level2">
 <h2>Fit models</h2>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>dbdata&lt;-<span class="kw">curateTrialsByTrait</span>(dbdata,traits)</span>
-<span id="cb19-2"><a href="#cb19-2"></a>dbdata <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">slice</span>(<span class="dv">2</span>) <span class="op">%&gt;%</span><span class="st"> </span>str</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>dbdata&lt;-<span class="kw">curateTrialsByTrait</span>(dbdata,traits)</span>
+<span id="cb26-2"><a href="#cb26-2"></a>dbdata <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">slice</span>(<span class="dv">2</span>) <span class="op">%&gt;%</span><span class="st"> </span>str</span></code></pre></div>
 <pre><code>tibble [1 × 13] (S3: tbl_df/tbl/data.frame)
  $ studyYear   : int 2012
  $ programName : chr &quot;NRCRI&quot;
@@ -961,46 +1360,173 @@ Publish the first set of analyses and files for NRCRI 2020 GS.
 </div>
 <div id="output-file-1" class="section level2">
 <h2>Output file</h2>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="kw">saveRDS</span>(dbdata,<span class="dt">file=</span>here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;output&quot;</span>,<span class="st">&quot;NRCRI_CuratedTrials_2020April27.rds&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="kw">saveRDS</span>(dbdata,<span class="dt">file=</span>here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;output&quot;</span>,<span class="st">&quot;NRCRI_CuratedTrials_2020April27.rds&quot;</span>))</span></code></pre></div>
 </div>
 <div id="plot-results" class="section level2">
 <h2>Plot Results</h2>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>dbdata&lt;-<span class="kw">readRDS</span>(<span class="dt">file=</span>here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;output&quot;</span>,<span class="st">&quot;NRCRI_CuratedTrials_2020April27.rds&quot;</span>))</span></code></pre></div>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>dbdata <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb23-2"><a href="#cb23-2"></a><span class="st">  </span><span class="kw">ggplot</span>(.,<span class="kw">aes</span>(<span class="dt">x=</span>Trait,<span class="dt">y=</span>H2,<span class="dt">fill=</span>Trait)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb23-3"><a href="#cb23-3"></a><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">color=</span><span class="st">&#39;darkgray&#39;</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb23-4"><a href="#cb23-4"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></span>
-<span id="cb23-5"><a href="#cb23-5"></a><span class="st">  </span><span class="kw">scale_fill_viridis_d</span>(<span class="dt">option =</span> <span class="st">&#39;magma&#39;</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb23-6"><a href="#cb23-6"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">face=</span><span class="st">&#39;bold&#39;</span>,<span class="dt">angle=</span><span class="dv">90</span>))</span></code></pre></div>
-<p><img src="figure/02-curateByTrial.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>dbdata <span class="op">%&gt;%</span></span>
-<span id="cb24-2"><a href="#cb24-2"></a><span class="st">  </span><span class="kw">select</span>(studyYear<span class="op">:</span>VarComps) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb24-3"><a href="#cb24-3"></a><span class="st">  </span><span class="kw">unnest</span>(VarComps) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb24-4"><a href="#cb24-4"></a><span class="st">  </span><span class="kw">ggplot</span>(.,<span class="kw">aes</span>(<span class="dt">x=</span>TrialType,<span class="dt">y=</span>Residual,<span class="dt">fill=</span>TrialType)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb24-5"><a href="#cb24-5"></a><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">color=</span><span class="st">&#39;darkgray&#39;</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb24-6"><a href="#cb24-6"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span><span class="kw">facet_wrap</span>(<span class="op">~</span>Trait,<span class="dt">scales =</span> <span class="st">&#39;free&#39;</span>,<span class="dt">nrow=</span><span class="dv">2</span>) <span class="op">+</span></span>
-<span id="cb24-7"><a href="#cb24-7"></a><span class="st">  </span><span class="kw">scale_fill_viridis_d</span>(<span class="dt">option =</span> <span class="st">&#39;inferno&#39;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle=</span><span class="dv">90</span>,<span class="dt">face=</span><span class="st">&#39;bold&#39;</span>))</span></code></pre></div>
-<p><img src="figure/02-curateByTrial.Rmd/unnamed-chunk-14-1.png" width="864" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>dbdata <span class="op">%&gt;%</span></span>
-<span id="cb25-2"><a href="#cb25-2"></a><span class="st">  </span><span class="kw">select</span>(studyYear<span class="op">:</span>VarComps) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb25-3"><a href="#cb25-3"></a><span class="st">  </span><span class="kw">unnest</span>(VarComps) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb25-4"><a href="#cb25-4"></a><span class="st">  </span><span class="kw">ggplot</span>(.,<span class="kw">aes</span>(<span class="dt">x=</span>TrialType,<span class="dt">y=</span>H2,<span class="dt">fill=</span>TrialType)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb25-5"><a href="#cb25-5"></a><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">color=</span><span class="st">&#39;darkgray&#39;</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb25-6"><a href="#cb25-6"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span><span class="kw">facet_wrap</span>(<span class="op">~</span>Trait,<span class="dt">scales =</span> <span class="st">&#39;free&#39;</span>,<span class="dt">nrow=</span><span class="dv">2</span>) <span class="op">+</span></span>
-<span id="cb25-7"><a href="#cb25-7"></a><span class="st">  </span><span class="kw">scale_fill_viridis_d</span>(<span class="dt">option =</span> <span class="st">&#39;inferno&#39;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle=</span><span class="dv">90</span>,<span class="dt">face=</span><span class="st">&#39;bold&#39;</span>))</span></code></pre></div>
-<p><img src="figure/02-curateByTrial.Rmd/unnamed-chunk-15-1.png" width="864" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>dbdata <span class="op">%&gt;%</span></span>
-<span id="cb26-2"><a href="#cb26-2"></a><span class="st">  </span><span class="kw">ggplot</span>(.,<span class="kw">aes</span>(<span class="dt">x=</span>TrialType,<span class="dt">y=</span>Noutliers,<span class="dt">fill=</span>TrialType)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb26-3"><a href="#cb26-3"></a><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">color=</span><span class="st">&#39;darkgray&#39;</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb26-4"><a href="#cb26-4"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span><span class="kw">facet_wrap</span>(<span class="op">~</span>Trait,<span class="dt">scales =</span> <span class="st">&#39;free&#39;</span>,<span class="dt">nrow=</span><span class="dv">2</span>) <span class="op">+</span></span>
-<span id="cb26-5"><a href="#cb26-5"></a><span class="st">  </span><span class="kw">scale_fill_viridis_d</span>(<span class="dt">option =</span> <span class="st">&#39;inferno&#39;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle=</span><span class="dv">90</span>,<span class="dt">face=</span><span class="st">&#39;bold&#39;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>dbdata&lt;-<span class="kw">readRDS</span>(<span class="dt">file=</span>here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;output&quot;</span>,<span class="st">&quot;NRCRI_CuratedTrials_2020April27.rds&quot;</span>))</span>
+<span id="cb29-2"><a href="#cb29-2"></a>dbdata</span></code></pre></div>
+<pre><code># A tibble: 1,342 x 13
+   studyYear programName locationName studyName TrialType Trait       H2
+       &lt;int&gt; &lt;chr&gt;       &lt;chr&gt;        &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;    &lt;dbl&gt;
+ 1      2012 NRCRI       Umudike      12CET500… TP1       CGM   NA      
+ 2      2012 NRCRI       Umudike      12CET500… TP1       CGMS1  7.36e-7
+ 3      2012 NRCRI       Umudike      12CET500… TP1       CGMS2  3.26e-2
+ 4      2012 NRCRI       Umudike      12CET500… TP1       MCMDS  1.44e-3
+ 5      2012 NRCRI       Umudike      12CET500… TP1       DM    NA      
+ 6      2012 NRCRI       Umudike      12CET500… TP1       PLTHT  2.86e-4
+ 7      2012 NRCRI       Umudike      12CET500… TP1       BRNH…  3.75e-2
+ 8      2012 NRCRI       Umudike      12CET500… TP1       HI     0.     
+ 9      2012 NRCRI       Umudike      12CET500… TP1       logF…  9.55e-3
+10      2012 NRCRI       Umudike      12CET500… TP1       logT…  0.     
+# … with 1,332 more rows, and 6 more variables: VarComps &lt;list&gt;, BLUPs &lt;list&gt;,
+#   Model &lt;chr&gt;, Noutliers &lt;int&gt;, Outliers &lt;list&gt;, propMiss &lt;dbl&gt;</code></pre>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>dbdata <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb31-2"><a href="#cb31-2"></a><span class="st">  </span><span class="kw">ggplot</span>(.,<span class="kw">aes</span>(<span class="dt">x=</span>Trait,<span class="dt">y=</span>H2,<span class="dt">fill=</span>Trait)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb31-3"><a href="#cb31-3"></a><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">color=</span><span class="st">&#39;darkgray&#39;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb31-4"><a href="#cb31-4"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb31-5"><a href="#cb31-5"></a><span class="st">  </span><span class="kw">scale_fill_viridis_d</span>(<span class="dt">option =</span> <span class="st">&#39;magma&#39;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb31-6"><a href="#cb31-6"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">face=</span><span class="st">&#39;bold&#39;</span>,<span class="dt">angle=</span><span class="dv">90</span>))</span></code></pre></div>
+<p><img src="figure/02-curateByTrial.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-15-1">
+Past versions of unnamed-chunk-15-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-15-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wolfemd/NRCRI_2020GS/blob/f3f6163b319d8633e807c1c45ed2da79e2d747ed/docs/figure/02-curateByTrial.Rmd/unnamed-chunk-15-1.png" target="_blank">f3f6163</a>
+</td>
+<td>
+wolfemd
+</td>
+<td>
+2020-04-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>dbdata <span class="op">%&gt;%</span></span>
+<span id="cb32-2"><a href="#cb32-2"></a><span class="st">  </span><span class="kw">select</span>(studyYear<span class="op">:</span>VarComps) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb32-3"><a href="#cb32-3"></a><span class="st">  </span><span class="kw">unnest</span>(VarComps) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb32-4"><a href="#cb32-4"></a><span class="st">  </span><span class="kw">ggplot</span>(.,<span class="kw">aes</span>(<span class="dt">x=</span>TrialType,<span class="dt">y=</span>Residual,<span class="dt">fill=</span>TrialType)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb32-5"><a href="#cb32-5"></a><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">color=</span><span class="st">&#39;darkgray&#39;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb32-6"><a href="#cb32-6"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span><span class="kw">facet_wrap</span>(<span class="op">~</span>Trait,<span class="dt">scales =</span> <span class="st">&#39;free&#39;</span>,<span class="dt">nrow=</span><span class="dv">2</span>) <span class="op">+</span></span>
+<span id="cb32-7"><a href="#cb32-7"></a><span class="st">  </span><span class="kw">scale_fill_viridis_d</span>(<span class="dt">option =</span> <span class="st">&#39;inferno&#39;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle=</span><span class="dv">90</span>,<span class="dt">face=</span><span class="st">&#39;bold&#39;</span>))</span></code></pre></div>
 <p><img src="figure/02-curateByTrial.Rmd/unnamed-chunk-16-1.png" width="864" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>dbdata <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb27-2"><a href="#cb27-2"></a><span class="st">  </span><span class="kw">ggplot</span>(.,<span class="kw">aes</span>(<span class="dt">x=</span>TrialType,<span class="dt">y=</span>propMiss,<span class="dt">fill=</span>TrialType)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb27-3"><a href="#cb27-3"></a><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">color=</span><span class="st">&#39;darkgray&#39;</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb27-4"><a href="#cb27-4"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span><span class="kw">facet_wrap</span>(<span class="op">~</span>Trait,<span class="dt">scales =</span> <span class="st">&#39;free&#39;</span>,<span class="dt">nrow=</span><span class="dv">2</span>) <span class="op">+</span></span>
-<span id="cb27-5"><a href="#cb27-5"></a><span class="st">  </span><span class="kw">scale_fill_viridis_d</span>(<span class="dt">option =</span> <span class="st">&#39;inferno&#39;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle=</span><span class="dv">90</span>,<span class="dt">face=</span><span class="st">&#39;bold&#39;</span>))</span></code></pre></div>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-16-1">
+Past versions of unnamed-chunk-16-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-16-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wolfemd/NRCRI_2020GS/blob/f3f6163b319d8633e807c1c45ed2da79e2d747ed/docs/figure/02-curateByTrial.Rmd/unnamed-chunk-16-1.png" target="_blank">f3f6163</a>
+</td>
+<td>
+wolfemd
+</td>
+<td>
+2020-04-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>dbdata <span class="op">%&gt;%</span></span>
+<span id="cb33-2"><a href="#cb33-2"></a><span class="st">  </span><span class="kw">select</span>(studyYear<span class="op">:</span>VarComps) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb33-3"><a href="#cb33-3"></a><span class="st">  </span><span class="kw">unnest</span>(VarComps) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb33-4"><a href="#cb33-4"></a><span class="st">  </span><span class="kw">ggplot</span>(.,<span class="kw">aes</span>(<span class="dt">x=</span>TrialType,<span class="dt">y=</span>H2,<span class="dt">fill=</span>TrialType)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb33-5"><a href="#cb33-5"></a><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">color=</span><span class="st">&#39;darkgray&#39;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb33-6"><a href="#cb33-6"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span><span class="kw">facet_wrap</span>(<span class="op">~</span>Trait,<span class="dt">scales =</span> <span class="st">&#39;free&#39;</span>,<span class="dt">nrow=</span><span class="dv">2</span>) <span class="op">+</span></span>
+<span id="cb33-7"><a href="#cb33-7"></a><span class="st">  </span><span class="kw">scale_fill_viridis_d</span>(<span class="dt">option =</span> <span class="st">&#39;inferno&#39;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle=</span><span class="dv">90</span>,<span class="dt">face=</span><span class="st">&#39;bold&#39;</span>))</span></code></pre></div>
 <p><img src="figure/02-curateByTrial.Rmd/unnamed-chunk-17-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-17-1">
+Past versions of unnamed-chunk-17-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-17-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wolfemd/NRCRI_2020GS/blob/f3f6163b319d8633e807c1c45ed2da79e2d747ed/docs/figure/02-curateByTrial.Rmd/unnamed-chunk-17-1.png" target="_blank">f3f6163</a>
+</td>
+<td>
+wolfemd
+</td>
+<td>
+2020-04-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a>dbdata <span class="op">%&gt;%</span></span>
+<span id="cb34-2"><a href="#cb34-2"></a><span class="st">  </span><span class="kw">ggplot</span>(.,<span class="kw">aes</span>(<span class="dt">x=</span>TrialType,<span class="dt">y=</span>Noutliers,<span class="dt">fill=</span>TrialType)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb34-3"><a href="#cb34-3"></a><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">color=</span><span class="st">&#39;darkgray&#39;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb34-4"><a href="#cb34-4"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span><span class="kw">facet_wrap</span>(<span class="op">~</span>Trait,<span class="dt">scales =</span> <span class="st">&#39;free&#39;</span>,<span class="dt">nrow=</span><span class="dv">2</span>) <span class="op">+</span></span>
+<span id="cb34-5"><a href="#cb34-5"></a><span class="st">  </span><span class="kw">scale_fill_viridis_d</span>(<span class="dt">option =</span> <span class="st">&#39;inferno&#39;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle=</span><span class="dv">90</span>,<span class="dt">face=</span><span class="st">&#39;bold&#39;</span>))</span></code></pre></div>
+<p><img src="figure/02-curateByTrial.Rmd/unnamed-chunk-18-1.png" width="864" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>dbdata <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb35-2"><a href="#cb35-2"></a><span class="st">  </span><span class="kw">ggplot</span>(.,<span class="kw">aes</span>(<span class="dt">x=</span>TrialType,<span class="dt">y=</span>propMiss,<span class="dt">fill=</span>TrialType)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb35-3"><a href="#cb35-3"></a><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">color=</span><span class="st">&#39;darkgray&#39;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb35-4"><a href="#cb35-4"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span><span class="kw">facet_wrap</span>(<span class="op">~</span>Trait,<span class="dt">scales =</span> <span class="st">&#39;free&#39;</span>,<span class="dt">nrow=</span><span class="dv">2</span>) <span class="op">+</span></span>
+<span id="cb35-5"><a href="#cb35-5"></a><span class="st">  </span><span class="kw">scale_fill_viridis_d</span>(<span class="dt">option =</span> <span class="st">&#39;inferno&#39;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle=</span><span class="dv">90</span>,<span class="dt">face=</span><span class="st">&#39;bold&#39;</span>))</span></code></pre></div>
+<p><img src="figure/02-curateByTrial.Rmd/unnamed-chunk-19-1.png" width="864" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="next-step" class="section level1">
@@ -1015,14 +1541,14 @@ Publish the first set of analyses and files for NRCRI 2020 GS.
 </button>
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="kw">sessionInfo</span>()</span></code></pre></div>
-<pre><code>R version 3.6.1 (2019-07-05)
-Platform: x86_64-apple-darwin15.6.0 (64-bit)
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="kw">sessionInfo</span>()</span></code></pre></div>
+<pre><code>R version 4.0.2 (2020-06-22)
+Platform: x86_64-apple-darwin17.0 (64-bit)
 Running under: macOS Mojave 10.14.6
 
 Matrix products: default
-BLAS:   /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRblas.0.dylib
-LAPACK: /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRlapack.dylib
+BLAS:   /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRlapack.dylib
 
 locale:
 [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
@@ -1032,28 +1558,28 @@ attached base packages:
 
 other attached packages:
  [1] lme4_1.1-23     Matrix_1.2-18   magrittr_1.5    forcats_0.5.0  
- [5] stringr_1.4.0   dplyr_0.8.5     purrr_0.3.4     readr_1.3.1    
- [9] tidyr_1.0.2     tibble_3.0.1    ggplot2_3.3.0   tidyverse_1.3.0
-[13] workflowr_1.6.1
+ [5] stringr_1.4.0   dplyr_1.0.2     purrr_0.3.4     readr_1.3.1    
+ [9] tidyr_1.1.2     tibble_3.0.3    ggplot2_3.3.2   tidyverse_1.3.0
+[13] workflowr_1.6.2
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.4.6      lubridate_1.7.8   here_0.1          lattice_0.20-41  
+ [1] Rcpp_1.0.5        lubridate_1.7.9   here_0.1          lattice_0.20-41  
  [5] assertthat_0.2.1  rprojroot_1.3-2   digest_0.6.25     utf8_1.1.4       
- [9] R6_2.4.1          cellranger_1.1.0  backports_1.1.6   reprex_0.3.0     
-[13] evaluate_0.14     httr_1.4.1        pillar_1.4.3      rlang_0.4.5      
-[17] readxl_1.3.1      minqa_1.2.4       rstudioapi_0.11   nloptr_1.2.2.1   
-[21] whisker_0.4       rmarkdown_2.1     labeling_0.3      splines_3.6.1    
-[25] statmod_1.4.34    munsell_0.5.0     broom_0.5.6       compiler_3.6.1   
-[29] httpuv_1.5.2      modelr_0.1.6      xfun_0.13         pkgconfig_2.0.3  
-[33] htmltools_0.4.0   tidyselect_1.0.0  viridisLite_0.3.0 fansi_0.4.1      
-[37] crayon_1.3.4      dbplyr_1.4.3      withr_2.2.0       later_1.0.0      
-[41] MASS_7.3-51.6     grid_3.6.1        nlme_3.1-147      jsonlite_1.6.1   
-[45] gtable_0.3.0      lifecycle_0.2.0   DBI_1.1.0         git2r_0.26.1     
-[49] scales_1.1.0      cli_2.0.2         stringi_1.4.6     farver_2.0.3     
-[53] fs_1.4.1          promises_1.1.0    xml2_1.3.2        ellipsis_0.3.0   
-[57] generics_0.0.2    vctrs_0.2.4       boot_1.3-25       tools_3.6.1      
-[61] glue_1.4.0        hms_0.5.3         yaml_2.2.1        colorspace_1.4-1 
-[65] rvest_0.3.5       knitr_1.28        haven_2.2.0      </code></pre>
+ [9] R6_2.4.1          cellranger_1.1.0  backports_1.1.10  reprex_0.3.0     
+[13] evaluate_0.14     httr_1.4.2        pillar_1.4.6      rlang_0.4.7      
+[17] readxl_1.3.1      minqa_1.2.4       rstudioapi_0.11   nloptr_1.2.2.2   
+[21] whisker_0.4       blob_1.2.1        rmarkdown_2.4     labeling_0.3     
+[25] splines_4.0.2     statmod_1.4.34    munsell_0.5.0     broom_0.7.0      
+[29] compiler_4.0.2    httpuv_1.5.4      modelr_0.1.8      xfun_0.18        
+[33] pkgconfig_2.0.3   htmltools_0.5.0   tidyselect_1.1.0  viridisLite_0.3.0
+[37] fansi_0.4.1       crayon_1.3.4      dbplyr_1.4.4      withr_2.3.0      
+[41] later_1.1.0.1     MASS_7.3-53       grid_4.0.2        nlme_3.1-149     
+[45] jsonlite_1.7.1    gtable_0.3.0      lifecycle_0.2.0   DBI_1.1.0        
+[49] git2r_0.27.1      scales_1.1.1      cli_2.0.2         stringi_1.5.3    
+[53] farver_2.0.3      fs_1.5.0          promises_1.1.1    xml2_1.3.2       
+[57] ellipsis_0.3.1    generics_0.0.2    vctrs_0.3.4       boot_1.3-25      
+[61] tools_4.0.2       glue_1.4.2        hms_0.5.3         yaml_2.2.1       
+[65] colorspace_1.4-1  rvest_0.3.6       knitr_1.30        haven_2.3.1      </code></pre>
 </div>
 </div>
 
@@ -1119,7 +1645,7 @@ $(document).ready(function ()  {
       theme: "bootstrap3",
       context: '.toc-content',
       hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
       },
       ignoreSelector: ".toc-ignore",
       scrollTo: 0
