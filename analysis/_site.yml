@@ -3,7 +3,7 @@ output_dir: ../docs
 navbar:
   title: NRCRI_2020GS
   left:
-  - text: Synopsis
+  - text: Home
     href: index.html
   - text: April2020 Predictions
     menu:
