@@ -212,7 +212,7 @@ cv2do<-blups_nrcri %>%
 cv2do$TrainTestData[[6]] %>%
   count(Group)
 ```
-```{r}
+```{r, eval=F}
 cv2do$TrainTestData[[6]] %>% head
 ```
 
@@ -629,7 +629,7 @@ saveRDS(cv_ADE_iitaAugmented,file=here::here("output","cvresults_ADE_iitaAugment
 
 
 ```
-```{r}
+```{r, eval=F}
 cv<-readRDS(here::here("output","cvresults_A_iitaAugmented.rds"))
 cv$CVresults[[1]]
 ```
