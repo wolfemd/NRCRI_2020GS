@@ -5,18 +5,30 @@ navbar:
   left:
   - text: Synopsis
     href: index.html
-  - text: Data Cleaning
-    href: 01-cleanTPdata.html
-  - text: Curate Data
-    href: 02-curateByTrial.html
-  - text: Get BLUPs
-    href: 03-GetBLUPs.html
-  - text: Check prediction accuracy
-    href: 04-CrossValidation.html
-  - text: Get GEBV for GS C2
-    href: 05-GetGEBVs.html
-  - text: License
-    href: license.html
+  - text: April2020 Predictions
+    menu:
+    - text: Data Cleaning
+      href: 01-cleanTPdata.html
+    - text: Curate Data
+      href: 02-curateByTrial.html
+    - text: Get BLUPs
+      href: 03-GetBLUPs.html
+    - text: Check prediction accuracy
+      href: 04-CrossValidation.html
+    - text: Get GEBV for GS C2
+      href: 05-GetGEBVs.html
+  - text: October2020 Impute
+    menu:
+    - text: Conversion DArT report DCas20_5440 to VCF
+      href: convertDCas20_5440_ToVCF.html
+    - text: Impute DCas20_5440
+      href: ImputeDCas20_5440.html
+  - text: Other
+    menu:
+    - text: About
+      href: about.html
+    - text: License
+      href: license.html
   right:
   - icon: fa-github
     text: Source code
@@ -25,8 +37,5 @@ output:
   workflowr::wflow_html:
     toc: yes
     toc_float: yes
-    toc_depth: 3
-    collapsed: no
-    number_sections: no
-    theme: darkly
+    theme: yeti
     highlight: tango

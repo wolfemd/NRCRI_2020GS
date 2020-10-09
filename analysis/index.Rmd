@@ -1,21 +1,60 @@
 ---
-title: "NRCRI Genomic Selection 2020"
+title: "NRCRI 2020 GS and related procedures"
 site: workflowr::wflow_site
-date: "2020-April"
-output: workflowr::wflow_html
+author: "Marnin Wolfe"
+output:
+  workflowr::wflow_html:
+    toc: false
 editor_options:
-  chunk_output_type: inline
+  chunk_output_type: console
 ---
 
-# Analysis Steps
+This repository and website documents all analyses, summary, tables and figures associated with NRCRI genomic prediction and related procedures (e.g. imputation).
 
-1. [Prepare a training dataset](01-cleanTPdata.html): Download data from DB, "Clean" and format DB data.
-2. [Curate by trait-trial](02-curateByTrial.html): Model each trait-trial separately, remove outliers, get BLUPs.
-3. [Get BLUPs combining all trial data](03-GetBLUPs.html): Combine data from all trait-trials to get BLUPs for downstream genomic prediction.
-4. [Check prediction accuracy](04-CrossValidation.html): Evaluate prediction accuracy with cross-validation.
-5. [Genomic prediction of GS C2](05-GetGBLUPs.html): Predict _genomic_ BLUPs (GEBV and GETGV) for all selection candidates using all available data.
-6. [Estimate genetic gain](06-GetGainEst.html)
+# April Genomic Prediction
 
-# Summary
+Re-prediction of NRCRI germplasm. Updating available training data as of April 2020. Produce GEBV and GETGV.
 
-Re-prediction of NRCRI germplasm. Updating available training data as of April 2020. Produce GEBV and GETGV. 
+1.  [Prepare a training dataset](01-cleanTPdata.html): Download data from DB, "Clean" and format DB data.
+2.  [Curate by trait-trial](02-curateByTrial.html): Model each trait-trial separately, remove outliers, get BLUPs.
+3.  [Get BLUPs combining all trial data](03-GetBLUPs.html): Combine data from all trait-trials to get BLUPs for downstream genomic prediction.
+4.  [Check prediction accuracy](04-CrossValidation.html): Evaluate prediction accuracy with cross-validation.
+5.  [Genomic prediction of GS C2](05-GetGBLUPs.html): Predict *genomic* BLUPs (GEBV and GETGV) for all selection candidates using all available data.
+6.  [Estimate genetic gain](06-GetGainEst.html)
+
+# October Imputation
+
+DCas20-5440 From Princess Onyyegbule on Sep 22, 2020: "These samples are from materials for inbreeding depression after one self-pollinated generation in two elite cassava varieties (TMS980581 and TMS070337). We want to assess the possibility of obtaining genetic gain by selecting transgressive individuals based on several productive traits, mostly high dry matter content."
+
+**Steps**:
+
+1.   [Convert DCas20-5440 report to VCF for imputation](convertDCas20_5440_ToVCF.html):
+2.   [Impute DCas20-5440](ImputeDCas20_5440.html): with West Africa reference panel
+
+**Files**:
+
+-   **RefPanel VCF filename:** `chr*_ImputationReferencePanel_StageIIpartI_72219.vcf.gz`
+-   **Imputed filename:** `chr*_DCas20_5440_WA_REFimputed.vcf.gz`
+-   **Post-impute filtered filename:** `chr*_DCas20_5440_WA_REFimputedAndFiltered.vcf.gz`
+-   **Genome-wide dosage matrix format for use in R:** `DosageMatrix_DCas20_5440_WA_REFimputedAndFiltered.rds`
+
+# Data availability and reproducibility
+
+The R package **workflowr** was used to document this study reproducibly.
+
+Much of the supporting data *and* output from the analyses documented here are too large for GitHub.
+
+The repository will be mirrored, here: <ftp://ftp.cassavabase.org/marnin_datasets/NRCRI_2020GS/> with all data.
+
+# Directory structure of this repository
+
+**NOTICE:** `data/` and `output/` are empty on GitHub. Please see <ftp://ftp.cassavabase.org/marnin_datasets/NRCRI_2020GS/> for access.
+
+1.  `data/`: raw data (e.g. unimputed SNP data)
+2.  `output/`: outputs (e.g. imputed SNP data)
+3.  `analysis/`: most code and workflow documented in **.Rmd** files
+4.  `docs/`: compiled **.html**, "knitted" from **.Rmd**
+
+Supporting functions `code/`
+
+The analyses in the **html** / **Rmd** files referenced above often source R scripts in the `code/` sub-folder. 
