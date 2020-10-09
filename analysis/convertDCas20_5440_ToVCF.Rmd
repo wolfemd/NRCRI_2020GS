@@ -1,0 +1,108 @@
+---
+title: "Convert NRCRI DCas20-5440 to VCF"
+site: workflowr::wflow_site
+date: "2020-October-8"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: inline
+---
+
+# Input Parameters
+```{r, eval=F}
+#' @dartvcfInput input name and path of "vcf" file from DArT
+#' @dartcountsInput input name and path of counts file from DArT
+#' @outName output path and name
+#' @nskipvcf number of "VCF" rows to skip on read-in
+#' @nskipcounts number of "counts file" rows to skip on read in
+#' @ncores number of cores to use, could be VERY memory intensive
+#' @dartVars chr vector, column names that _are not_ sample IDs in the read-counts file. I use this internally to assign the sampleIDs in the VCF file
+
+library(tidyverse); library(magrittr)
+dartvcfInput<-here::here("data/Report-DCas20-5440","Report_5440_VCF_Ref_Version6.txt")
+dartcountsInput<-here::here("data/Report-DCas20-5440","Report_5440_Counts_Ref_Version6.csv")
+outName<-here::here("data/Report-DCas20-5440","DCas20_5440")
+nskipvcf<-2 
+nskipcounts<-3
+ncores<-10
+```
+
+# Prelim. check format
+
+Start manual. Check that the files read in according to previous code. Adjust code if necessary. Make a function and apply it to the input files.
+
+```{r, eval=F}
+# vcf<-read.table(dartvcfInput,
+#                 stringsAsFactors = F,skip = nskipvcf, header = T, sep = "\t", comment.char = "")
+# readCounts<-read.csv(dartcountsInput, stringsAsFactors = F,header = T,skip=nskipcounts)
+# 
+# dim(vcf)
+# # [1] 13603   260
+# dim(readCounts)
+# # [1] 27206   294
+
+# # Initial look at names....
+# colnames(readCounts)[1:100]
+# [44] "NR.NG.DM.Cass.0001_A02...NR18S1P0075"       
+#  [45] "NR.NG.DM.Cass.0001_B02...NR18S1P0088"       
+#  [46] "NR.NG.DM.Cass.0001_D02...NR18S1P0022"       
+#  [47] "NR.NG.DM.Cass.0001_G02...NR18S1P0011"       
+#  [48] "NR.NG.DM.Cass.0001_A03...NR18S1P0182"       
+#  [49] "NR.NG.DM.Cass.0001_B03...NR18S1P0106"       
+#  [50] "NR.NG.DM.Cass.0001_C03...NR18S1P0230"       
+#  [51] "NR.NG.DM.Cass.0001_D03...NR18S1P0093"       
+#  [52] "NR.NG.DM.Cass.0001_E03...NR18S1P0201"       
+#  [53] "NR.NG.DM.Cass.0001_F03...IITA.TMS.IBA070337"
+# colnames(vcf)[1:30]
+# [10] "NR.NG.DM.Cass.0001_A01...NR18S1P0018"       
+# [11] "NR.NG.DM.Cass.0001_A10...NR18S1P0067"       
+# [12] "NR.NG.DM.Cass.0001_A11...NR18S1P0085"       
+# [13] "NR.NG.DM.Cass.0001_A12...NR18S1P0052"       
+# [14] "NR.NG.DM.Cass.0001_A02...NR18S1P0075"       
+# [15] "NR.NG.DM.Cass.0001_A03...NR18S1P0182"       
+# [16] "NR.NG.DM.Cass.0001_A04...NR18S1P0224"       
+# [17] "NR.NG.DM.Cass.0001_A05...NR18S1P0079"       
+# [18] "NR.NG.DM.Cass.0001_A06...NR18S1P0043"       
+# [19] "NR.NG.DM.Cass.0001_A07...NR18S1P0119"       
+# [20] "NR.NG.DM.Cass.0001_A08...NR18S1P0084"       
+# [21] "NR.NG.DM.Cass.0001_A09...NR18S1P0242"       
+# [22] "NR.NG.DM.Cass.0001_B01...IITA.TMS.IBA980581"
+# [23] "NR.NG.DM.Cass.0001_B10...NR18S1P0237"       
+# [24] "NR.NG.DM.Cass.0001_B11...NR18S1P0207"       
+# [25] "NR.NG.DM.Cass.0001_B12...NR18S1P0236"       
+# [26] "NR.NG.DM.Cass.0001_B02...NR18S1P0088"       
+# [27] "NR.NG.DM.Cass.0001_B03...NR18S1P0106"       
+# [28] "NR.NG.DM.Cass.0001_B04...NR18S1P0116"       
+# [29] "NR.NG.DM.Cass.0001_B05...NR18S1P0169"       
+# [30] "NR.NG.DM.Cass.0001_B06...NR18S1P0015"   
+
+```
+
+# Conversion function
+
+Available and sourced from `code/` subdirectory: `convertDart2vcf.R`.
+
+# Run conversion function
+```{r, eval=F}
+source(here::here("code/","convertDart2vcf.R"))
+convertDart2vcf(dartvcfInput,dartcountsInput,outName,
+                nskipvcf=2,nskipcounts=3,ncores)
+```
+
+# Genomewide to per-chrom VCFs
+
+Split the genome-wide VCF into per-chromosome VCFs for imputation.
+
+```{r,eval = FALSE}
+require(furrr); options(mc.cores=18); plan(multiprocess)
+source(here::here("code","imputationFunctions.R"))
+
+vcfIn<-here::here("data/Report-DCas20-5440","DCas20_5440.vcf.gz")
+filters<-"--minDP 4 --maxDP 50" # because using GT not PL for impute (Beagle5)
+outPath<-here::here("data/Report-DCas20-5440/")
+outSuffix<-"DCas20_5440"
+
+future_map(1:18,
+           ~splitVCFbyChr(Chr=.,
+                          vcfIn=vcfIn,filters=filters,
+                          outPath=outPath,outSuffix=outSuffix))
+```
