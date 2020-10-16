@@ -17,7 +17,7 @@ readDBdata<-function(phenotypeFile,metadataFile=NULL){
 
 makeTrialTypeVar<-function(indata){
   # So far, this function is not very general
-  # Handles IITA and NRCRI trial names as of April 2020.
+  # Handles IITA and NRCRI trial names as of September 2020.
   # Can customize this or add lines to grab TrialTypes for each breeding program
   if(indata$programName=="IITA"){
     outdata<-indata %>%
@@ -31,9 +31,10 @@ makeTrialTypeVar<-function(indata){
              TrialType=ifelse((grepl("clonal evaluation trial",!grepl("genetic gain",studyDescription,ignore.case = T),
                                      ignore.case = T)),"CET",TrialType),
              TrialType=ifelse(grepl("preliminary yield trial",studyDescription,ignore.case = T),"PYT",TrialType),
-             TrialType=ifelse(grepl("Crossingblock|GS.C4.CB|cross",studyName) & is.na(TrialType),"CrossingBlock",TrialType),
+             TrialType=ifelse(grepl("Crossingblock|\\.CB\\.|cross",studyName) & is.na(TrialType),"CrossingBlock",TrialType),
              TrialType=ifelse(grepl("NCRP",studyName) & is.na(TrialType),"NCRP",TrialType),
-             TrialType=ifelse(grepl("conservation",studyName) & is.na(TrialType),"Conservation",TrialType)) }
+             TrialType=ifelse(grepl("conservation",studyName) & is.na(TrialType),"Conservation",TrialType),
+             TrialType=ifelse(grepl("seedling|\\.SN",studyName),"SN",TrialType)) }
   if(indata$programName=="NRCRI"){
     outdata<-indata %>%
       mutate(TrialType=ifelse(grepl("TP1",studyName,ignore.case = T),"TP1",NA),
@@ -49,19 +50,22 @@ makeTrialTypeVar<-function(indata){
              TrialType=ifelse(grepl("seedling",studyName,ignore.case = T),NA,TrialType)) }
   return(outdata) }
 
+
 #' @param  traitabbrevs data.frame with 2 cols (TraitAbbrev and TraitName). TraitName should match exactly to cassava ontology names
 #' @param  indata data.frame read from cassavabase download
 #' @param  customColsToKeep char. vec. of any custom cols you added and want to keep
 renameAndSelectCols<-function(traitabbrevs,indata,
                               customColsToKeep=NULL){
   outdata<-indata %>%
-    select(studyYear,programName,locationName,studyName,studyDesign,plotWidth,plotLength,fieldSize,
-           plantingDate,harvestDate,locationName,germplasmName,
-           replicate,blockNumber,plotNumber,rowNumber,colNumber,entryType,
-           # trialType:numberReps,folderName, # these are columns that come from the metadata file
+    select(any_of(c("studyYear","programName","locationName","studyName","studyDesign",
+                    "plotWidth","plotLength","fieldSize","plantingDate","harvestDate",
+                    "germplasmName","observationUnitDbId",
+                    "replicate","blockNumber","plotNumber","rowNumber","colNumber","entryType",
+                    "trialType","plantsPerPlot","numberBlocks","numberReps")),
            any_of(customColsToKeep),
-           any_of(traitabbrevs$TraitName)) %>%
-    pivot_longer(cols = traitabbrevs$TraitName[traitabbrevs$TraitName %in% colnames(indata)],
+           any_of(traitabbrevs$TraitName)) %>% ungroup() %>%
+    mutate(across(any_of(traitabbrevs$TraitName), as.numeric)) %>% ungroup() %>%
+    pivot_longer(cols = any_of(traitabbrevs$TraitName),
                  names_to = "TraitName",
                  values_to = "Value") %>%
     left_join(.,traitabbrevs) %>%
@@ -69,6 +73,7 @@ renameAndSelectCols<-function(traitabbrevs,indata,
     pivot_wider(names_from = TraitAbbrev,
                 values_from = "Value")
   return(outdata) }
+
 # Curate by trial
 nestByTrials<-function(indata){
   nested_indata<-indata %>%
@@ -81,7 +86,16 @@ nestByTrials<-function(indata){
   return(nested_indata)
 }
 
-detectExptDesigns<-function(nestedDBdata){
+detectExptDesigns<-function(indata){
+  # nestByTrials
+  nestedDBdata<-indata %>%
+    # Create some explicitly nested variables including loc and year to nest with the trial data
+    mutate(yearInLoc=paste0(programName,"_",locationName,"_",studyYear),
+           trialInLocYr=paste0(yearInLoc,"_",studyName),
+           repInTrial=paste0(trialInLocYr,"_",replicate),
+           blockInRep=paste0(repInTrial,"_",blockNumber)) %>%
+    nest(TrialData=-c(programName,locationName,studyYear,TrialType,studyName))
+
   # Define complete blocks
   nestedDBdata %>%
     mutate(Nobs=map_dbl(TrialData,~nrow(.)),
@@ -133,7 +147,25 @@ detectExptDesigns<-function(nestedDBdata){
     mutate(IncompleteBlocks=ifelse(CompleteBlocks==FALSE & IncompleteBlocks==FALSE &
                                      Nobs!=Nblock & Nobs!=Nrep &
                                      medObsPerBlockInRep>1 & Nrep>1,TRUE,IncompleteBlocks))
+  z %<>%
+    dplyr::select(-MaxNOHAV) %>%
+    unnest(TrialData)
   return(z)
+}
+
+nestDesignsDetectedByTraits<-function(indata,traits){
+  indata %<>%
+    select(programName,locationName,studyYear,TrialType,studyName,
+           CompleteBlocks,IncompleteBlocks,
+           yearInLoc,trialInLocYr,repInTrial,blockInRep,observationUnitDbId,
+           germplasmName,FullSampleName,GID,all_of(traits),PropNOHAV) %>%
+    mutate(IncompleteBlocks=ifelse(IncompleteBlocks==TRUE,"Yes","No"),
+           CompleteBlocks=ifelse(CompleteBlocks==TRUE,"Yes","No")) %>%
+    pivot_longer(cols = all_of(traits), names_to = "Trait", values_to = "Value") %>%
+    filter(!is.na(Value),
+           !is.na(GID)) %>%
+    nest(MultiTrialTraitData=c(-Trait))
+  return(indata)
 }
 
 nestTrialsByTrait<-function(indata,traits){
@@ -436,16 +468,28 @@ runGenomicPredictions<-function(blups,modelType,grms,ncores=1,gid="GID",...){
     fit <- mmer(fixed = drgBLUP ~1,
                 random = as.formula(randFormula),
                 weights = WT,
-                data=trainingdata)
+                data=trainingdata,getPEV = TRUE)
+
     # Gather the BLUPs
     gblups<-tibble(GID=as.character(names(fit$U[[paste0("u:",gid,"a")]]$drgBLUP)),
                    GEBV=as.numeric(fit$U[[paste0("u:",gid,"a")]]$drgBLUP))
+    pev<-diag((fit$PevU[["u:GIDa"]]$drgBLUP))
+    pev<-tibble(GID=names(pev),
+                PEVa=pev)
+    gblups %<>% left_join(pev)
     if(modelType %in% c("AD","ADE")){
       gblups %<>% mutate(GEDD=as.numeric(fit$U[[paste0("u:",gid,"d")]]$drgBLUP))
+      pev<-diag((fit$PevU[["u:GIDd"]]$drgBLUP))
+      pev<-tibble(GID=names(pev),
+                  PEVd=pev)
+      gblups %<>% left_join(pev)
+
       if(modelType=="ADE"){
-        gblups %<>% mutate(#GEEDaa=as.numeric(fit$U[[paste0("u:",gid,"aa")]]$drgBLUP),
-          GEEDad=as.numeric(fit$U[[paste0("u:",gid,"ad")]]$drgBLUP))
-        #GEEDdd=as.numeric(fit$U[[paste0("u:",gid,"dd")]]$drgBLUP))
+        gblups %<>% mutate(GEEDad=as.numeric(fit$U[[paste0("u:",gid,"ad")]]$drgBLUP))
+        pev<-diag((fit$PevU[["u:GIDad"]]$drgBLUP))
+        pev<-tibble(GID=names(pev),
+                    PEVad=pev)
+        gblups %<>% left_join(pev)
       }
     }
     # Calc GETGVs

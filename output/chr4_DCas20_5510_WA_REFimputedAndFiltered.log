@@ -1,0 +1,27 @@
+PLINK v1.90b3.30 64-bit (27 Jan 2016)
+Options in effect:
+  --bfile /home/jj332_cas/marnin/NRCRI_2020GS/output/chr4_DCas20_5510_WA_REFimputedAndFiltered
+  --out /home/jj332_cas/marnin/NRCRI_2020GS/output/chr4_DCas20_5510_WA_REFimputedAndFiltered
+  --recode A
+
+Hostname: cbsulm16.biohpc.cornell.edu
+Working directory: /local/workdir/mw489/NRCRI_2020GS
+Start time: Tue Oct 13 23:33:39 2020
+
+Random number seed: 1602646419
+515677 MB RAM detected; reserving 257838 MB for main workspace.
+3863 variants loaded from .bim file.
+395 people (0 males, 0 females, 395 ambiguous) loaded from .fam.
+Ambiguous sex IDs written to
+/home/jj332_cas/marnin/NRCRI_2020GS/output/chr4_DCas20_5510_WA_REFimputedAndFiltered.nosex
+.
+Using 1 thread (no multithreaded calculations invoked.
+Before main variant filters, 395 founders and 0 nonfounders present.
+Calculating allele frequencies... done.
+3863 variants and 395 people pass filters and QC.
+Note: No phenotypes present.
+--recode A to
+/home/jj332_cas/marnin/NRCRI_2020GS/output/chr4_DCas20_5510_WA_REFimputedAndFiltered.raw
+... done.
+
+End time: Tue Oct 13 23:33:39 2020
