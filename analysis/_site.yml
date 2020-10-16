@@ -36,7 +36,7 @@ navbar:
     - text: Check prediction accuracy
       href: 08-CrossValidation.html
     - text: Get GEBV for GS C2
-      href: 09-GetGEBVs.html
+      href: 09-GetGBLUPs.html
     - text: Results
       href: 10-Results.html
   - text: Other

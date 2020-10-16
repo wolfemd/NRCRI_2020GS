@@ -23,7 +23,7 @@ Re-prediction of NRCRI germplasm. Updating available training data as of April 2
 
 # October Imputations
 
-## DCas20-5440 
+### DCas20-5440 
 
 From Princess Onyyegbule on Sep 22, 2020: "These samples are from materials for inbreeding depression after one self-pollinated generation in two elite cassava varieties (TMS980581 and TMS070337). We want to assess the possibility of obtaining genetic gain by selecting transgressive individuals based on several productive traits, mostly high dry matter content."
 
@@ -39,7 +39,7 @@ From Princess Onyyegbule on Sep 22, 2020: "These samples are from materials for 
 -   **Post-impute filtered filename:** `chr*_DCas20_5440_WA_REFimputedAndFiltered.vcf.gz`
 -   **Genome-wide dosage matrix format for use in R:** `DosageMatrix_DCas20_5440_WA_REFimputedAndFiltered.rds`
 
-## DCas20-5510 
+### DCas20-5510 
 
 GS C3. 
 
@@ -68,6 +68,18 @@ To fit the mixed-model that I want, I am again resorting to `asreml-R`. I fit ra
     * Compare prediction accuracy with vs. without IITA's training data to augment.
 4. [Genomic prediction](09-GetGBLUPs.html): Predict _genomic_ BLUPs (GEBV and GETGV) for all selection candidates using all available data.
 5. [Results](10-Results.html): New home for plots and other results.
+
+**Files**: everything is in the `output/` sub-directory. 
+
+-  **GEBVs for parent selection:** `GEBV_NRCRI_ModelA_2020Oct15.csv`
+-  **GETGVs for variety advancement:** `GETGV_NRCRI_ModelA_2020Oct15.csv`
+-  **Tidy, long-form CSV of predictions, including PEVs:** `genomicPredictions_NRCRI_2020Oct15.csv`
+
+[**DOWNLOAD FROM CASSAVABASE FTP SERVER**](ftp://ftp.cassavabase.org/marnin_datasets/NRCRI_2020GS/output/)
+
+or  
+
+[**DOWNLOAD FROM GitHub**](https://github.com/wolfemd/NRCRI_2020GS/tree/master/output)
 
 
 # Data availability and reproducibility
