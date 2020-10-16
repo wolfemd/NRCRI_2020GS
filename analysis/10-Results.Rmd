@@ -1,0 +1,237 @@
+---
+title: "Results"
+site: workflowr::wflow_site
+date: "2020-October-15"
+output: 
+  workflowr::wflow_html:
+    code_folding: hide
+editor_options:
+  chunk_output_type: inline
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = F, tidy = T)
+```
+
+# Raw data
+
+Summary of the number of unique plots, locations, years, etc. in the cleaned plot-basis data. See [here](06-cleanTPdata.html) for details..
+```{r}
+library(tidyverse); library(magrittr);
+rawdata<-readRDS(file=here::here("output","NRCRI_ExptDesignsDetected_2020Oct13.rds"))
+rawdata %>% 
+  summarise(Nplots=nrow(.),
+            across(c(locationName,studyYear,studyName,TrialType,GID), ~length(unique(.)),.names = "N_{.col}")) %>% 
+  rmarkdown::paged_table()
+```
+Break down the plots based on the trial design and TrialType (really a grouping of the population that is breeding program specific), captured by two logical variables, **CompleteBlocks** and **IncompleteBlocks**.  
+```{r}
+rawdata %>% 
+  count(TrialType,CompleteBlocks,IncompleteBlocks) %>% 
+  spread(TrialType,n) %>% 
+  rmarkdown::paged_table()
+```
+
+# BLUPs
+
+```{r}
+library(tidyverse); library(magrittr);
+dbdata<-readRDS(file=here::here("output","nrcri_blupsForModelTraining_twostage_asreml_2020Oct13.rds"))
+dbdata %>% 
+  mutate(Nclones=map_dbl(blups,~nrow(.)),
+         NoutliersRemoved=map2_dbl(outliers1,outliers2,~length(.x)+length(.y))) %>% 
+  relocate(c(Nclones,NoutliersRemoved),.after = Trait) %>% select(-blups,-varcomp,-outliers1,-outliers2) %>% 
+  mutate(across(is.numeric,~round(.,4))) %>% 
+  rmarkdown::paged_table()
+```
+
+# Prediction accuracy.
+
+3. [Check prediction accuracy](08-CrossValidation.html): Evaluate prediction accuracy with cross-validation.
+    * Compare prediction accuracy with vs. without IITA's training data to augment.
+
+```{r}
+rm(list=ls());gc()
+library(tidyverse); library(magrittr); 
+cv<-readRDS(here::here("output","cvresults_A_nrOnly_2020Oct15.rds")) %>% 
+  bind_rows(readRDS(here::here("output","cvresults_A_iitaAugmented_2020Oct15.rds"))) %>% 
+  bind_rows(readRDS(here::here("output","cvresults_ADE_nrOnly_2020Oct15.rds"))) %>% 
+  bind_rows(readRDS(here::here("output","cvresults_ADE_iitaAugmented_2020Oct15.rds"))) %>% 
+  # the ADE model failed for most CV folds for MCMDS-IITAaugmented
+  # but not for any other case
+  # I am not sure why.
+  # So I also ran model AD for IITAaugmented again
+  # no problem there
+  bind_rows(readRDS(here::here("output","cvresults_AD_iitaAugmented_2020Oct15.rds"))) %>% 
+  unnest(CVresults) %>% 
+  select(-splits,-accuracy)
+traits<-c("MCMDS","DM","logFYLD","logTOPYLD","logRTNO","HI","PLTHT","BRNHT1","CGM","CGMS1","CGMS2")
+cv %<>% 
+  mutate(Trait=factor(Trait,levels=traits),
+         GroupName=factor(GroupName,levels=c("nrTP","C1a","C1b","C2a","C2b")),
+         Dataset=factor(Dataset,levels=c("NRalone","IITAaugmented")),
+         modelType=factor(modelType,levels=c("A","AD","ADE")))
+```
+
+## Table of mean accuracies
+```{r}
+cv %>% 
+  group_by(Trait,GroupName,Dataset) %>% 
+  # use accGETGV. For modelA we GETGV==GEBV. For modelADE we don't want GEBV, just GETGV.
+  summarize(meanAccuracy=mean(accGETGV,na.rm=T),
+            lower5pct=quantile(accGETGV,probs = c(0.05),na.rm=T),
+            upper5pct=quantile(accGETGV,probs = c(0.95),na.rm=T)) %>% 
+  mutate(across(is.numeric,~round(.,2))) %>% 
+  rmarkdown::paged_table()
+```
+
+## Boxplot of accuracies
+
+### Version 1: Compare NRalone vs. IITAaugmented
+
+Facet by Groups. X-axis Traits. Fill color by Dataset (NRalone vs. IITAaugmented).
+
+2 plots: (1) model A --> GEBV, (2) model ADE --> GETGV
+
+```{r, fig.width=10, fig.height=5}
+cv %>% 
+  filter(modelType=="A") %>% 
+  ggplot(.,aes(x=Trait,y=accGETGV,fill=Dataset)) + 
+  geom_boxplot(position = "dodge",color='gray50',size=0.5) + 
+  facet_wrap(~GroupName,nrow=1,scales='free_x') + 
+  theme_bw() + 
+  theme(strip.text.x = element_text(face='bold', size=12),
+        axis.text.y = element_text(face='bold', size=14, angle = 0),
+        axis.text.x = element_text(face='bold', size=10, angle = 0),
+        axis.title.y = element_text(face='bold', size=12),
+        plot.title = element_text(face='bold'),
+        legend.position = 'bottom') + 
+  scale_fill_viridis_d() + coord_flip() + 
+  labs(title="Prediction Accuracies - Additive-only model", y="GEBV Accuracy",x=NULL) +
+  geom_hline(yintercept = 0, color='darkred')
+```
+```{r, fig.width=10, fig.height=5}
+cv %>% 
+  filter(modelType=="ADE") %>% 
+  ggplot(.,aes(x=Trait,y=accGETGV,fill=Dataset)) + 
+  geom_boxplot(position = "dodge",color='gray50',size=0.5) + 
+  facet_wrap(~GroupName,nrow=1,scales='free_x') + 
+  theme_bw() + 
+  theme(strip.text.x = element_text(face='bold', size=12),
+        axis.text.y = element_text(face='bold', size=14, angle = 0),
+        axis.text.x = element_text(face='bold', size=10, angle = 0),
+        axis.title.y = element_text(face='bold', size=12),
+        plot.title = element_text(face='bold'),
+        legend.position = 'bottom') + 
+  scale_fill_viridis_d() + coord_flip() + 
+  labs(title="Prediction Accuracies - Additive plus Dominance plus AxD epistasis model", y="GETGV Accuracy",x=NULL) +
+  geom_hline(yintercept = 0, color='darkred')
+```
+### Version 2: Compare models A vs. ADE
+
+Facet by Groups. X-axis Traits. Fill color by Model (A vs. ADE).
+
+2 plots: NRonly, IITAaugmented
+
+```{r, fig.width=10, fig.height=5}
+cv %>%
+  filter(Dataset=="NRalone") %>% 
+  ggplot(.,aes(x=Trait,y=accGETGV,fill=modelType)) + 
+  geom_boxplot(position = "dodge",color='gray50',size=0.5) + 
+  facet_wrap(~GroupName,nrow=1,scales='free_x') + 
+  theme_bw() + 
+  theme(strip.text.x = element_text(face='bold', size=12),
+        axis.text.y = element_text(face='bold', size=14, angle = 0),
+        axis.text.x = element_text(face='bold', size=10, angle = 0),
+        axis.title.y = element_text(face='bold', size=12),
+        plot.title = element_text(face='bold'),
+        legend.position = 'bottom') + 
+  scale_fill_viridis_d() + coord_flip() + 
+  labs(title="Prediction Accuracies - NRCRI TP alone", y="Accuracy",x=NULL) +
+  geom_hline(yintercept = 0, color='darkred')
+```
+```{r, fig.width=10, fig.height=5}
+cv %>%
+  filter(Dataset=="IITAaugmented") %>% 
+  ggplot(.,aes(x=Trait,y=accGETGV,fill=modelType)) + 
+  geom_boxplot(position = "dodge",color='gray50',size=0.5) + 
+  facet_wrap(~GroupName,nrow=1,scales='free_x') + 
+  theme_bw() + 
+  theme(strip.text.x = element_text(face='bold', size=12),
+        axis.text.y = element_text(face='bold', size=14, angle = 0),
+        axis.text.x = element_text(face='bold', size=10, angle = 0),
+        axis.title.y = element_text(face='bold', size=12),
+        plot.title = element_text(face='bold'),
+        legend.position = 'bottom') + 
+  scale_fill_viridis_d() + coord_flip() + 
+  labs(title="Prediction Accuracies - NRCRI + IITA TP", y="Accuracy",x=NULL) +
+  geom_hline(yintercept = 0, color='darkred')
+```
+# Genetic Gain
+
+```{r, fig.height=7, fig.width=5}
+library(tidyverse); library(magrittr)
+traits<-c("MCMDS","DM","logFYLD","logTOPYLD","logRTNO","HI","PLTHT","BRNHT1","CGM","CGMS1","CGMS2")
+preds<-read.csv(here::here("output","genomicPredictions_NRCRI_2020Oct15.csv"), stringsAsFactors = F)
+preds %<>% 
+  mutate(Trait=factor(Trait,levels=traits),
+         Group=factor(Group,levels=c("nrTP","C1a","C1b","C2a","C2b","C3a")),
+         Dataset=factor(Dataset,levels=c("NRCRIalone","IITAaugmented")))
+```
+
+```{r}
+pred_summary<-preds %>% 
+  select(Trait,Dataset,Group,GID,GEBV,GETGV) %>% 
+  pivot_longer(c(GEBV,GETGV),values_to = "gBLUP", names_to = "predictionOf") %>% 
+  group_by(Trait,Dataset,Group,predictionOf) %>% 
+  summarize(gBLUPmean=mean(gBLUP),
+            stdErr=sd(gBLUP)/sqrt(n()),
+            upperSE=gBLUPmean+stdErr,
+            lowerSE=gBLUPmean-stdErr) %>% ungroup()
+pred_summary %>% rmarkdown::paged_table()
+```
+```{r, fig.height=7, fig.width=10}
+pred_summary %>% 
+  filter(predictionOf=="GEBV") %>%  
+  ggplot(.,aes(x=Group,y=gBLUPmean,fill=Dataset)) + 
+  geom_bar(stat = 'identity', color='gray50', size=0.5, position = position_dodge(1.1)) + 
+  geom_linerange(aes(ymax=upperSE,
+                     ymin=lowerSE), 
+                 color='gray60', size=0.5,position = position_dodge(1.1)) + 
+  facet_wrap(~Trait,scales='free_y') + 
+  theme_bw() +
+  geom_hline(yintercept = 0, size=1.1, color='black') + 
+  theme(axis.text.x = element_text(face = 'bold',angle = 90, size=12),
+        axis.title.y = element_text(face = 'bold',size=14),
+        legend.position = 'bottom',
+        strip.background.x = element_blank(),
+        strip.text = element_text(face='bold',size=14),
+        plot.title = element_text(face='bold')) + 
+  scale_fill_viridis_d() + 
+  labs(x=NULL,y="Mean gBLUPs",title="Genetic Gain", subtitle = "Comparing GEBVs using NRCRI TP vs. IITA augmented data")
+```
+
+```{r, fig.height=7, fig.width=10}
+pred_summary %>% 
+  filter(Dataset=="NRCRIalone") %>%  
+  ggplot(.,aes(x=Group,y=gBLUPmean,fill=predictionOf)) + 
+  geom_bar(stat = 'identity', color='gray50', size=0.5, position = position_dodge(1.1)) + 
+  geom_linerange(aes(ymax=upperSE,
+                     ymin=lowerSE), 
+                 color='gray60', size=0.5,position = position_dodge(1.1)) + 
+  facet_wrap(~Trait,scales='free_y') + 
+  theme_bw() +
+  geom_hline(yintercept = 0, size=1.1, color='black') + 
+  theme(axis.text.x = element_text(face = 'bold',angle = 90, size=12),
+        axis.title.y = element_text(face = 'bold',size=14),
+        legend.position = 'bottom',
+        strip.background.x = element_blank(),
+        strip.text = element_text(face='bold',size=14),
+        plot.title = element_text(face='bold')) + 
+  scale_fill_viridis_d() + 
+  labs(x=NULL,y="Mean gBLUPs",title="Genetic Gain", subtitle = "Comparing GEBV and GETGV  predicted with the NRCRI TP alone")
+
+```
+
+
+

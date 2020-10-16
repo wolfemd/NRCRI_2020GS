@@ -1,0 +1,166 @@
+---
+title: "Get BLUPs combining all trial data"
+site: workflowr::wflow_site
+date: "2020-October-13"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: inline
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = F, tidy = T, eval=F)
+```
+
+# Previous step 
+
+1. [Prepare training dataset](06-cleanTPdata.html): Download data from DB, "Clean" and format DB data.
+
+# Objective
+
+**Two-stage** genomic prediction refers to the following procedure:
+
+**Stage 1:** Fit a linear mixed model to the data *without* genomic data. Individuals (e.g. clones / accessions) are modeled as independent and identically distributed (*i.i.d.*) random effects. The BLUPs for this random effect represent the measurable total genetic values of each individual. All the experimental design variation, e.g. replication and blocking effects have been controlled for in the creation of our new response variable, the BLUPs from the gneotype random effect.
+
+**Stage 2:** Using a modified version of the BLUPs from step 1 as the response variable, fit a genomic prediction model, which now has reduced size because the number of observations is now the same as the number of individuals.
+
+**NOTE:** In the animal breeding literature **single-step** often refers to predictions that combine pedigree and marker information simultaneously. That *is not* our meaning here.
+
+The code below represents Stage I.
+
+# Set-up training datasets
+
+This next step fits models to each trait, combining curated data (BLUPs) from each trial, which we computed in the previous step.
+
+```{r}
+rm(list=ls())
+library(tidyverse); library(magrittr);
+source(here::here("code","gsFunctions.R"))
+dbdata<-readRDS(file=here::here("output","NRCRI_ExptDesignsDetected_2020Oct13.rds"))
+traits<-c("CGM","CGMS1","CGMS2","MCMDS","DM","PLTHT","BRNHT1","HI","logFYLD","logTOPYLD","logRTNO")
+
+# **Nest by trait.** Need to restructure the data from per-trial by regrouping by trait. 
+dbdata<-nestDesignsDetectedByTraits(dbdata,traits)
+```
+
+```{r}
+dbdata %>% mutate(N_blups=map_dbl(MultiTrialTraitData,nrow)) %>% rmarkdown::paged_table()
+```
+
+# Function to fit mixed-models
+
+To fit the mixed-model that I want, I am again resorting to `asreml-R`. I fit random effects for rep and block only where complete and incomplete blocks, respectively are indicated in the trial design variables. `sommer` _should_ be able to fit the same model via the `at()` function, _but_ I am having trouble with it _and_ `sommer` is much slower even without a dense covariance (i.e. a kinship), compared to `lme4::lmer()` or `asreml()`. **Note:** For genomic predictions I _do_ use `sommer`. 
+
+```{r}
+dbdata %<>% 
+  mutate(fixedFormula=ifelse(Trait %in% c("logFYLD","logRTNO","logTOPYLD"),"Value ~ yearInLoc","Value ~ yearInLoc + PropNOHAV"),
+         randFormula=paste0("~idv(GID) + idv(trialInLocYr) + at(CompleteBlocks,'Yes'):repInTrial ",
+                            "+ at(IncompleteBlocks,'Yes'):blockInRep"))
+dbdata %>% 
+  mutate(Nobs=map_dbl(MultiTrialTraitData,nrow)) %>% 
+  select(Trait,Nobs,fixedFormula,randFormula) %>% 
+  rmarkdown::paged_table()
+```
+
+```{r}
+# randFormula<-paste0("~vs(GID) + vs(trialInLocYr) + vs(at(CompleteBlocks,'Yes'),repInTrial) + vs(at(IncompleteBlocks,'Yes'),blockInRep)")
+# library(sommer)
+# fit <- mmer(fixed = Value ~ 1 + yearInLoc,
+#             random = as.formula(randFormula),
+#             data=trainingdata,
+#             getPEV=TRUE)
+```
+
+Includes rounds of outlier removal and re-fitting.
+
+```{r, eval=F}
+fitASfunc<-function(fixedFormula,randFormula,MultiTrialTraitData,...){
+  # test arguments for function
+  # ----------------------
+  # MultiTrialTraitData<-dbdata$MultiTrialTraitData[[7]]
+  # #Trait<-dbdata$Trait[[3]]
+  # fixedFormula<-dbdata$fixedFormula[[7]]
+  # randFormula<-dbdata$randFormula[[7]]
+  # test<-fitASfunc(fixedFormula,randFormula,MultiTrialTraitData)
+  # ----------------------
+  require(asreml); 
+  fixedFormula<-as.formula(fixedFormula)
+  randFormula<-as.formula(randFormula)
+  # fit asreml 
+  out<-asreml(fixed = fixedFormula,
+              random = randFormula,
+              data = MultiTrialTraitData, 
+              maxiter = 40, workspace=800e6, na.method.X = "omit")
+  #### extract residuals - Round 1
+  
+  outliers1<-which(abs(scale(out$residuals))>3.3)
+  
+  if(length(outliers1)>0){
+    
+    x<-MultiTrialTraitData[-outliers1,]
+    # re-fit
+    out<-asreml(fixed = fixedFormula,
+                random = randFormula,
+                data = x, 
+                maxiter = 40, workspace=800e6, na.method.X = "omit")
+    #### extract residuals - Round 2
+    outliers2<-which(abs(scale(out$residuals))>3.3)
+    if(length(outliers2)>0){
+      #### remove outliers
+      x<-x[-outliers2,]
+      # final re-fit
+      out<-asreml(fixed = fixedFormula,
+                  random = randFormula,
+                  data = x, maxiter = 40,workspace=800e6, na.method.X = "omit")
+    }
+  }
+  if(length(outliers1)==0){ outliers1<-NULL }
+  if(length(outliers2)==0){ outliers2<-NULL }
+  
+  ll<-summary(out,all=T)$loglik
+  varcomp<-summary(out,all=T)$varcomp
+  Vg<-varcomp["GID!GID.var","component"]
+  Ve<-varcomp["R!variance","component"]
+  H2=Vg/(Vg+Ve)
+  blups<-summary(out,all=T)$coef.random %>%
+    as.data.frame %>%
+    rownames_to_column(var = "GID") %>%
+    dplyr::select(GID,solution,`std error`) %>%
+    filter(grepl("GID",GID)) %>%
+    rename(BLUP=solution) %>%
+    mutate(GID=gsub("GID_","",GID),
+           PEV=`std error`^2, # asreml specific
+           REL=1-(PEV/Vg), # Reliability
+           drgBLUP=BLUP/REL, # deregressed BLUP
+           WT=(1-H2)/((0.1 + (1-REL)/REL)*H2)) # weight for use in Stage 2
+  out<-tibble(loglik=ll,Vg,Ve,H2,
+              blups=list(blups),
+              varcomp=list(varcomp),
+              outliers1=list(outliers1),
+              outliers2=list(outliers2))
+  return(out) }
+```
+
+# Run asreml
+```{r, eval=F}
+library(furrr); options(mc.cores=11); plan(multiprocess)
+library(asreml)
+dbdata %<>% 
+  mutate(fitAS=future_pmap(.,fitASfunc))
+dbdata %<>%
+  select(-fixedFormula,-randFormula,-MultiTrialTraitData) %>%
+  unnest(fitAS)
+```
+
+## Output file
+```{r, eval=F}
+saveRDS(dbdata,file=here::here("output","nrcri_blupsForModelTraining_twostage_asreml_2020Oct13.rds"))
+```
+
+# Results
+
+See [Results](10-Results.html) 
+
+# Next step
+
+4. [Check prediction accuracy](08-CrossValidation.html): Evaluate prediction accuracy with cross-validation.
+
