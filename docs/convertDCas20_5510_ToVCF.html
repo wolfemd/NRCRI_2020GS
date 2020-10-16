@@ -11,7 +11,7 @@
 
 
 
-<title>Impute NRCRI DCas20_5440</title>
+<title>Convert NRCRI DCas20-5510 to VCF</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -609,8 +609,8 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Impute NRCRI DCas20_5440</h1>
-<h4 class="date">2020-October-8</h4>
+<h1 class="title toc-ignore">Convert NRCRI DCas20-5510 to VCF</h1>
+<h4 class="date">2020-October-13</h4>
 
 </div>
 
@@ -776,7 +776,7 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/ImputeDCas20_5440.Rmd</code>) and HTML (<code>docs/ImputeDCas20_5440.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/convertDCas20_5510_ToVCF.Rmd</code>) and HTML (<code>docs/convertDCas20_5510_ToVCF.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -802,53 +802,19 @@ Message
 <tbody>
 <tr>
 <td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/wolfemd/NRCRI_2020GS/1a34bfa201a48a1fc5a113e578ea681a1904a3ae/docs/ImputeDCas20_5440.html" target="_blank">1a34bfa</a>
-</td>
-<td>
-wolfemd
-</td>
-<td>
-2020-10-09
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/wolfemd/NRCRI_2020GS/345a2fb1a96d1706f4206bd6d4cb2f8ed1d210ce/docs/ImputeDCas20_5440.html" target="_blank">345a2fb</a>
-</td>
-<td>
-wolfemd
-</td>
-<td>
-2020-10-09
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
 Rmd
 </td>
 <td>
-<a href="https://github.com/wolfemd/NRCRI_2020GS/blob/63fe5fa2c6ce9b1d611e0b9d6fc88b86c3c4208b/analysis/ImputeDCas20_5440.Rmd" target="_blank">63fe5fa</a>
+<a href="https://github.com/wolfemd/NRCRI_2020GS/blob/977f389859d7b4659096714bee94507948610e9f/analysis/convertDCas20_5510_ToVCF.Rmd" target="_blank">977f389</a>
 </td>
 <td>
 wolfemd
 </td>
 <td>
-2020-10-09
+2020-10-16
 </td>
 <td>
-Publish imputations for 2020 of DCAs20_5440 and restructure page for
+Publish NRCRI imputations for 2020 (DCas20_5510 and DCas20_5440) plus a
 </td>
 </tr>
 </tbody>
@@ -858,114 +824,85 @@ Publish imputations for 2020 of DCAs20_5440 and restructure page for
 </div>
 </div>
 </div>
-<p>DArTseqLD (DCas20-5440). From Princess Onyyegbule on Sep 22, 2020: “These samples are from materials for inbreeding depression after one self-pollinated generation in two elite cassava varieties (TMS980581 and TMS070337). We want to assess the possibility of obtaining genetic gain by selecting transgressive individuals based on several productive traits, mostly high dry matter content.”</p>
-<p>Impute with RefPanelWA (W. Africa RefPanel)</p>
-<div id="copy-data" class="section level1">
-<h1>Copy data</h1>
-<p>Copy the imputation reference panel from 2019 to the <code>data/</code> folder.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">cp</span> -r /home/jj332_cas/marnin/NRCRI_2020GS /workdir/mw489/</span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">cp</span> -r /home/jj332_cas/marnin/NRCRI_2020GS/data/Report-DCas20-5440 /workdir/mw489/NRCRI_2020GS/data/</span>
-<span id="cb1-3"><a href="#cb1-3"></a></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">cp</span> -r /home/jj332_cas/CassavaGenotypeData/CassavaGeneticMap /workdir/mw489/NRCRI_2020GS/data/</span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">cp</span> /home/jj332_cas/CassavaGenotypeData/nextgenImputation2019/ImputationStageII_71219/chr*_ImputationReferencePanel_StageIIpartI_72219.vcf.gz /workdir/mw489/NRCRI_2020GS/data/</span></code></pre></div>
-<div id="with-refpanelwa" class="section level2">
-<h2>With RefPanelWA</h2>
-<p>Impute with <a href="https://faculty.washington.edu/browning/beagle/b5_0.html">Beagle V5.0</a>.</p>
-<p>Use the “imputation reference panel” dataset from 2019, e.g. <code>chr1_ImputationReferencePanel_StageIIpartI_72219.vcf.gz</code> as reference.</p>
-<p>Used 1 large memory Cornell CBSU machine (e.g. <a href="https://biohpc.cornell.edu/lab/hardware.aspx">cbsulm16; 112 cores, 512 GB RAM</a>), running 1 chromosome at a time.</p>
-<p>R functions are stored in the <code>code/</code> sub-directory. Functions sourced from e.g. <strong>imputationFunctions.R</strong> are wrappers around e.g. Beagle, and other command line programs.</p>
-<div id="impute" class="section level3">
-<h3>Impute</h3>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co">#library(tidyverse); library(magrittr);</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="kw">source</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;code&quot;</span>,<span class="st">&quot;imputationFunctions.R&quot;</span>))</span>
-<span id="cb2-3"><a href="#cb2-3"></a>targetVCFpath&lt;-here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data/Report-DCas20-5440/&quot;</span>) <span class="co"># location of the targetVCF</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a>refVCFpath&lt;-here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data/&quot;</span>)</span>
-<span id="cb2-5"><a href="#cb2-5"></a>mapPath&lt;-here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data/CassavaGeneticMap/&quot;</span>)</span>
-<span id="cb2-6"><a href="#cb2-6"></a>outPath&lt;-here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;output/&quot;</span>)</span>
-<span id="cb2-7"><a href="#cb2-7"></a>outSuffix&lt;-<span class="st">&quot;DCas20_5440&quot;</span></span>
-<span id="cb2-8"><a href="#cb2-8"></a></span>
-<span id="cb2-9"><a href="#cb2-9"></a>purrr<span class="op">::</span><span class="kw">map</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">18</span>,<span class="op">~</span><span class="kw">runBeagle5</span>(<span class="dt">targetVCF=</span><span class="kw">paste0</span>(targetVCFpath,<span class="st">&quot;chr&quot;</span>,.,<span class="st">&quot;_DCas20_5440.vcf.gz&quot;</span>),</span>
-<span id="cb2-10"><a href="#cb2-10"></a>                            <span class="dt">refVCF=</span><span class="kw">paste0</span>(refVCFpath,<span class="st">&quot;chr&quot;</span>,.,<span class="st">&quot;_ImputationReferencePanel_StageIIpartI_72219.vcf.gz&quot;</span>),</span>
-<span id="cb2-11"><a href="#cb2-11"></a>                            <span class="dt">mapFile=</span><span class="kw">paste0</span>(mapPath,<span class="st">&quot;chr&quot;</span>,.,<span class="st">&quot;_cassava_cM_pred.v6_91019.map&quot;</span>),</span>
-<span id="cb2-12"><a href="#cb2-12"></a>                            <span class="dt">outName=</span><span class="kw">paste0</span>(outPath,<span class="st">&quot;chr&quot;</span>,.,<span class="st">&quot;_DCas20_5440_WA_REFimputed&quot;</span>),</span>
-<span id="cb2-13"><a href="#cb2-13"></a>                            <span class="dt">nthreads=</span><span class="dv">112</span>))</span></code></pre></div>
-<p>Clean up Beagle log files after run. Move to sub-directory <code>output/BeagleLogs/</code>.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1"></a><span class="bu">cd</span> /workdir/mw489/NRCRI_2020GS/output/<span class="kw">;</span> </span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="fu">mkdir</span> BeagleLogs<span class="kw">;</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="fu">cp</span> *_DCas20_5440_WA_REFimputed.log BeagleLogs/</span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="fu">cp</span> -r BeagleLogs /home/jj332_cas/marnin/NRCRI_2020GS/output/</span>
-<span id="cb3-5"><a href="#cb3-5"></a><span class="fu">cp</span> *_DCas20_5440_WA_REFimputed* /home/jj332_cas/marnin/NRCRI_2020GS/output/</span></code></pre></div>
+<div id="input-parameters" class="section level1">
+<h1>Input Parameters</h1>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co">#&#39; @dartvcfInput input name and path of &quot;vcf&quot; file from DArT</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="co">#&#39; @dartcountsInput input name and path of counts file from DArT</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="co">#&#39; @outName output path and name</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="co">#&#39; @nskipvcf number of &quot;VCF&quot; rows to skip on read-in</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="co">#&#39; @nskipcounts number of &quot;counts file&quot; rows to skip on read in</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="co">#&#39; @ncores number of cores to use, could be VERY memory intensive</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="co">#&#39; @dartVars chr vector, column names that _are not_ sample IDs in the read-counts file. I use this internally to assign the sampleIDs in the VCF file</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="kw">library</span>(tidyverse); <span class="kw">library</span>(magrittr)</span>
+<span id="cb1-10"><a href="#cb1-10"></a>dartvcfInput&lt;-here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data/Report-DCas20-5510&quot;</span>,<span class="st">&quot;Report_5510_VCF_Ref_Version6.txt&quot;</span>)</span>
+<span id="cb1-11"><a href="#cb1-11"></a>dartcountsInput&lt;-here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data/Report-DCas20-5510&quot;</span>,<span class="st">&quot;Report_5510_Counts_Ref_Version6.csv&quot;</span>)</span>
+<span id="cb1-12"><a href="#cb1-12"></a>outName&lt;-here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data/Report-DCas20-5510&quot;</span>,<span class="st">&quot;DCas20_5510&quot;</span>)</span>
+<span id="cb1-13"><a href="#cb1-13"></a>nskipvcf&lt;-<span class="dv">2</span> </span>
+<span id="cb1-14"><a href="#cb1-14"></a>nskipcounts&lt;-<span class="dv">3</span></span>
+<span id="cb1-15"><a href="#cb1-15"></a>ncores&lt;-<span class="dv">10</span></span></code></pre></div>
 </div>
-<div id="post-impute-filter" class="section level3">
-<h3>Post-impute filter</h3>
-<p>For now, the function will just do a fixed filter: AR2&gt;0.75 (DR2&gt;0.75 as of Beagle5.0), P_HWE&gt;1e-20, MAF&gt;0.005 [0.5%].</p>
-<p>It can easily be modified in the future to include parameters to vary the filter specifications.</p>
-<p>Input parameters</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co">#&#39; @inPath path to input VCF-to-be-filtered, can be left null if path included in @inName . Must end in &quot;/&quot;</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="co">#&#39; @inName name of input VCF file EXCLUDING file extension. Assumes .vcf.gz</span></span>
-<span id="cb4-3"><a href="#cb4-3"></a><span class="co">#&#39; @outPath path where filtered VCF and related are to be stored.Can be left null if path included in @outName . Must end in &quot;/&quot;.</span></span>
-<span id="cb4-4"><a href="#cb4-4"></a><span class="co">#&#39; @outName name desired for output EXCLUDING extension. Output will be .vcf.gz </span></span></code></pre></div>
-<p>Loop to filter all 18 VCF files in parallel</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>inPath&lt;-here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;output/&quot;</span>)</span>
-<span id="cb5-2"><a href="#cb5-2"></a>outPath&lt;-here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;output/&quot;</span>)</span>
-<span id="cb5-3"><a href="#cb5-3"></a><span class="kw">source</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;code&quot;</span>,<span class="st">&quot;imputationFunctions.R&quot;</span>))</span>
-<span id="cb5-4"><a href="#cb5-4"></a><span class="kw">require</span>(furrr); <span class="kw">options</span>(<span class="dt">mc.cores=</span>ncores); <span class="kw">plan</span>(multiprocess)</span>
-<span id="cb5-5"><a href="#cb5-5"></a><span class="kw">future_map</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">18</span>,<span class="op">~</span><span class="kw">postImputeFilter</span>(<span class="dt">inPath=</span>inPath,</span>
-<span id="cb5-6"><a href="#cb5-6"></a>                                  <span class="dt">inName=</span><span class="kw">paste0</span>(<span class="st">&quot;chr&quot;</span>,.,<span class="st">&quot;_DCas20_5440_WA_REFimputed&quot;</span>),</span>
-<span id="cb5-7"><a href="#cb5-7"></a>                                  <span class="dt">outPath=</span>outPath,</span>
-<span id="cb5-8"><a href="#cb5-8"></a>                                  <span class="dt">outName=</span><span class="kw">paste0</span>(<span class="st">&quot;chr&quot;</span>,.,<span class="st">&quot;_DCas20_5440_WA_REFimputedAndFiltered&quot;</span>)))</span></code></pre></div>
-<p>Check what’s left</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>purrr<span class="op">::</span><span class="kw">map</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">18</span>,<span class="op">~</span><span class="kw">system</span>(<span class="kw">paste0</span>(<span class="st">&quot;zcat &quot;</span>,here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;output/&quot;</span>),<span class="st">&quot;chr&quot;</span>,.,<span class="st">&quot;_DCas20_5440_WA_REFimputedAndFiltered.vcf.gz | wc -l&quot;</span>)))</span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="co"># 6912</span></span>
-<span id="cb6-3"><a href="#cb6-3"></a><span class="co"># 2961</span></span>
-<span id="cb6-4"><a href="#cb6-4"></a><span class="co"># 2659</span></span>
-<span id="cb6-5"><a href="#cb6-5"></a><span class="co"># 2317</span></span>
-<span id="cb6-6"><a href="#cb6-6"></a><span class="co"># 2329</span></span>
-<span id="cb6-7"><a href="#cb6-7"></a><span class="co"># 2258</span></span>
-<span id="cb6-8"><a href="#cb6-8"></a><span class="co"># 1426</span></span>
-<span id="cb6-9"><a href="#cb6-9"></a><span class="co"># 2229</span></span>
-<span id="cb6-10"><a href="#cb6-10"></a><span class="co"># 2478</span></span>
-<span id="cb6-11"><a href="#cb6-11"></a><span class="co"># 2207</span></span>
-<span id="cb6-12"><a href="#cb6-12"></a><span class="co"># 2130</span></span>
-<span id="cb6-13"><a href="#cb6-13"></a><span class="co"># 2290</span></span>
-<span id="cb6-14"><a href="#cb6-14"></a><span class="co"># 1930</span></span>
-<span id="cb6-15"><a href="#cb6-15"></a><span class="co"># 2744</span></span>
-<span id="cb6-16"><a href="#cb6-16"></a><span class="co"># 2873</span></span>
-<span id="cb6-17"><a href="#cb6-17"></a><span class="co"># 2015</span></span>
-<span id="cb6-18"><a href="#cb6-18"></a><span class="co"># 1580</span></span>
-<span id="cb6-19"><a href="#cb6-19"></a><span class="co"># 1772</span></span></code></pre></div>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1"></a><span class="bu">cd</span> /workdir/mw489/NRCRI_2020GS/output/<span class="kw">;</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="fu">cp</span> *_DCas20_5440_WA_REFimputedAndFiltered* /home/jj332_cas/marnin/NRCRI_2020GS/output/</span></code></pre></div>
+<div id="prelim.-check-format" class="section level1">
+<h1>Prelim. check format</h1>
+<p>Start manual. Check that the files read in according to previous code. Adjust code if necessary. Make a function and apply it to the input files.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># vcf&lt;-read.table(dartvcfInput,</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="co">#                 stringsAsFactors = F,skip = nskipvcf, header = T, sep = &quot;\t&quot;, comment.char = &quot;&quot;)</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="co"># readCounts&lt;-read.csv(dartcountsInput, stringsAsFactors = F,header = T,skip=nskipcounts)</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="co"># </span></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="co"># dim(vcf)</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="co"># # [1] 13603   404</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="co"># dim(readCounts)</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="co"># # [1] 27206   438</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="co"># </span></span>
+<span id="cb2-10"><a href="#cb2-10"></a><span class="co"># # # Initial look at names....</span></span>
+<span id="cb2-11"><a href="#cb2-11"></a><span class="co"># # colnames(readCounts)[1:100]</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a><span class="co"># [44] &quot;NR.NG.C3.Cass.0001_A01...NR19C3aF1P0002&quot; </span></span>
+<span id="cb2-13"><a href="#cb2-13"></a><span class="co">#  [45] &quot;NR.NG.C3.Cass.0001_B01...NR19C3aF6P0002&quot; </span></span>
+<span id="cb2-14"><a href="#cb2-14"></a><span class="co">#  [46] &quot;NR.NG.C3.Cass.0001_C01...NR19C3aF6P0003&quot; </span></span>
+<span id="cb2-15"><a href="#cb2-15"></a><span class="co">#  [47] &quot;NR.NG.C3.Cass.0001_D01...NR19C3aF6P0004&quot; </span></span>
+<span id="cb2-16"><a href="#cb2-16"></a><span class="co">#  [48] &quot;NR.NG.C3.Cass.0001_E01...NR19C3aF6P0005&quot; </span></span>
+<span id="cb2-17"><a href="#cb2-17"></a><span class="co">#  [49] &quot;NR.NG.C3.Cass.0001_F01...NR19C3aF6P0007&quot; </span></span>
+<span id="cb2-18"><a href="#cb2-18"></a><span class="co">#  [50] &quot;NR.NG.C3.Cass.0001_C02...NR19C3aF9P0002&quot; </span></span>
+<span id="cb2-19"><a href="#cb2-19"></a><span class="co">#  [51] &quot;NR.NG.C3.Cass.0001_E02...NR19C3aF10P0001&quot;</span></span>
+<span id="cb2-20"><a href="#cb2-20"></a><span class="co">#  [52] &quot;NR.NG.C3.Cass.0001_F02...NR19C3aF10P0002&quot;</span></span>
+<span id="cb2-21"><a href="#cb2-21"></a><span class="co">#  [53] &quot;NR.NG.C3.Cass.0001_G02...NR19C3aF10P0004&quot;</span></span>
+<span id="cb2-22"><a href="#cb2-22"></a><span class="co">#  [54] &quot;NR.NG.C3.Cass.0001_H02...NR19C3aF10P0005&quot;</span></span>
+<span id="cb2-23"><a href="#cb2-23"></a><span class="co"># # colnames(vcf)[1:30]</span></span>
+<span id="cb2-24"><a href="#cb2-24"></a><span class="co"># [10] &quot;NR.NG.C3.Cass.0001_A01...NR19C3aF1P0002&quot; </span></span>
+<span id="cb2-25"><a href="#cb2-25"></a><span class="co"># [11] &quot;NR.NG.C3.Cass.0001_A10...NR19C3aF41P0004&quot;</span></span>
+<span id="cb2-26"><a href="#cb2-26"></a><span class="co"># [12] &quot;NR.NG.C3.Cass.0001_A11...NR19C3aF52P0001&quot;</span></span>
+<span id="cb2-27"><a href="#cb2-27"></a><span class="co"># [13] &quot;NR.NG.C3.Cass.0001_A12...NR19C3aF54P0002&quot;</span></span>
+<span id="cb2-28"><a href="#cb2-28"></a><span class="co"># [14] &quot;NR.NG.C3.Cass.0001_A02...NR19C3aF7P0001&quot; </span></span>
+<span id="cb2-29"><a href="#cb2-29"></a><span class="co"># [15] &quot;NR.NG.C3.Cass.0001_A03...NR19C3aF10P0006&quot;</span></span>
+<span id="cb2-30"><a href="#cb2-30"></a><span class="co"># [16] &quot;NR.NG.C3.Cass.0001_A04...NR19C3aF14P0003&quot;</span></span>
+<span id="cb2-31"><a href="#cb2-31"></a><span class="co"># [17] &quot;NR.NG.C3.Cass.0001_A05...NR19C3aF18P0002&quot; </span></span>
+<span id="cb2-32"><a href="#cb2-32"></a><span class="co"># rm(vcf,readCounts); gc()</span></span></code></pre></div>
 </div>
-<div id="formats-for-downstream-analysis" class="section level3">
-<h3>Formats for downstream analysis</h3>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">library</span>(tidyverse); <span class="kw">library</span>(magrittr);</span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="co"># Make binary plink</span></span>
-<span id="cb8-3"><a href="#cb8-3"></a>pathIn&lt;-<span class="st">&quot;/home/jj332_cas/marnin/NRCRI_2020GS/output/&quot;</span></span>
-<span id="cb8-4"><a href="#cb8-4"></a><span class="kw">require</span>(furrr); <span class="kw">options</span>(<span class="dt">mc.cores=</span>ncores); <span class="kw">plan</span>(multiprocess)</span>
-<span id="cb8-5"><a href="#cb8-5"></a><span class="kw">future_map</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">18</span>,<span class="op">~</span><span class="kw">system</span>(<span class="kw">paste0</span>(<span class="st">&quot;export PATH=/programs/plink-1.9-x86_64-beta3.30:$PATH;&quot;</span>,</span>
-<span id="cb8-6"><a href="#cb8-6"></a>                               <span class="st">&quot;plink --vcf &quot;</span>,pathIn,<span class="st">&quot;chr&quot;</span>,.,</span>
-<span id="cb8-7"><a href="#cb8-7"></a>                               <span class="st">&quot;_DCas20_5440_WA_REFimputedAndFiltered.vcf.gz &quot;</span>,</span>
-<span id="cb8-8"><a href="#cb8-8"></a>                               <span class="st">&quot;--make-bed --const-fid &quot;</span>,</span>
-<span id="cb8-9"><a href="#cb8-9"></a>                               <span class="st">&quot;--out &quot;</span>,pathIn,<span class="st">&quot;chr&quot;</span>,.,</span>
-<span id="cb8-10"><a href="#cb8-10"></a>                               <span class="st">&quot;_DCas20_5440_WA_REFimputedAndFiltered&quot;</span>)))</span>
-<span id="cb8-11"><a href="#cb8-11"></a><span class="co"># Recode to dosage</span></span>
-<span id="cb8-12"><a href="#cb8-12"></a><span class="kw">future_map</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">18</span>,<span class="op">~</span><span class="kw">system</span>(<span class="kw">paste0</span>(<span class="st">&quot;export PATH=/programs/plink-1.9-x86_64-beta3.30:$PATH;&quot;</span>,</span>
-<span id="cb8-13"><a href="#cb8-13"></a>                               <span class="st">&quot;plink --bfile &quot;</span>,pathIn,<span class="st">&quot;chr&quot;</span>,.,</span>
-<span id="cb8-14"><a href="#cb8-14"></a>                               <span class="st">&quot;_DCas20_5440_WA_REFimputedAndFiltered &quot;</span>,</span>
-<span id="cb8-15"><a href="#cb8-15"></a>                               <span class="st">&quot;--recode A &quot;</span>,</span>
-<span id="cb8-16"><a href="#cb8-16"></a>                               <span class="st">&quot;--out &quot;</span>,pathIn,<span class="st">&quot;chr&quot;</span>,.,</span>
-<span id="cb8-17"><a href="#cb8-17"></a>                               <span class="st">&quot;_DCas20_5440_WA_REFimputedAndFiltered&quot;</span>)))</span>
-<span id="cb8-18"><a href="#cb8-18"></a></span>
-<span id="cb8-19"><a href="#cb8-19"></a><span class="co"># Genome-wide dosage (for use in R)</span></span>
-<span id="cb8-20"><a href="#cb8-20"></a>snps&lt;-<span class="kw">future_map</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">18</span>,<span class="op">~</span><span class="kw">read.table</span>(<span class="kw">paste0</span>(pathIn,<span class="st">&quot;chr&quot;</span>,.,<span class="st">&quot;_DCas20_5440_WA_REFimputedAndFiltered.raw&quot;</span>), <span class="dt">stringsAsFactor=</span>F, <span class="dt">header =</span> T) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb8-21"><a href="#cb8-21"></a><span class="st">                   </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="op">-</span>FID,<span class="op">-</span>PAT,<span class="op">-</span>MAT,<span class="op">-</span>SEX,<span class="op">-</span>PHENOTYPE) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb8-22"><a href="#cb8-22"></a><span class="st">                   </span><span class="kw">column_to_rownames</span>(<span class="dt">var =</span> <span class="st">&quot;IID&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb8-23"><a href="#cb8-23"></a><span class="st">                   </span><span class="kw">as.matrix</span>()) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb8-24"><a href="#cb8-24"></a><span class="st">  </span><span class="kw">reduce</span>(.,cbind)</span>
-<span id="cb8-25"><a href="#cb8-25"></a><span class="kw">dim</span>(snps)</span>
-<span id="cb8-26"><a href="#cb8-26"></a><span class="co"># [1]   251 44930</span></span>
-<span id="cb8-27"><a href="#cb8-27"></a><span class="kw">saveRDS</span>(snps,<span class="dt">file =</span> <span class="kw">paste0</span>(pathIn,<span class="st">&quot;DosageMatrix_DCas20_5440_WA_REFimputedAndFiltered.rds&quot;</span>))</span></code></pre></div>
+<div id="conversion-function" class="section level1">
+<h1>Conversion function</h1>
+<p>Available and sourced from <code>code/</code> subdirectory: <code>convertDart2vcf.R</code>.</p>
+</div>
+<div id="run-conversion-function" class="section level1">
+<h1>Run conversion function</h1>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">source</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;code/&quot;</span>,<span class="st">&quot;convertDart2vcf.R&quot;</span>))</span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="kw">convertDart2vcf</span>(dartvcfInput,dartcountsInput,outName,</span>
+<span id="cb3-3"><a href="#cb3-3"></a>                <span class="dt">nskipvcf=</span><span class="dv">2</span>,<span class="dt">nskipcounts=</span><span class="dv">3</span>,ncores)</span></code></pre></div>
+</div>
+<div id="genomewide-to-per-chrom-vcfs" class="section level1">
+<h1>Genomewide to per-chrom VCFs</h1>
+<p>Split the genome-wide VCF into per-chromosome VCFs for imputation.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">require</span>(furrr); <span class="kw">options</span>(<span class="dt">mc.cores=</span><span class="dv">18</span>); <span class="kw">plan</span>(multiprocess)</span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="kw">source</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;code&quot;</span>,<span class="st">&quot;imputationFunctions.R&quot;</span>))</span>
+<span id="cb4-3"><a href="#cb4-3"></a></span>
+<span id="cb4-4"><a href="#cb4-4"></a>vcfIn&lt;-here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data/Report-DCas20-5510&quot;</span>,<span class="st">&quot;DCas20_5510.vcf.gz&quot;</span>)</span>
+<span id="cb4-5"><a href="#cb4-5"></a>filters&lt;-<span class="st">&quot;--minDP 4 --maxDP 50&quot;</span> <span class="co"># because using GT not PL for impute (Beagle5)</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a>outPath&lt;-here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data/Report-DCas20-5510/&quot;</span>)</span>
+<span id="cb4-7"><a href="#cb4-7"></a>outSuffix&lt;-<span class="st">&quot;DCas20_5510&quot;</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a></span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="kw">future_map</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">18</span>,</span>
+<span id="cb4-10"><a href="#cb4-10"></a>           <span class="op">~</span><span class="kw">splitVCFbyChr</span>(<span class="dt">Chr=</span>.,</span>
+<span id="cb4-11"><a href="#cb4-11"></a>                          <span class="dt">vcfIn=</span>vcfIn,<span class="dt">filters=</span>filters,</span>
+<span id="cb4-12"><a href="#cb4-12"></a>                          <span class="dt">outPath=</span>outPath,<span class="dt">outSuffix=</span>outSuffix))</span></code></pre></div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -973,9 +910,33 @@ Publish imputations for 2020 of DCAs20_5440 and restructure page for
 </button>
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">sessionInfo</span>()</span></code></pre></div>
-</div>
-</div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">sessionInfo</span>()</span></code></pre></div>
+<pre><code>R version 4.0.2 (2020-06-22)
+Platform: x86_64-apple-darwin17.0 (64-bit)
+Running under: macOS Mojave 10.14.6
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] workflowr_1.6.2
+
+loaded via a namespace (and not attached):
+ [1] Rcpp_1.0.5       whisker_0.4      knitr_1.30       magrittr_1.5    
+ [5] R6_2.4.1         rlang_0.4.8      stringr_1.4.0    tools_4.0.2     
+ [9] xfun_0.18        git2r_0.27.1     htmltools_0.5.0  ellipsis_0.3.1  
+[13] yaml_2.2.1       digest_0.6.25    rprojroot_1.3-2  tibble_3.0.4    
+[17] lifecycle_0.2.0  crayon_1.3.4     later_1.1.0.1    vctrs_0.3.4     
+[21] promises_1.1.1   fs_1.5.0         glue_1.4.2       evaluate_0.14   
+[25] rmarkdown_2.4    stringi_1.5.3    compiler_4.0.2   pillar_1.4.6    
+[29] backports_1.1.10 httpuv_1.5.4     pkgconfig_2.0.3 </code></pre>
 </div>
 </div>
 

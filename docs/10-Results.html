@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Results</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+      code.sourceCode > span { display: inline-block; line-height: 1.25; }
+  code.sourceCode > span { color: inherit; text-decoration: inherit; }
+  code.sourceCode > span:empty { height: 1.2em; }
+  .sourceCode { overflow: visible; }
+  code.sourceCode { white-space: pre; position: relative; }
+  div.sourceCode { margin: 1em 0; }
+  pre.sourceCode { margin: 0; }
+  @media screen {
+  div.sourceCode { overflow: auto; }
+  }
+  @media print {
+  code.sourceCode { white-space: pre-wrap; }
+  code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+  }
+  pre.numberSource code
+    { counter-reset: source-line 0; }
+  pre.numberSource code > span
+    { position: relative; left: -4em; counter-increment: source-line; }
+  pre.numberSource code > span > a:first-child::before
+    { content: counter(source-line);
+      position: relative; left: -1em; text-align: right; vertical-align: baseline;
+      border: none; display: inline-block;
+      -webkit-touch-callout: none; -webkit-user-select: none;
+      -khtml-user-select: none; -moz-user-select: none;
+      -ms-user-select: none; user-select: none;
+      padding: 0 4px; width: 4em;
+      color: #aaaaaa;
+    }
+  pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+  div.sourceCode
+    {  background-color: #f8f8f8; }
+  @media screen {
+  code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+  }
+  code span.al { color: #ef2929; } /* Alert */
+  code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+  code span.at { color: #c4a000; } /* Attribute */
+  code span.bn { color: #0000cf; } /* BaseN */
+  code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+  code span.ch { color: #4e9a06; } /* Char */
+  code span.cn { color: #000000; } /* Constant */
+  code span.co { color: #8f5902; font-style: italic; } /* Comment */
+  code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+  code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+  code span.dt { color: #204a87; } /* DataType */
+  code span.dv { color: #0000cf; } /* DecVal */
+  code span.er { color: #a40000; font-weight: bold; } /* Error */
+  code span.ex { } /* Extension */
+  code span.fl { color: #0000cf; } /* Float */
+  code span.fu { color: #000000; } /* Function */
+  code span.im { } /* Import */
+  code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+  code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+  code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+  code span.ot { color: #8f5902; } /* Other */
+  code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+  code span.sc { color: #000000; } /* SpecialChar */
+  code span.ss { color: #4e9a06; } /* SpecialString */
+  code span.st { color: #4e9a06; } /* String */
+  code span.va { color: #000000; } /* Variable */
+  code span.vs { color: #4e9a06; } /* VerbatimString */
+  code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+    </style>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+.sourceCode .row {
+  width: 100%;
+}
+.sourceCode {
+  overflow-x: auto;
+}
+.code-folding-btn {
+  margin-right: -30px;
+}
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">NRCRI_2020GS</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    April2020 Predictions
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="01-cleanTPdata.html">Data Cleaning</a>
+    </li>
+    <li>
+      <a href="02-curateByTrial.html">Curate Data</a>
+    </li>
+    <li>
+      <a href="03-GetBLUPs.html">Get BLUPs</a>
+    </li>
+    <li>
+      <a href="04-CrossValidation.html">Check prediction accuracy</a>
+    </li>
+    <li>
+      <a href="05-GetGEBVs.html">Get GEBV for GS C2</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    October2020 Impute
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="convertDCas20_5440_ToVCF.html">Conversion DArT report DCas20_5440 to VCF</a>
+    </li>
+    <li>
+      <a href="ImputeDCas20_5440.html">Impute DCas20_5440</a>
+    </li>
+    <li>
+      <a href="convertDCas20_5510_ToVCF.html">Conversion DArT report DCas20_5510 to VCF</a>
+    </li>
+    <li>
+      <a href="ImputeDCas20_5510.html">Impute DCas20_5510</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    October2020 Predictions
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="06-cleanTPdata.html">Data Cleaning</a>
+    </li>
+    <li>
+      <a href="07-GetBLUPs.html">Get BLUPs</a>
+    </li>
+    <li>
+      <a href="08-CrossValidation.html">Check prediction accuracy</a>
+    </li>
+    <li>
+      <a href="09-GetGEBVs.html">Get GEBV for GS C2</a>
+    </li>
+    <li>
+      <a href="10-Results.html">Results</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Other
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="about.html">About</a>
+    </li>
+    <li>
+      <a href="license.html">License</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/wolfemd/NRCRI_2020GS">
+    <span class="fa fa-github"></span>
+     
+    Source code
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Results</h1>
+<h4 class="date">2020-October-15</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2020-10-16
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>NRCRI_2020GS/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20200421code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20200421)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20200421code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20200421)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomwolfemdNRCRI2020GStree977f389859d7b4659096714bee94507948610e9ftargetblank977f389a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/wolfemd/NRCRI_2020GS/tree/977f389859d7b4659096714bee94507948610e9f" target="_blank">977f389</a> </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomwolfemdNRCRI2020GStree977f389859d7b4659096714bee94507948610e9ftargetblank977f389a" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version <a href="https://github.com/wolfemd/NRCRI_2020GS/tree/977f389859d7b4659096714bee94507948610e9f" target="_blank">977f389</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .DS_Store
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+    Ignored:    analysis/.DS_Store
+    Ignored:    data/.DS_Store
+    Ignored:    output/.DS_Store
+
+Untracked files:
+    Untracked:  CrossValidationFunction_PlusNRCRI_2020GSnotes.gslides
+    Untracked:  data/DatabaseDownload_2020Oct13/
+    Untracked:  data/chr1_RefPanelAndGSprogeny_ReadyForGP_72719.fam
+    Untracked:  output/Kinship_AA_NRCRI_2020April27.rds
+    Untracked:  output/Kinship_AD_NRCRI_2020April27.rds
+    Untracked:  output/Kinship_AD_NRCRI_2020Oct15.rds
+    Untracked:  output/Kinship_A_NRCRI_2020April27.rds
+    Untracked:  output/Kinship_A_NRCRI_2020Oct15.rds
+    Untracked:  output/Kinship_DD_NRCRI_2020April27.rds
+    Untracked:  output/Kinship_D_NRCRI_2020April27.rds
+    Untracked:  output/Kinship_D_NRCRI_2020Oct15.rds
+    Untracked:  workflowr_log.R
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/10-Results.Rmd</code>) and HTML (<code>docs/10-Results.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/wolfemd/NRCRI_2020GS/blob/977f389859d7b4659096714bee94507948610e9f/analysis/10-Results.Rmd" target="_blank">977f389</a>
+</td>
+<td>
+wolfemd
+</td>
+<td>
+2020-10-16
+</td>
+<td>
+Publish NRCRI imputations for 2020 (DCas20_5510 and DCas20_5440) plus a
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div id="raw-data" class="section level1">
+<h1>Raw data</h1>
+<p>Summary of the number of unique plots, locations, years, etc. in the cleaned plot-basis data. See <a href="06-cleanTPdata.html">here</a> for details..</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(tidyverse); <span class="kw">library</span>(magrittr);</span>
+<span id="cb1-2"><a href="#cb1-2"></a>rawdata&lt;-<span class="kw">readRDS</span>(<span class="dt">file=</span>here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;output&quot;</span>,<span class="st">&quot;NRCRI_ExptDesignsDetected_2020Oct13.rds&quot;</span>))</span>
+<span id="cb1-3"><a href="#cb1-3"></a>rawdata <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">Nplots=</span><span class="kw">nrow</span>(.),</span>
+<span id="cb1-5"><a href="#cb1-5"></a>            <span class="kw">across</span>(<span class="kw">c</span>(locationName,studyYear,studyName,TrialType,GID), <span class="op">~</span><span class="kw">length</span>(<span class="kw">unique</span>(.)),<span class="dt">.names =</span> <span class="st">&quot;N_{.col}&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="st">  </span>rmarkdown<span class="op">::</span><span class="kw">paged_table</span>()</span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["Nplots"],"name":[1],"type":["int"],"align":["right"]},{"label":["N_locationName"],"name":[2],"type":["int"],"align":["right"]},{"label":["N_studyYear"],"name":[3],"type":["int"],"align":["right"]},{"label":["N_studyName"],"name":[4],"type":["int"],"align":["right"]},{"label":["N_TrialType"],"name":[5],"type":["int"],"align":["right"]},{"label":["N_GID"],"name":[6],"type":["int"],"align":["right"]}],"data":[{"1":"33218","2":"10","3":"9","4":"130","5":"8","6":"4575"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<p>Break down the plots based on the trial design and TrialType (really a grouping of the population that is breeding program specific), captured by two logical variables, <strong>CompleteBlocks</strong> and <strong>IncompleteBlocks</strong>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>rawdata <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="st">  </span><span class="kw">count</span>(TrialType,CompleteBlocks,IncompleteBlocks) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="st">  </span><span class="kw">spread</span>(TrialType,n) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="st">  </span>rmarkdown<span class="op">::</span><span class="kw">paged_table</span>()</span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["CompleteBlocks"],"name":[1],"type":["lgl"],"align":["right"]},{"label":["IncompleteBlocks"],"name":[2],"type":["lgl"],"align":["right"]},{"label":["C1a"],"name":[3],"type":["int"],"align":["right"]},{"label":["C1b"],"name":[4],"type":["int"],"align":["right"]},{"label":["C2a"],"name":[5],"type":["int"],"align":["right"]},{"label":["C2b"],"name":[6],"type":["int"],"align":["right"]},{"label":["CrossingBlock"],"name":[7],"type":["int"],"align":["right"]},{"label":["NCRP"],"name":[8],"type":["int"],"align":["right"]},{"label":["TP1"],"name":[9],"type":["int"],"align":["right"]},{"label":["TP2"],"name":[10],"type":["int"],"align":["right"]}],"data":[{"1":"FALSE","2":"FALSE","3":"NA","4":"NA","5":"NA","6":"NA","7":"60","8":"NA","9":"NA","10":"723"},{"1":"FALSE","2":"TRUE","3":"1516","4":"1662","5":"1153","6":"279","7":"NA","8":"NA","9":"405","10":"301"},{"1":"TRUE","2":"FALSE","3":"848","4":"2406","5":"392","6":"96","7":"NA","8":"NA","9":"5989","10":"5619"},{"1":"TRUE","2":"TRUE","3":"1018","4":"166","5":"798","6":"252","7":"81","8":"270","9":"6834","10":"2350"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+<div id="blups" class="section level1">
+<h1>BLUPs</h1>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">library</span>(tidyverse); <span class="kw">library</span>(magrittr);</span>
+<span id="cb3-2"><a href="#cb3-2"></a>dbdata&lt;-<span class="kw">readRDS</span>(<span class="dt">file=</span>here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;output&quot;</span>,<span class="st">&quot;nrcri_blupsForModelTraining_twostage_asreml_2020Oct13.rds&quot;</span>))</span>
+<span id="cb3-3"><a href="#cb3-3"></a>dbdata <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Nclones=</span><span class="kw">map_dbl</span>(blups,<span class="op">~</span><span class="kw">nrow</span>(.)),</span>
+<span id="cb3-5"><a href="#cb3-5"></a>         <span class="dt">NoutliersRemoved=</span><span class="kw">map2_dbl</span>(outliers1,outliers2,<span class="op">~</span><span class="kw">length</span>(.x)<span class="op">+</span><span class="kw">length</span>(.y))) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="st">  </span><span class="kw">relocate</span>(<span class="kw">c</span>(Nclones,NoutliersRemoved),<span class="dt">.after =</span> Trait) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>blups,<span class="op">-</span>varcomp,<span class="op">-</span>outliers1,<span class="op">-</span>outliers2) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="kw">across</span>(is.numeric,<span class="op">~</span><span class="kw">round</span>(.,<span class="dv">4</span>))) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="st">  </span>rmarkdown<span class="op">::</span><span class="kw">paged_table</span>()</span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["Trait"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Nclones"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["NoutliersRemoved"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["loglik"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["Vg"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["Ve"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["H2"],"name":[7],"type":["dbl"],"align":["right"]}],"data":[{"1":"CGMS1","2":"3473","3":"67","4":"-3519.4530","5":"0.0429","6":"0.5836","7":"0.0685"},{"1":"CGMS2","2":"2785","3":"126","4":"629.0153","5":"0.0119","6":"0.2873","7":"0.0397"},{"1":"MCMDS","2":"3483","3":"419","4":"2455.0389","5":"0.3407","6":"0.1361","7":"0.7146"},{"1":"PLTHT","2":"2892","3":"48","4":"-37665.1754","5":"113.5034","6":"1142.0955","7":"0.0904"},{"1":"BRNHT1","2":"2161","3":"95","4":"-26721.8248","5":"69.0939","6":"845.2061","7":"0.0756"},{"1":"HI","2":"3530","3":"74","4":"18207.5603","5":"0.0044","6":"0.0152","7":"0.2264"},{"1":"logFYLD","2":"3522","3":"134","4":"-3583.9326","5":"0.0984","6":"0.5612","7":"0.1492"},{"1":"logTOPYLD","2":"3523","3":"78","4":"-3835.0766","5":"0.1499","6":"0.5518","7":"0.2137"},{"1":"logRTNO","2":"3533","3":"87","4":"-838.0569","5":"0.0601","6":"0.3618","7":"0.1424"},{"1":"DM","2":"2792","3":"63","4":"-10819.7310","5":"4.4953","6":"15.7435","7":"0.2221"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+<div id="prediction-accuracy." class="section level1">
+<h1>Prediction accuracy.</h1>
+<ol start="3" style="list-style-type: decimal">
+<li><a href="08-CrossValidation.html">Check prediction accuracy</a>: Evaluate prediction accuracy with cross-validation.
+<ul>
+<li>Compare prediction accuracy with vs. without IITA’s training data to augment.</li>
+</ul></li>
+</ol>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">rm</span>(<span class="dt">list=</span><span class="kw">ls</span>());<span class="kw">gc</span>()</span></code></pre></div>
+<pre><code>          used (Mb) gc trigger  (Mb) limit (Mb) max used  (Mb)
+Ncells 1126298 60.2    2085370 111.4         NA  2085370 111.4
+Vcells 1992436 15.3    8388608  64.0     102400  5405596  41.3</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">library</span>(tidyverse); <span class="kw">library</span>(magrittr); </span>
+<span id="cb6-2"><a href="#cb6-2"></a>cv&lt;-<span class="kw">readRDS</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;output&quot;</span>,<span class="st">&quot;cvresults_A_nrOnly_2020Oct15.rds&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="st">  </span><span class="kw">bind_rows</span>(<span class="kw">readRDS</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;output&quot;</span>,<span class="st">&quot;cvresults_A_iitaAugmented_2020Oct15.rds&quot;</span>))) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="st">  </span><span class="kw">bind_rows</span>(<span class="kw">readRDS</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;output&quot;</span>,<span class="st">&quot;cvresults_ADE_nrOnly_2020Oct15.rds&quot;</span>))) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="st">  </span><span class="kw">bind_rows</span>(<span class="kw">readRDS</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;output&quot;</span>,<span class="st">&quot;cvresults_ADE_iitaAugmented_2020Oct15.rds&quot;</span>))) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="st">  </span><span class="co"># the ADE model failed for most CV folds for MCMDS-IITAaugmented</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a><span class="st">  </span><span class="co"># but not for any other case</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a><span class="st">  </span><span class="co"># I am not sure why.</span></span>
+<span id="cb6-9"><a href="#cb6-9"></a><span class="st">  </span><span class="co"># So I also ran model AD for IITAaugmented again</span></span>
+<span id="cb6-10"><a href="#cb6-10"></a><span class="st">  </span><span class="co"># no problem there</span></span>
+<span id="cb6-11"><a href="#cb6-11"></a><span class="st">  </span><span class="kw">bind_rows</span>(<span class="kw">readRDS</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;output&quot;</span>,<span class="st">&quot;cvresults_AD_iitaAugmented_2020Oct15.rds&quot;</span>))) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb6-12"><a href="#cb6-12"></a><span class="st">  </span><span class="kw">unnest</span>(CVresults) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb6-13"><a href="#cb6-13"></a><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>splits,<span class="op">-</span>accuracy)</span>
+<span id="cb6-14"><a href="#cb6-14"></a>traits&lt;-<span class="kw">c</span>(<span class="st">&quot;MCMDS&quot;</span>,<span class="st">&quot;DM&quot;</span>,<span class="st">&quot;logFYLD&quot;</span>,<span class="st">&quot;logTOPYLD&quot;</span>,<span class="st">&quot;logRTNO&quot;</span>,<span class="st">&quot;HI&quot;</span>,<span class="st">&quot;PLTHT&quot;</span>,<span class="st">&quot;BRNHT1&quot;</span>,<span class="st">&quot;CGM&quot;</span>,<span class="st">&quot;CGMS1&quot;</span>,<span class="st">&quot;CGMS2&quot;</span>)</span>
+<span id="cb6-15"><a href="#cb6-15"></a>cv <span class="op">%&lt;&gt;%</span><span class="st"> </span></span>
+<span id="cb6-16"><a href="#cb6-16"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Trait=</span><span class="kw">factor</span>(Trait,<span class="dt">levels=</span>traits),</span>
+<span id="cb6-17"><a href="#cb6-17"></a>         <span class="dt">GroupName=</span><span class="kw">factor</span>(GroupName,<span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&quot;nrTP&quot;</span>,<span class="st">&quot;C1a&quot;</span>,<span class="st">&quot;C1b&quot;</span>,<span class="st">&quot;C2a&quot;</span>,<span class="st">&quot;C2b&quot;</span>)),</span>
+<span id="cb6-18"><a href="#cb6-18"></a>         <span class="dt">Dataset=</span><span class="kw">factor</span>(Dataset,<span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&quot;NRalone&quot;</span>,<span class="st">&quot;IITAaugmented&quot;</span>)),</span>
+<span id="cb6-19"><a href="#cb6-19"></a>         <span class="dt">modelType=</span><span class="kw">factor</span>(modelType,<span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;AD&quot;</span>,<span class="st">&quot;ADE&quot;</span>)))</span></code></pre></div>
+<div id="table-of-mean-accuracies" class="section level2">
+<h2>Table of mean accuracies</h2>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>cv <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="st">  </span><span class="kw">group_by</span>(Trait,GroupName,Dataset) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="st">  </span><span class="co"># use accGETGV. For modelA we GETGV==GEBV. For modelADE we don&#39;t want GEBV, just GETGV.</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">meanAccuracy=</span><span class="kw">mean</span>(accGETGV,<span class="dt">na.rm=</span>T),</span>
+<span id="cb7-5"><a href="#cb7-5"></a>            <span class="dt">lower5pct=</span><span class="kw">quantile</span>(accGETGV,<span class="dt">probs =</span> <span class="kw">c</span>(<span class="fl">0.05</span>),<span class="dt">na.rm=</span>T),</span>
+<span id="cb7-6"><a href="#cb7-6"></a>            <span class="dt">upper5pct=</span><span class="kw">quantile</span>(accGETGV,<span class="dt">probs =</span> <span class="kw">c</span>(<span class="fl">0.95</span>),<span class="dt">na.rm=</span>T)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb7-7"><a href="#cb7-7"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="kw">across</span>(is.numeric,<span class="op">~</span><span class="kw">round</span>(.,<span class="dv">2</span>))) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb7-8"><a href="#cb7-8"></a><span class="st">  </span>rmarkdown<span class="op">::</span><span class="kw">paged_table</span>()</span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["Trait"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["GroupName"],"name":[2],"type":["fctr"],"align":["left"]},{"label":["Dataset"],"name":[3],"type":["fctr"],"align":["left"]},{"label":["meanAccuracy"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["lower5pct"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["upper5pct"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"MCMDS","2":"nrTP","3":"NRalone","4":"0.17","5":"0.06","6":"0.30"},{"1":"MCMDS","2":"nrTP","3":"IITAaugmented","4":"0.16","5":"0.06","6":"0.29"},{"1":"MCMDS","2":"C1a","3":"NRalone","4":"-0.02","5":"-0.27","6":"0.25"},{"1":"MCMDS","2":"C1a","3":"IITAaugmented","4":"-0.05","5":"-0.30","6":"0.20"},{"1":"MCMDS","2":"C1b","3":"NRalone","4":"0.20","5":"0.03","6":"0.35"},{"1":"MCMDS","2":"C1b","3":"IITAaugmented","4":"0.19","5":"0.07","6":"0.31"},{"1":"MCMDS","2":"C2a","3":"NRalone","4":"0.15","5":"0.06","6":"0.25"},{"1":"MCMDS","2":"C2a","3":"IITAaugmented","4":"0.15","5":"0.04","6":"0.24"},{"1":"MCMDS","2":"C2b","3":"NRalone","4":"0.27","5":"0.07","6":"0.48"},{"1":"MCMDS","2":"C2b","3":"IITAaugmented","4":"0.27","5":"0.10","6":"0.49"},{"1":"DM","2":"nrTP","3":"NRalone","4":"0.14","5":"-0.02","6":"0.31"},{"1":"DM","2":"nrTP","3":"IITAaugmented","4":"0.14","5":"-0.04","6":"0.37"},{"1":"DM","2":"C1a","3":"NRalone","4":"-0.03","5":"-0.25","6":"0.30"},{"1":"DM","2":"C1a","3":"IITAaugmented","4":"-0.02","5":"-0.34","6":"0.29"},{"1":"DM","2":"C1b","3":"NRalone","4":"0.19","5":"0.07","6":"0.32"},{"1":"DM","2":"C1b","3":"IITAaugmented","4":"0.18","5":"0.06","6":"0.31"},{"1":"DM","2":"C2a","3":"NRalone","4":"0.15","5":"0.05","6":"0.26"},{"1":"DM","2":"C2a","3":"IITAaugmented","4":"0.15","5":"0.05","6":"0.25"},{"1":"DM","2":"C2b","3":"NRalone","4":"0.20","5":"-0.02","6":"0.45"},{"1":"DM","2":"C2b","3":"IITAaugmented","4":"0.20","5":"-0.04","6":"0.45"},{"1":"logFYLD","2":"nrTP","3":"NRalone","4":"0.26","5":"0.16","6":"0.36"},{"1":"logFYLD","2":"nrTP","3":"IITAaugmented","4":"0.26","5":"0.13","6":"0.35"},{"1":"logFYLD","2":"C1a","3":"NRalone","4":"-0.15","5":"-0.39","6":"0.14"},{"1":"logFYLD","2":"C1a","3":"IITAaugmented","4":"-0.14","5":"-0.36","6":"0.12"},{"1":"logFYLD","2":"C1b","3":"NRalone","4":"0.18","5":"0.06","6":"0.32"},{"1":"logFYLD","2":"C1b","3":"IITAaugmented","4":"0.19","5":"0.08","6":"0.31"},{"1":"logFYLD","2":"C2a","3":"NRalone","4":"0.17","5":"0.07","6":"0.28"},{"1":"logFYLD","2":"C2a","3":"IITAaugmented","4":"0.17","5":"0.07","6":"0.28"},{"1":"logFYLD","2":"C2b","3":"NRalone","4":"0.04","5":"-0.17","6":"0.27"},{"1":"logFYLD","2":"C2b","3":"IITAaugmented","4":"0.06","5":"-0.20","6":"0.33"},{"1":"logTOPYLD","2":"nrTP","3":"NRalone","4":"0.25","5":"0.14","6":"0.37"},{"1":"logTOPYLD","2":"nrTP","3":"IITAaugmented","4":"0.25","5":"0.13","6":"0.38"},{"1":"logTOPYLD","2":"C1a","3":"NRalone","4":"-0.05","5":"-0.32","6":"0.20"},{"1":"logTOPYLD","2":"C1a","3":"IITAaugmented","4":"-0.04","5":"-0.24","6":"0.18"},{"1":"logTOPYLD","2":"C1b","3":"NRalone","4":"0.22","5":"0.08","6":"0.32"},{"1":"logTOPYLD","2":"C1b","3":"IITAaugmented","4":"0.22","5":"0.09","6":"0.37"},{"1":"logTOPYLD","2":"C2a","3":"NRalone","4":"0.18","5":"0.08","6":"0.29"},{"1":"logTOPYLD","2":"C2a","3":"IITAaugmented","4":"0.18","5":"0.07","6":"0.29"},{"1":"logTOPYLD","2":"C2b","3":"NRalone","4":"0.01","5":"-0.23","6":"0.21"},{"1":"logTOPYLD","2":"C2b","3":"IITAaugmented","4":"0.01","5":"-0.17","6":"0.20"},{"1":"logRTNO","2":"nrTP","3":"NRalone","4":"0.20","5":"0.12","6":"0.30"},{"1":"logRTNO","2":"nrTP","3":"IITAaugmented","4":"0.22","5":"0.10","6":"0.32"},{"1":"logRTNO","2":"C1a","3":"NRalone","4":"0.00","5":"-0.26","6":"0.29"},{"1":"logRTNO","2":"C1a","3":"IITAaugmented","4":"0.01","5":"-0.27","6":"0.28"},{"1":"logRTNO","2":"C1b","3":"NRalone","4":"0.14","5":"0.01","6":"0.30"},{"1":"logRTNO","2":"C1b","3":"IITAaugmented","4":"0.14","5":"0.00","6":"0.27"},{"1":"logRTNO","2":"C2a","3":"NRalone","4":"0.25","5":"0.15","6":"0.36"},{"1":"logRTNO","2":"C2a","3":"IITAaugmented","4":"0.25","5":"0.14","6":"0.38"},{"1":"logRTNO","2":"C2b","3":"NRalone","4":"0.03","5":"-0.24","6":"0.26"},{"1":"logRTNO","2":"C2b","3":"IITAaugmented","4":"0.05","5":"-0.19","6":"0.29"},{"1":"HI","2":"nrTP","3":"NRalone","4":"0.27","5":"0.16","6":"0.36"},{"1":"HI","2":"nrTP","3":"IITAaugmented","4":"0.26","5":"0.16","6":"0.36"},{"1":"HI","2":"C1a","3":"NRalone","4":"-0.05","5":"-0.26","6":"0.14"},{"1":"HI","2":"C1a","3":"IITAaugmented","4":"-0.07","5":"-0.32","6":"0.16"},{"1":"HI","2":"C1b","3":"NRalone","4":"0.34","5":"0.22","6":"0.48"},{"1":"HI","2":"C1b","3":"IITAaugmented","4":"0.34","5":"0.20","6":"0.45"},{"1":"HI","2":"C2a","3":"NRalone","4":"0.33","5":"0.25","6":"0.43"},{"1":"HI","2":"C2a","3":"IITAaugmented","4":"0.33","5":"0.23","6":"0.43"},{"1":"HI","2":"C2b","3":"NRalone","4":"0.37","5":"0.21","6":"0.56"},{"1":"HI","2":"C2b","3":"IITAaugmented","4":"0.37","5":"0.16","6":"0.55"},{"1":"PLTHT","2":"nrTP","3":"NRalone","4":"0.12","5":"0.01","6":"0.26"},{"1":"PLTHT","2":"nrTP","3":"IITAaugmented","4":"0.12","5":"-0.01","6":"0.25"},{"1":"PLTHT","2":"C1a","3":"NRalone","4":"0.19","5":"-0.04","6":"0.47"},{"1":"PLTHT","2":"C1a","3":"IITAaugmented","4":"0.17","5":"-0.09","6":"0.42"},{"1":"PLTHT","2":"C1b","3":"NRalone","4":"0.11","5":"-0.02","6":"0.26"},{"1":"PLTHT","2":"C1b","3":"IITAaugmented","4":"0.10","5":"-0.05","6":"0.27"},{"1":"PLTHT","2":"C2a","3":"NRalone","4":"0.22","5":"0.10","6":"0.32"},{"1":"PLTHT","2":"C2a","3":"IITAaugmented","4":"0.21","5":"0.10","6":"0.31"},{"1":"PLTHT","2":"C2b","3":"NRalone","4":"0.19","5":"-0.05","6":"0.38"},{"1":"PLTHT","2":"C2b","3":"IITAaugmented","4":"0.17","5":"-0.01","6":"0.40"},{"1":"BRNHT1","2":"nrTP","3":"NRalone","4":"0.15","5":"0.00","6":"0.29"},{"1":"BRNHT1","2":"nrTP","3":"IITAaugmented","4":"0.15","5":"-0.02","6":"0.30"},{"1":"BRNHT1","2":"C1a","3":"NRalone","4":"0.15","5":"-0.39","6":"0.50"},{"1":"BRNHT1","2":"C1a","3":"IITAaugmented","4":"0.13","5":"-0.32","6":"0.55"},{"1":"BRNHT1","2":"C1b","3":"NRalone","4":"0.14","5":"-0.15","6":"0.48"},{"1":"BRNHT1","2":"C1b","3":"IITAaugmented","4":"0.13","5":"-0.22","6":"0.47"},{"1":"BRNHT1","2":"C2a","3":"NRalone","4":"0.23","5":"0.15","6":"0.31"},{"1":"BRNHT1","2":"C2a","3":"IITAaugmented","4":"0.23","5":"0.11","6":"0.36"},{"1":"BRNHT1","2":"C2b","3":"NRalone","4":"0.14","5":"-0.06","6":"0.39"},{"1":"BRNHT1","2":"C2b","3":"IITAaugmented","4":"0.14","5":"-0.09","6":"0.33"},{"1":"CGMS1","2":"nrTP","3":"NRalone","4":"0.35","5":"0.26","6":"0.44"},{"1":"CGMS1","2":"C1a","3":"NRalone","4":"-0.10","5":"-0.29","6":"0.11"},{"1":"CGMS1","2":"C1b","3":"NRalone","4":"0.15","5":"-0.02","6":"0.27"},{"1":"CGMS1","2":"C2a","3":"NRalone","4":"-0.03","5":"-0.17","6":"0.12"},{"1":"CGMS1","2":"C2b","3":"NRalone","4":"0.04","5":"-0.13","6":"0.24"},{"1":"CGMS2","2":"nrTP","3":"NRalone","4":"0.18","5":"0.07","6":"0.30"},{"1":"CGMS2","2":"C1a","3":"NRalone","4":"0.02","5":"-0.22","6":"0.24"},{"1":"CGMS2","2":"C1b","3":"NRalone","4":"0.03","5":"-0.14","6":"0.19"},{"1":"CGMS2","2":"C2a","3":"NRalone","4":"-0.05","5":"-0.24","6":"0.18"},{"1":"CGMS2","2":"C2b","3":"NRalone","4":"-0.07","5":"-0.30","6":"0.26"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+<div id="boxplot-of-accuracies" class="section level2">
+<h2>Boxplot of accuracies</h2>
+<div id="version-1-compare-nralone-vs.-iitaaugmented" class="section level3">
+<h3>Version 1: Compare NRalone vs. IITAaugmented</h3>
+<p>Facet by Groups. X-axis Traits. Fill color by Dataset (NRalone vs. IITAaugmented).</p>
+<p>2 plots: (1) model A –&gt; GEBV, (2) model ADE –&gt; GETGV</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>cv <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="st">  </span><span class="kw">filter</span>(modelType<span class="op">==</span><span class="st">&quot;A&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="st">  </span><span class="kw">ggplot</span>(.,<span class="kw">aes</span>(<span class="dt">x=</span>Trait,<span class="dt">y=</span>accGETGV,<span class="dt">fill=</span>Dataset)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>,<span class="dt">color=</span><span class="st">&#39;gray50&#39;</span>,<span class="dt">size=</span><span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>GroupName,<span class="dt">nrow=</span><span class="dv">1</span>,<span class="dt">scales=</span><span class="st">&#39;free_x&#39;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb8-7"><a href="#cb8-7"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">strip.text.x =</span> <span class="kw">element_text</span>(<span class="dt">face=</span><span class="st">&#39;bold&#39;</span>, <span class="dt">size=</span><span class="dv">12</span>),</span>
+<span id="cb8-8"><a href="#cb8-8"></a>        <span class="dt">axis.text.y =</span> <span class="kw">element_text</span>(<span class="dt">face=</span><span class="st">&#39;bold&#39;</span>, <span class="dt">size=</span><span class="dv">14</span>, <span class="dt">angle =</span> <span class="dv">0</span>),</span>
+<span id="cb8-9"><a href="#cb8-9"></a>        <span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">face=</span><span class="st">&#39;bold&#39;</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">angle =</span> <span class="dv">0</span>),</span>
+<span id="cb8-10"><a href="#cb8-10"></a>        <span class="dt">axis.title.y =</span> <span class="kw">element_text</span>(<span class="dt">face=</span><span class="st">&#39;bold&#39;</span>, <span class="dt">size=</span><span class="dv">12</span>),</span>
+<span id="cb8-11"><a href="#cb8-11"></a>        <span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">face=</span><span class="st">&#39;bold&#39;</span>),</span>
+<span id="cb8-12"><a href="#cb8-12"></a>        <span class="dt">legend.position =</span> <span class="st">&#39;bottom&#39;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb8-13"><a href="#cb8-13"></a><span class="st">  </span><span class="kw">scale_fill_viridis_d</span>() <span class="op">+</span><span class="st"> </span><span class="kw">coord_flip</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb8-14"><a href="#cb8-14"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;Prediction Accuracies - Additive-only model&quot;</span>, <span class="dt">y=</span><span class="st">&quot;GEBV Accuracy&quot;</span>,<span class="dt">x=</span><span class="ot">NULL</span>) <span class="op">+</span></span>
+<span id="cb8-15"><a href="#cb8-15"></a><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>, <span class="dt">color=</span><span class="st">&#39;darkred&#39;</span>)</span></code></pre></div>
+<p><img src="figure/10-Results.Rmd/unnamed-chunk-6-1.png" width="960" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>cv <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="st">  </span><span class="kw">filter</span>(modelType<span class="op">==</span><span class="st">&quot;ADE&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="st">  </span><span class="kw">ggplot</span>(.,<span class="kw">aes</span>(<span class="dt">x=</span>Trait,<span class="dt">y=</span>accGETGV,<span class="dt">fill=</span>Dataset)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>,<span class="dt">color=</span><span class="st">&#39;gray50&#39;</span>,<span class="dt">size=</span><span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb9-5"><a href="#cb9-5"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>GroupName,<span class="dt">nrow=</span><span class="dv">1</span>,<span class="dt">scales=</span><span class="st">&#39;free_x&#39;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb9-6"><a href="#cb9-6"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb9-7"><a href="#cb9-7"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">strip.text.x =</span> <span class="kw">element_text</span>(<span class="dt">face=</span><span class="st">&#39;bold&#39;</span>, <span class="dt">size=</span><span class="dv">12</span>),</span>
+<span id="cb9-8"><a href="#cb9-8"></a>        <span class="dt">axis.text.y =</span> <span class="kw">element_text</span>(<span class="dt">face=</span><span class="st">&#39;bold&#39;</span>, <span class="dt">size=</span><span class="dv">14</span>, <span class="dt">angle =</span> <span class="dv">0</span>),</span>
+<span id="cb9-9"><a href="#cb9-9"></a>        <span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">face=</span><span class="st">&#39;bold&#39;</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">angle =</span> <span class="dv">0</span>),</span>
+<span id="cb9-10"><a href="#cb9-10"></a>        <span class="dt">axis.title.y =</span> <span class="kw">element_text</span>(<span class="dt">face=</span><span class="st">&#39;bold&#39;</span>, <span class="dt">size=</span><span class="dv">12</span>),</span>
+<span id="cb9-11"><a href="#cb9-11"></a>        <span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">face=</span><span class="st">&#39;bold&#39;</span>),</span>
+<span id="cb9-12"><a href="#cb9-12"></a>        <span class="dt">legend.position =</span> <span class="st">&#39;bottom&#39;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb9-13"><a href="#cb9-13"></a><span class="st">  </span><span class="kw">scale_fill_viridis_d</span>() <span class="op">+</span><span class="st"> </span><span class="kw">coord_flip</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb9-14"><a href="#cb9-14"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;Prediction Accuracies - Additive plus Dominance plus AxD epistasis model&quot;</span>, <span class="dt">y=</span><span class="st">&quot;GETGV Accuracy&quot;</span>,<span class="dt">x=</span><span class="ot">NULL</span>) <span class="op">+</span></span>
+<span id="cb9-15"><a href="#cb9-15"></a><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>, <span class="dt">color=</span><span class="st">&#39;darkred&#39;</span>)</span></code></pre></div>
+<p><img src="figure/10-Results.Rmd/unnamed-chunk-7-1.png" width="960" style="display: block; margin: auto;" /> ### Version 2: Compare models A vs. ADE</p>
+<p>Facet by Groups. X-axis Traits. Fill color by Model (A vs. ADE).</p>
+<p>2 plots: NRonly, IITAaugmented</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>cv <span class="op">%&gt;%</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="st">  </span><span class="kw">filter</span>(Dataset<span class="op">==</span><span class="st">&quot;NRalone&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="st">  </span><span class="kw">ggplot</span>(.,<span class="kw">aes</span>(<span class="dt">x=</span>Trait,<span class="dt">y=</span>accGETGV,<span class="dt">fill=</span>modelType)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb10-4"><a href="#cb10-4"></a><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>,<span class="dt">color=</span><span class="st">&#39;gray50&#39;</span>,<span class="dt">size=</span><span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb10-5"><a href="#cb10-5"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>GroupName,<span class="dt">nrow=</span><span class="dv">1</span>,<span class="dt">scales=</span><span class="st">&#39;free_x&#39;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb10-6"><a href="#cb10-6"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb10-7"><a href="#cb10-7"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">strip.text.x =</span> <span class="kw">element_text</span>(<span class="dt">face=</span><span class="st">&#39;bold&#39;</span>, <span class="dt">size=</span><span class="dv">12</span>),</span>
+<span id="cb10-8"><a href="#cb10-8"></a>        <span class="dt">axis.text.y =</span> <span class="kw">element_text</span>(<span class="dt">face=</span><span class="st">&#39;bold&#39;</span>, <span class="dt">size=</span><span class="dv">14</span>, <span class="dt">angle =</span> <span class="dv">0</span>),</span>
+<span id="cb10-9"><a href="#cb10-9"></a>        <span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">face=</span><span class="st">&#39;bold&#39;</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">angle =</span> <span class="dv">0</span>),</span>
+<span id="cb10-10"><a href="#cb10-10"></a>        <span class="dt">axis.title.y =</span> <span class="kw">element_text</span>(<span class="dt">face=</span><span class="st">&#39;bold&#39;</span>, <span class="dt">size=</span><span class="dv">12</span>),</span>
+<span id="cb10-11"><a href="#cb10-11"></a>        <span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">face=</span><span class="st">&#39;bold&#39;</span>),</span>
+<span id="cb10-12"><a href="#cb10-12"></a>        <span class="dt">legend.position =</span> <span class="st">&#39;bottom&#39;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb10-13"><a href="#cb10-13"></a><span class="st">  </span><span class="kw">scale_fill_viridis_d</span>() <span class="op">+</span><span class="st"> </span><span class="kw">coord_flip</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb10-14"><a href="#cb10-14"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;Prediction Accuracies - NRCRI TP alone&quot;</span>, <span class="dt">y=</span><span class="st">&quot;Accuracy&quot;</span>,<span class="dt">x=</span><span class="ot">NULL</span>) <span class="op">+</span></span>
+<span id="cb10-15"><a href="#cb10-15"></a><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>, <span class="dt">color=</span><span class="st">&#39;darkred&#39;</span>)</span></code></pre></div>
+<p><img src="figure/10-Results.Rmd/unnamed-chunk-8-1.png" width="960" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>cv <span class="op">%&gt;%</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="st">  </span><span class="kw">filter</span>(Dataset<span class="op">==</span><span class="st">&quot;IITAaugmented&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb11-3"><a href="#cb11-3"></a><span class="st">  </span><span class="kw">ggplot</span>(.,<span class="kw">aes</span>(<span class="dt">x=</span>Trait,<span class="dt">y=</span>accGETGV,<span class="dt">fill=</span>modelType)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb11-4"><a href="#cb11-4"></a><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>,<span class="dt">color=</span><span class="st">&#39;gray50&#39;</span>,<span class="dt">size=</span><span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb11-5"><a href="#cb11-5"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>GroupName,<span class="dt">nrow=</span><span class="dv">1</span>,<span class="dt">scales=</span><span class="st">&#39;free_x&#39;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb11-6"><a href="#cb11-6"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb11-7"><a href="#cb11-7"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">strip.text.x =</span> <span class="kw">element_text</span>(<span class="dt">face=</span><span class="st">&#39;bold&#39;</span>, <span class="dt">size=</span><span class="dv">12</span>),</span>
+<span id="cb11-8"><a href="#cb11-8"></a>        <span class="dt">axis.text.y =</span> <span class="kw">element_text</span>(<span class="dt">face=</span><span class="st">&#39;bold&#39;</span>, <span class="dt">size=</span><span class="dv">14</span>, <span class="dt">angle =</span> <span class="dv">0</span>),</span>
+<span id="cb11-9"><a href="#cb11-9"></a>        <span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">face=</span><span class="st">&#39;bold&#39;</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">angle =</span> <span class="dv">0</span>),</span>
+<span id="cb11-10"><a href="#cb11-10"></a>        <span class="dt">axis.title.y =</span> <span class="kw">element_text</span>(<span class="dt">face=</span><span class="st">&#39;bold&#39;</span>, <span class="dt">size=</span><span class="dv">12</span>),</span>
+<span id="cb11-11"><a href="#cb11-11"></a>        <span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">face=</span><span class="st">&#39;bold&#39;</span>),</span>
+<span id="cb11-12"><a href="#cb11-12"></a>        <span class="dt">legend.position =</span> <span class="st">&#39;bottom&#39;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb11-13"><a href="#cb11-13"></a><span class="st">  </span><span class="kw">scale_fill_viridis_d</span>() <span class="op">+</span><span class="st"> </span><span class="kw">coord_flip</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb11-14"><a href="#cb11-14"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;Prediction Accuracies - NRCRI + IITA TP&quot;</span>, <span class="dt">y=</span><span class="st">&quot;Accuracy&quot;</span>,<span class="dt">x=</span><span class="ot">NULL</span>) <span class="op">+</span></span>
+<span id="cb11-15"><a href="#cb11-15"></a><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>, <span class="dt">color=</span><span class="st">&#39;darkred&#39;</span>)</span></code></pre></div>
+<p><img src="figure/10-Results.Rmd/unnamed-chunk-9-1.png" width="960" style="display: block; margin: auto;" /> # Genetic Gain</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">library</span>(tidyverse); <span class="kw">library</span>(magrittr)</span>
+<span id="cb12-2"><a href="#cb12-2"></a>traits&lt;-<span class="kw">c</span>(<span class="st">&quot;MCMDS&quot;</span>,<span class="st">&quot;DM&quot;</span>,<span class="st">&quot;logFYLD&quot;</span>,<span class="st">&quot;logTOPYLD&quot;</span>,<span class="st">&quot;logRTNO&quot;</span>,<span class="st">&quot;HI&quot;</span>,<span class="st">&quot;PLTHT&quot;</span>,<span class="st">&quot;BRNHT1&quot;</span>,<span class="st">&quot;CGM&quot;</span>,<span class="st">&quot;CGMS1&quot;</span>,<span class="st">&quot;CGMS2&quot;</span>)</span>
+<span id="cb12-3"><a href="#cb12-3"></a>preds&lt;-<span class="kw">read.csv</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;output&quot;</span>,<span class="st">&quot;genomicPredictions_NRCRI_2020Oct15.csv&quot;</span>), <span class="dt">stringsAsFactors =</span> F)</span>
+<span id="cb12-4"><a href="#cb12-4"></a>preds <span class="op">%&lt;&gt;%</span><span class="st"> </span></span>
+<span id="cb12-5"><a href="#cb12-5"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Trait=</span><span class="kw">factor</span>(Trait,<span class="dt">levels=</span>traits),</span>
+<span id="cb12-6"><a href="#cb12-6"></a>         <span class="dt">Group=</span><span class="kw">factor</span>(Group,<span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&quot;nrTP&quot;</span>,<span class="st">&quot;C1a&quot;</span>,<span class="st">&quot;C1b&quot;</span>,<span class="st">&quot;C2a&quot;</span>,<span class="st">&quot;C2b&quot;</span>,<span class="st">&quot;C3a&quot;</span>)),</span>
+<span id="cb12-7"><a href="#cb12-7"></a>         <span class="dt">Dataset=</span><span class="kw">factor</span>(Dataset,<span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&quot;NRCRIalone&quot;</span>,<span class="st">&quot;IITAaugmented&quot;</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>pred_summary&lt;-preds <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb13-2"><a href="#cb13-2"></a><span class="st">  </span><span class="kw">select</span>(Trait,Dataset,Group,GID,GEBV,GETGV) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb13-3"><a href="#cb13-3"></a><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="kw">c</span>(GEBV,GETGV),<span class="dt">values_to =</span> <span class="st">&quot;gBLUP&quot;</span>, <span class="dt">names_to =</span> <span class="st">&quot;predictionOf&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb13-4"><a href="#cb13-4"></a><span class="st">  </span><span class="kw">group_by</span>(Trait,Dataset,Group,predictionOf) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb13-5"><a href="#cb13-5"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">gBLUPmean=</span><span class="kw">mean</span>(gBLUP),</span>
+<span id="cb13-6"><a href="#cb13-6"></a>            <span class="dt">stdErr=</span><span class="kw">sd</span>(gBLUP)<span class="op">/</span><span class="kw">sqrt</span>(<span class="kw">n</span>()),</span>
+<span id="cb13-7"><a href="#cb13-7"></a>            <span class="dt">upperSE=</span>gBLUPmean<span class="op">+</span>stdErr,</span>
+<span id="cb13-8"><a href="#cb13-8"></a>            <span class="dt">lowerSE=</span>gBLUPmean<span class="op">-</span>stdErr) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ungroup</span>()</span>
+<span id="cb13-9"><a href="#cb13-9"></a>pred_summary <span class="op">%&gt;%</span><span class="st"> </span>rmarkdown<span class="op">::</span><span class="kw">paged_table</span>()</span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["Trait"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["Dataset"],"name":[2],"type":["fctr"],"align":["left"]},{"label":["Group"],"name":[3],"type":["fctr"],"align":["left"]},{"label":["predictionOf"],"name":[4],"type":["chr"],"align":["left"]},{"label":["gBLUPmean"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["stdErr"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["upperSE"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["lowerSE"],"name":[8],"type":["dbl"],"align":["right"]}],"data":[{"1":"MCMDS","2":"NRCRIalone","3":"nrTP","4":"GEBV","5":"1.677581e-02","6":"0.0013112578","7":"0.0180870696","8":"1.546455e-02"},{"1":"MCMDS","2":"NRCRIalone","3":"nrTP","4":"GETGV","5":"NA","6":"NA","7":"NA","8":"NA"},{"1":"MCMDS","2":"NRCRIalone","3":"C1a","4":"GEBV","5":"1.158361e-02","6":"0.0033630050","7":"0.0149466114","8":"8.220601e-03"},{"1":"MCMDS","2":"NRCRIalone","3":"C1a","4":"GETGV","5":"NA","6":"NA","7":"NA","8":"NA"},{"1":"MCMDS","2":"NRCRIalone","3":"C1b","4":"GEBV","5":"1.970991e-02","6":"0.0031024664","7":"0.0228123807","8":"1.660745e-02"},{"1":"MCMDS","2":"NRCRIalone","3":"C1b","4":"GETGV","5":"NA","6":"NA","7":"NA","8":"NA"},{"1":"MCMDS","2":"NRCRIalone","3":"C2a","4":"GEBV","5":"3.185123e-02","6":"0.0027393409","7":"0.0345905744","8":"2.911189e-02"},{"1":"MCMDS","2":"NRCRIalone","3":"C2a","4":"GETGV","5":"NA","6":"NA","7":"NA","8":"NA"},{"1":"MCMDS","2":"NRCRIalone","3":"C2b","4":"GEBV","5":"-2.636237e-02","6":"0.0011499564","7":"-0.0252124186","8":"-2.751233e-02"},{"1":"MCMDS","2":"NRCRIalone","3":"C2b","4":"GETGV","5":"NA","6":"NA","7":"NA","8":"NA"},{"1":"MCMDS","2":"NRCRIalone","3":"C3a","4":"GEBV","5":"1.427423e-02","6":"0.0035054272","7":"0.0177796555","8":"1.076880e-02"},{"1":"MCMDS","2":"NRCRIalone","3":"C3a","4":"GETGV","5":"NA","6":"NA","7":"NA","8":"NA"},{"1":"MCMDS","2":"IITAaugmented","3":"nrTP","4":"GEBV","5":"-7.710303e-03","6":"0.0054144724","7":"-0.0022958306","8":"-1.312478e-02"},{"1":"MCMDS","2":"IITAaugmented","3":"nrTP","4":"GETGV","5":"-9.878128e-03","6":"0.0056466037","7":"-0.0042315239","8":"-1.552473e-02"},{"1":"MCMDS","2":"IITAaugmented","3":"C1a","4":"GEBV","5":"4.096014e-02","6":"0.0091405263","7":"0.0501006674","8":"3.181961e-02"},{"1":"MCMDS","2":"IITAaugmented","3":"C1a","4":"GETGV","5":"3.891336e-02","6":"0.0087522914","7":"0.0476656532","8":"3.016107e-02"},{"1":"MCMDS","2":"IITAaugmented","3":"C1b","4":"GEBV","5":"3.914043e-02","6":"0.0071628452","7":"0.0463032798","8":"3.197759e-02"},{"1":"MCMDS","2":"IITAaugmented","3":"C1b","4":"GETGV","5":"4.796918e-02","6":"0.0073651224","7":"0.0553343000","8":"4.060406e-02"},{"1":"MCMDS","2":"IITAaugmented","3":"C2a","4":"GEBV","5":"6.822364e-02","6":"0.0058070723","7":"0.0740307158","8":"6.241657e-02"},{"1":"MCMDS","2":"IITAaugmented","3":"C2a","4":"GETGV","5":"6.959112e-02","6":"0.0060150568","7":"0.0756061759","8":"6.357606e-02"},{"1":"MCMDS","2":"IITAaugmented","3":"C2b","4":"GEBV","5":"-2.969826e-02","6":"0.0027774399","7":"-0.0269208191","8":"-3.247570e-02"},{"1":"MCMDS","2":"IITAaugmented","3":"C2b","4":"GETGV","5":"-2.793066e-02","6":"0.0027114134","7":"-0.0252192488","8":"-3.064208e-02"},{"1":"MCMDS","2":"IITAaugmented","3":"C3a","4":"GEBV","5":"3.372472e-02","6":"0.0084085389","7":"0.0421332591","8":"2.531618e-02"},{"1":"MCMDS","2":"IITAaugmented","3":"C3a","4":"GETGV","5":"2.639076e-02","6":"0.0081657725","7":"0.0345565371","8":"1.822499e-02"},{"1":"DM","2":"NRCRIalone","3":"nrTP","4":"GEBV","5":"-7.030251e-02","6":"0.0125782720","7":"-0.0577242427","8":"-8.288079e-02"},{"1":"DM","2":"NRCRIalone","3":"nrTP","4":"GETGV","5":"-7.854128e-02","6":"0.0128414056","7":"-0.0656998744","8":"-9.138269e-02"},{"1":"DM","2":"NRCRIalone","3":"C1a","4":"GEBV","5":"-2.113014e-01","6":"0.0404717380","7":"-0.1708296182","8":"-2.517731e-01"},{"1":"DM","2":"NRCRIalone","3":"C1a","4":"GETGV","5":"-2.243454e-01","6":"0.0441357443","7":"-0.1802096321","8":"-2.684811e-01"},{"1":"DM","2":"NRCRIalone","3":"C1b","4":"GEBV","5":"1.368842e-01","6":"0.0288799956","7":"0.1657642220","8":"1.080042e-01"},{"1":"DM","2":"NRCRIalone","3":"C1b","4":"GETGV","5":"1.324739e-01","6":"0.0301929994","7":"0.1626668574","8":"1.022809e-01"},{"1":"DM","2":"NRCRIalone","3":"C2a","4":"GEBV","5":"-1.003417e-02","6":"0.0211793334","7":"0.0111451683","8":"-3.121350e-02"},{"1":"DM","2":"NRCRIalone","3":"C2a","4":"GETGV","5":"-1.080186e-02","6":"0.0222156951","7":"0.0114138338","8":"-3.301756e-02"},{"1":"DM","2":"NRCRIalone","3":"C2b","4":"GEBV","5":"3.323630e-02","6":"0.0089755859","7":"0.0422118876","8":"2.426072e-02"},{"1":"DM","2":"NRCRIalone","3":"C2b","4":"GETGV","5":"3.703773e-02","6":"0.0090149468","7":"0.0460526786","8":"2.802278e-02"},{"1":"DM","2":"NRCRIalone","3":"C3a","4":"GEBV","5":"-9.868201e-03","6":"0.0280991174","7":"0.0182309160","8":"-3.796732e-02"},{"1":"DM","2":"NRCRIalone","3":"C3a","4":"GETGV","5":"-4.630880e-03","6":"0.0279518568","7":"0.0233209765","8":"-3.258274e-02"},{"1":"DM","2":"IITAaugmented","3":"nrTP","4":"GEBV","5":"3.189191e-01","6":"0.0517053090","7":"0.3706244356","8":"2.672138e-01"},{"1":"DM","2":"IITAaugmented","3":"nrTP","4":"GETGV","5":"2.576974e-01","6":"0.0506143445","7":"0.3083117100","8":"2.070830e-01"},{"1":"DM","2":"IITAaugmented","3":"C1a","4":"GEBV","5":"-1.508593e-01","6":"0.1140869479","7":"-0.0367723302","8":"-2.649462e-01"},{"1":"DM","2":"IITAaugmented","3":"C1a","4":"GETGV","5":"-2.813797e-01","6":"0.1014962672","7":"-0.1798834670","8":"-3.828760e-01"},{"1":"DM","2":"IITAaugmented","3":"C1b","4":"GEBV","5":"1.823744e-01","6":"0.0608698247","7":"0.2432442495","8":"1.215046e-01"},{"1":"DM","2":"IITAaugmented","3":"C1b","4":"GETGV","5":"1.474163e-01","6":"0.0573277655","7":"0.2047441002","8":"9.008857e-02"},{"1":"DM","2":"IITAaugmented","3":"C2a","4":"GEBV","5":"1.000709e-02","6":"0.0422115031","7":"0.0522185932","8":"-3.220441e-02"},{"1":"DM","2":"IITAaugmented","3":"C2a","4":"GETGV","5":"3.486849e-02","6":"0.0415584209","7":"0.0764269087","8":"-6.689933e-03"},{"1":"DM","2":"IITAaugmented","3":"C2b","4":"GEBV","5":"-2.586278e-01","6":"0.0230671766","7":"-0.2355606067","8":"-2.816950e-01"},{"1":"DM","2":"IITAaugmented","3":"C2b","4":"GETGV","5":"-1.844925e-01","6":"0.0182163587","7":"-0.1662761762","8":"-2.027089e-01"},{"1":"DM","2":"IITAaugmented","3":"C3a","4":"GEBV","5":"2.214636e-01","6":"0.0734924544","7":"0.2949560596","8":"1.479712e-01"},{"1":"DM","2":"IITAaugmented","3":"C3a","4":"GETGV","5":"2.032731e-01","6":"0.0588812650","7":"0.2621543939","8":"1.443919e-01"},{"1":"logFYLD","2":"NRCRIalone","3":"nrTP","4":"GEBV","5":"-1.255271e-02","6":"0.0025734462","7":"-0.0099792680","8":"-1.512616e-02"},{"1":"logFYLD","2":"NRCRIalone","3":"nrTP","4":"GETGV","5":"-1.764851e-02","6":"0.0030779903","7":"-0.0145705219","8":"-2.072650e-02"},{"1":"logFYLD","2":"NRCRIalone","3":"C1a","4":"GEBV","5":"-6.351434e-02","6":"0.0068080458","7":"-0.0567062919","8":"-7.032238e-02"},{"1":"logFYLD","2":"NRCRIalone","3":"C1a","4":"GETGV","5":"-4.552390e-02","6":"0.0065830195","7":"-0.0389408785","8":"-5.210692e-02"},{"1":"logFYLD","2":"NRCRIalone","3":"C1b","4":"GEBV","5":"9.321569e-03","6":"0.0033168573","7":"0.0126384267","8":"6.004712e-03"},{"1":"logFYLD","2":"NRCRIalone","3":"C1b","4":"GETGV","5":"8.863202e-03","6":"0.0039089060","7":"0.0127721080","8":"4.954296e-03"},{"1":"logFYLD","2":"NRCRIalone","3":"C2a","4":"GEBV","5":"-6.342370e-02","6":"0.0029700656","7":"-0.0604536321","8":"-6.639376e-02"},{"1":"logFYLD","2":"NRCRIalone","3":"C2a","4":"GETGV","5":"-5.935642e-02","6":"0.0034935731","7":"-0.0558628483","8":"-6.284999e-02"},{"1":"logFYLD","2":"NRCRIalone","3":"C2b","4":"GEBV","5":"3.748416e-02","6":"0.0012389118","7":"0.0387230679","8":"3.624524e-02"},{"1":"logFYLD","2":"NRCRIalone","3":"C2b","4":"GETGV","5":"3.251189e-02","6":"0.0012883417","7":"0.0338002293","8":"3.122355e-02"},{"1":"logFYLD","2":"NRCRIalone","3":"C3a","4":"GEBV","5":"-7.317389e-02","6":"0.0037184316","7":"-0.0694554543","8":"-7.689232e-02"},{"1":"logFYLD","2":"NRCRIalone","3":"C3a","4":"GETGV","5":"-8.578630e-02","6":"0.0038267231","7":"-0.0819595760","8":"-8.961302e-02"},{"1":"logFYLD","2":"IITAaugmented","3":"nrTP","4":"GEBV","5":"4.087301e-02","6":"0.0040398179","7":"0.0449128296","8":"3.683319e-02"},{"1":"logFYLD","2":"IITAaugmented","3":"nrTP","4":"GETGV","5":"3.156871e-02","6":"0.0044580043","7":"0.0360267159","8":"2.711071e-02"},{"1":"logFYLD","2":"IITAaugmented","3":"C1a","4":"GEBV","5":"-6.213864e-02","6":"0.0080694065","7":"-0.0540692338","8":"-7.020805e-02"},{"1":"logFYLD","2":"IITAaugmented","3":"C1a","4":"GETGV","5":"-4.914796e-02","6":"0.0081107719","7":"-0.0410371886","8":"-5.725873e-02"},{"1":"logFYLD","2":"IITAaugmented","3":"C1b","4":"GEBV","5":"-5.805851e-03","6":"0.0046105322","7":"-0.0011953185","8":"-1.041638e-02"},{"1":"logFYLD","2":"IITAaugmented","3":"C1b","4":"GETGV","5":"-6.220642e-03","6":"0.0048503537","7":"-0.0013702886","8":"-1.107100e-02"},{"1":"logFYLD","2":"IITAaugmented","3":"C2a","4":"GEBV","5":"-8.322725e-02","6":"0.0039962105","7":"-0.0792310361","8":"-8.722346e-02"},{"1":"logFYLD","2":"IITAaugmented","3":"C2a","4":"GETGV","5":"-8.084109e-02","6":"0.0044400412","7":"-0.0764010439","8":"-8.528113e-02"},{"1":"logFYLD","2":"IITAaugmented","3":"C2b","4":"GEBV","5":"1.453313e-02","6":"0.0017079696","7":"0.0162411002","8":"1.282516e-02"},{"1":"logFYLD","2":"IITAaugmented","3":"C2b","4":"GETGV","5":"1.197865e-02","6":"0.0019078199","7":"0.0138864706","8":"1.007083e-02"},{"1":"logFYLD","2":"IITAaugmented","3":"C3a","4":"GEBV","5":"-8.830389e-02","6":"0.0053421609","7":"-0.0829617330","8":"-9.364605e-02"},{"1":"logFYLD","2":"IITAaugmented","3":"C3a","4":"GETGV","5":"-1.075930e-01","6":"0.0054403908","7":"-0.1021525718","8":"-1.130334e-01"},{"1":"logTOPYLD","2":"NRCRIalone","3":"nrTP","4":"GEBV","5":"-4.782434e-02","6":"0.0022677535","7":"-0.0455565816","8":"-5.009209e-02"},{"1":"logTOPYLD","2":"NRCRIalone","3":"nrTP","4":"GETGV","5":"-5.395505e-02","6":"0.0025034537","7":"-0.0514516005","8":"-5.645851e-02"},{"1":"logTOPYLD","2":"NRCRIalone","3":"C1a","4":"GEBV","5":"-7.288054e-02","6":"0.0070281934","7":"-0.0658523438","8":"-7.990873e-02"},{"1":"logTOPYLD","2":"NRCRIalone","3":"C1a","4":"GETGV","5":"-6.369786e-02","6":"0.0072725383","7":"-0.0564253261","8":"-7.097040e-02"},{"1":"logTOPYLD","2":"NRCRIalone","3":"C1b","4":"GEBV","5":"9.127952e-03","6":"0.0038126277","7":"0.0129405797","8":"5.315324e-03"},{"1":"logTOPYLD","2":"NRCRIalone","3":"C1b","4":"GETGV","5":"6.318726e-03","6":"0.0040263078","7":"0.0103450343","8":"2.292419e-03"},{"1":"logTOPYLD","2":"NRCRIalone","3":"C2a","4":"GEBV","5":"-9.839355e-02","6":"0.0033509449","7":"-0.0950426070","8":"-1.017445e-01"},{"1":"logTOPYLD","2":"NRCRIalone","3":"C2a","4":"GETGV","5":"-9.894591e-02","6":"0.0036362931","7":"-0.0953096203","8":"-1.025822e-01"},{"1":"logTOPYLD","2":"NRCRIalone","3":"C2b","4":"GEBV","5":"7.195268e-02","6":"0.0012681612","7":"0.0732208420","8":"7.068452e-02"},{"1":"logTOPYLD","2":"NRCRIalone","3":"C2b","4":"GETGV","5":"6.757891e-02","6":"0.0012090566","7":"0.0687879668","8":"6.636985e-02"},{"1":"logTOPYLD","2":"NRCRIalone","3":"C3a","4":"GEBV","5":"-8.390913e-02","6":"0.0042935526","7":"-0.0796155819","8":"-8.820269e-02"},{"1":"logTOPYLD","2":"NRCRIalone","3":"C3a","4":"GETGV","5":"-9.399228e-02","6":"0.0045921926","7":"-0.0894000896","8":"-9.858447e-02"},{"1":"logTOPYLD","2":"IITAaugmented","3":"nrTP","4":"GEBV","5":"-1.771547e-02","6":"0.0028814227","7":"-0.0148340488","8":"-2.059689e-02"},{"1":"logTOPYLD","2":"IITAaugmented","3":"nrTP","4":"GETGV","5":"-2.454066e-02","6":"0.0030490540","7":"-0.0214916050","8":"-2.758971e-02"},{"1":"logTOPYLD","2":"IITAaugmented","3":"C1a","4":"GEBV","5":"-6.774299e-02","6":"0.0074279035","7":"-0.0603150893","8":"-7.517090e-02"},{"1":"logTOPYLD","2":"IITAaugmented","3":"C1a","4":"GETGV","5":"-6.219494e-02","6":"0.0074010167","7":"-0.0547939193","8":"-6.959595e-02"},{"1":"logTOPYLD","2":"IITAaugmented","3":"C1b","4":"GEBV","5":"1.407131e-03","6":"0.0045048150","7":"0.0059119462","8":"-3.097684e-03"},{"1":"logTOPYLD","2":"IITAaugmented","3":"C1b","4":"GETGV","5":"-8.716224e-04","6":"0.0044675858","7":"0.0035959634","8":"-5.339208e-03"},{"1":"logTOPYLD","2":"IITAaugmented","3":"C2a","4":"GEBV","5":"-1.139500e-01","6":"0.0038524903","7":"-0.1100975480","8":"-1.178025e-01"},{"1":"logTOPYLD","2":"IITAaugmented","3":"C2a","4":"GETGV","5":"-1.116777e-01","6":"0.0040086830","7":"-0.1076690323","8":"-1.156864e-01"},{"1":"logTOPYLD","2":"IITAaugmented","3":"C2b","4":"GEBV","5":"6.035807e-02","6":"0.0015387475","7":"0.0618968174","8":"5.881932e-02"},{"1":"logTOPYLD","2":"IITAaugmented","3":"C2b","4":"GETGV","5":"5.582239e-02","6":"0.0014517408","7":"0.0572741308","8":"5.437065e-02"},{"1":"logTOPYLD","2":"IITAaugmented","3":"C3a","4":"GEBV","5":"-9.607880e-02","6":"0.0053571117","7":"-0.0907216912","8":"-1.014359e-01"},{"1":"logTOPYLD","2":"IITAaugmented","3":"C3a","4":"GETGV","5":"-1.063917e-01","6":"0.0055618940","7":"-0.1008298493","8":"-1.119536e-01"},{"1":"logRTNO","2":"NRCRIalone","3":"nrTP","4":"GEBV","5":"-6.185734e-04","6":"0.0017579558","7":"0.0011393825","8":"-2.376529e-03"},{"1":"logRTNO","2":"NRCRIalone","3":"nrTP","4":"GETGV","5":"-4.677928e-03","6":"0.0023738576","7":"-0.0023040700","8":"-7.051785e-03"},{"1":"logRTNO","2":"NRCRIalone","3":"C1a","4":"GEBV","5":"-2.467771e-02","6":"0.0061946144","7":"-0.0184830929","8":"-3.087232e-02"},{"1":"logRTNO","2":"NRCRIalone","3":"C1a","4":"GETGV","5":"-1.100984e-02","6":"0.0069329173","7":"-0.0040769227","8":"-1.794276e-02"},{"1":"logRTNO","2":"NRCRIalone","3":"C1b","4":"GEBV","5":"1.273539e-02","6":"0.0027096089","7":"0.0154450024","8":"1.002578e-02"},{"1":"logRTNO","2":"NRCRIalone","3":"C1b","4":"GETGV","5":"1.335860e-02","6":"0.0033659192","7":"0.0167245165","8":"9.992678e-03"},{"1":"logRTNO","2":"NRCRIalone","3":"C2a","4":"GEBV","5":"-5.036406e-02","6":"0.0030888316","7":"-0.0472752323","8":"-5.345290e-02"},{"1":"logRTNO","2":"NRCRIalone","3":"C2a","4":"GETGV","5":"-5.029769e-02","6":"0.0035702345","7":"-0.0467274549","8":"-5.386792e-02"},{"1":"logRTNO","2":"NRCRIalone","3":"C2b","4":"GEBV","5":"1.879466e-02","6":"0.0009785781","7":"0.0197732392","8":"1.781608e-02"},{"1":"logRTNO","2":"NRCRIalone","3":"C2b","4":"GETGV","5":"1.687739e-02","6":"0.0011066893","7":"0.0179840776","8":"1.577070e-02"},{"1":"logRTNO","2":"NRCRIalone","3":"C3a","4":"GEBV","5":"-3.739895e-02","6":"0.0035007432","7":"-0.0338982072","8":"-4.089969e-02"},{"1":"logRTNO","2":"NRCRIalone","3":"C3a","4":"GETGV","5":"-5.271841e-02","6":"0.0037313038","7":"-0.0489871023","8":"-5.644971e-02"},{"1":"logRTNO","2":"IITAaugmented","3":"nrTP","4":"GEBV","5":"4.460289e-02","6":"0.0036402338","7":"0.0482431262","8":"4.096266e-02"},{"1":"logRTNO","2":"IITAaugmented","3":"nrTP","4":"GETGV","5":"3.773610e-02","6":"0.0039895026","7":"0.0417256032","8":"3.374660e-02"},{"1":"logRTNO","2":"IITAaugmented","3":"C1a","4":"GEBV","5":"-1.914466e-02","6":"0.0091242253","7":"-0.0100204372","8":"-2.826889e-02"},{"1":"logRTNO","2":"IITAaugmented","3":"C1a","4":"GETGV","5":"-1.045642e-02","6":"0.0092879543","7":"-0.0011684669","8":"-1.974438e-02"},{"1":"logRTNO","2":"IITAaugmented","3":"C1b","4":"GEBV","5":"-3.542385e-03","6":"0.0047485950","7":"0.0012062098","8":"-8.290980e-03"},{"1":"logRTNO","2":"IITAaugmented","3":"C1b","4":"GETGV","5":"-2.646891e-03","6":"0.0047928175","7":"0.0021459263","8":"-7.439709e-03"},{"1":"logRTNO","2":"IITAaugmented","3":"C2a","4":"GEBV","5":"-7.141519e-02","6":"0.0047069813","7":"-0.0667082126","8":"-7.612218e-02"},{"1":"logRTNO","2":"IITAaugmented","3":"C2a","4":"GETGV","5":"-7.079346e-02","6":"0.0048471254","7":"-0.0659463319","8":"-7.564058e-02"},{"1":"logRTNO","2":"IITAaugmented","3":"C2b","4":"GEBV","5":"-2.327337e-04","6":"0.0017269271","7":"0.0014941934","8":"-1.959661e-03"},{"1":"logRTNO","2":"IITAaugmented","3":"C2b","4":"GETGV","5":"-6.646310e-04","6":"0.0017798495","7":"0.0011152185","8":"-2.444480e-03"},{"1":"logRTNO","2":"IITAaugmented","3":"C3a","4":"GEBV","5":"-3.948168e-02","6":"0.0056860160","7":"-0.0337956649","8":"-4.516770e-02"},{"1":"logRTNO","2":"IITAaugmented","3":"C3a","4":"GETGV","5":"-5.962525e-02","6":"0.0057335481","7":"-0.0538917045","8":"-6.535880e-02"},{"1":"HI","2":"NRCRIalone","3":"nrTP","4":"GEBV","5":"9.206609e-03","6":"0.0005351514","7":"0.0097417607","8":"8.671458e-03"},{"1":"HI","2":"NRCRIalone","3":"nrTP","4":"GETGV","5":"9.686335e-03","6":"0.0005541264","7":"0.0102404619","8":"9.132209e-03"},{"1":"HI","2":"NRCRIalone","3":"C1a","4":"GEBV","5":"4.918543e-03","6":"0.0018276098","7":"0.0067461523","8":"3.090933e-03"},{"1":"HI","2":"NRCRIalone","3":"C1a","4":"GETGV","5":"5.222726e-03","6":"0.0019085484","7":"0.0071312740","8":"3.314177e-03"},{"1":"HI","2":"NRCRIalone","3":"C1b","4":"GEBV","5":"-1.035183e-04","6":"0.0012403234","7":"0.0011368051","8":"-1.343842e-03"},{"1":"HI","2":"NRCRIalone","3":"C1b","4":"GETGV","5":"5.289907e-04","6":"0.0012618739","7":"0.0017908647","8":"-7.328832e-04"},{"1":"HI","2":"NRCRIalone","3":"C2a","4":"GEBV","5":"8.185790e-03","6":"0.0010086999","7":"0.0091944895","8":"7.177090e-03"},{"1":"HI","2":"NRCRIalone","3":"C2a","4":"GETGV","5":"8.630417e-03","6":"0.0010546195","7":"0.0096850365","8":"7.575797e-03"},{"1":"HI","2":"NRCRIalone","3":"C2b","4":"GEBV","5":"-8.384909e-03","6":"0.0004323239","7":"-0.0079525851","8":"-8.817233e-03"},{"1":"HI","2":"NRCRIalone","3":"C2b","4":"GETGV","5":"-8.231878e-03","6":"0.0004267171","7":"-0.0078051613","8":"-8.658595e-03"},{"1":"HI","2":"NRCRIalone","3":"C3a","4":"GEBV","5":"-8.161146e-04","6":"0.0013871473","7":"0.0005710327","8":"-2.203262e-03"},{"1":"HI","2":"NRCRIalone","3":"C3a","4":"GETGV","5":"-1.576073e-03","6":"0.0013700635","7":"-0.0002060099","8":"-2.946137e-03"},{"1":"HI","2":"IITAaugmented","3":"nrTP","4":"GEBV","5":"1.078221e-02","6":"0.0007767930","7":"0.0115590033","8":"1.000542e-02"},{"1":"HI","2":"IITAaugmented","3":"nrTP","4":"GETGV","5":"1.036157e-02","6":"0.0008247245","7":"0.0111862993","8":"9.536850e-03"},{"1":"HI","2":"IITAaugmented","3":"C1a","4":"GEBV","5":"5.315671e-03","6":"0.0020000569","7":"0.0073157283","8":"3.315614e-03"},{"1":"HI","2":"IITAaugmented","3":"C1a","4":"GETGV","5":"6.239987e-03","6":"0.0020975068","7":"0.0083374941","8":"4.142480e-03"},{"1":"HI","2":"IITAaugmented","3":"C1b","4":"GEBV","5":"-2.039639e-04","6":"0.0013777310","7":"0.0011737671","8":"-1.581695e-03"},{"1":"HI","2":"IITAaugmented","3":"C1b","4":"GETGV","5":"2.359451e-04","6":"0.0013872344","7":"0.0016231795","8":"-1.151289e-03"},{"1":"HI","2":"IITAaugmented","3":"C2a","4":"GEBV","5":"1.016244e-02","6":"0.0011436579","7":"0.0113060950","8":"9.018779e-03"},{"1":"HI","2":"IITAaugmented","3":"C2a","4":"GETGV","5":"9.992775e-03","6":"0.0011802601","7":"0.0111730348","8":"8.812515e-03"},{"1":"HI","2":"IITAaugmented","3":"C2b","4":"GEBV","5":"-1.030355e-02","6":"0.0005104562","7":"-0.0097930899","8":"-1.081400e-02"},{"1":"HI","2":"IITAaugmented","3":"C2b","4":"GETGV","5":"-9.871904e-03","6":"0.0004904306","7":"-0.0093814733","8":"-1.036233e-02"},{"1":"HI","2":"IITAaugmented","3":"C3a","4":"GEBV","5":"1.936655e-03","6":"0.0017134556","7":"0.0036501102","8":"2.231991e-04"},{"1":"HI","2":"IITAaugmented","3":"C3a","4":"GETGV","5":"-6.586914e-04","6":"0.0016413522","7":"0.0009826609","8":"-2.300044e-03"},{"1":"PLTHT","2":"NRCRIalone","3":"nrTP","4":"GEBV","5":"-4.201060e-01","6":"0.1070683357","7":"-0.3130377041","8":"-5.271744e-01"},{"1":"PLTHT","2":"NRCRIalone","3":"nrTP","4":"GETGV","5":"1.002386e-01","6":"0.1253191695","7":"0.2255577975","8":"-2.508054e-02"},{"1":"PLTHT","2":"NRCRIalone","3":"C1a","4":"GEBV","5":"-2.916767e-01","6":"0.4454556330","7":"0.1537789511","8":"-7.371323e-01"},{"1":"PLTHT","2":"NRCRIalone","3":"C1a","4":"GETGV","5":"-3.212997e-01","6":"0.4801357006","7":"0.1588360021","8":"-8.014354e-01"},{"1":"PLTHT","2":"NRCRIalone","3":"C1b","4":"GEBV","5":"-4.953290e-01","6":"0.1880026721","7":"-0.3073262861","8":"-6.833316e-01"},{"1":"PLTHT","2":"NRCRIalone","3":"C1b","4":"GETGV","5":"-2.557532e-01","6":"0.2653608688","7":"0.0096077063","8":"-5.211140e-01"},{"1":"PLTHT","2":"NRCRIalone","3":"C2a","4":"GEBV","5":"-1.375908e+00","6":"0.2039407783","7":"-1.1719672595","8":"-1.579849e+00"},{"1":"PLTHT","2":"NRCRIalone","3":"C2a","4":"GETGV","5":"-1.278404e+00","6":"0.2180420124","7":"-1.0603621992","8":"-1.496446e+00"},{"1":"PLTHT","2":"NRCRIalone","3":"C2b","4":"GEBV","5":"7.188535e-01","6":"0.0678684614","7":"0.7867219885","8":"6.509851e-01"},{"1":"PLTHT","2":"NRCRIalone","3":"C2b","4":"GETGV","5":"8.644106e-01","6":"0.0532914531","7":"0.9177020516","8":"8.111191e-01"},{"1":"PLTHT","2":"NRCRIalone","3":"C3a","4":"GEBV","5":"5.660613e-01","6":"0.2634701258","7":"0.8295314299","8":"3.025912e-01"},{"1":"PLTHT","2":"NRCRIalone","3":"C3a","4":"GETGV","5":"1.137834e-01","6":"0.2060927650","7":"0.3198762135","8":"-9.230932e-02"},{"1":"PLTHT","2":"IITAaugmented","3":"nrTP","4":"GEBV","5":"4.385248e-01","6":"0.1159935970","7":"0.5545184293","8":"3.225312e-01"},{"1":"PLTHT","2":"IITAaugmented","3":"nrTP","4":"GETGV","5":"7.791592e-01","6":"0.1367697854","7":"0.9159289965","8":"6.423894e-01"},{"1":"PLTHT","2":"IITAaugmented","3":"C1a","4":"GEBV","5":"-1.635216e-01","6":"0.4608664999","7":"0.2973448542","8":"-6.243881e-01"},{"1":"PLTHT","2":"IITAaugmented","3":"C1a","4":"GETGV","5":"-3.078942e-01","6":"0.4875911350","7":"0.1796968933","8":"-7.954854e-01"},{"1":"PLTHT","2":"IITAaugmented","3":"C1b","4":"GEBV","5":"-6.070963e-01","6":"0.1930028046","7":"-0.4140935401","8":"-8.000991e-01"},{"1":"PLTHT","2":"IITAaugmented","3":"C1b","4":"GETGV","5":"-3.884529e-01","6":"0.2662068954","7":"-0.1222460060","8":"-6.546598e-01"},{"1":"PLTHT","2":"IITAaugmented","3":"C2a","4":"GEBV","5":"-1.680107e+00","6":"0.2100597260","7":"-1.4700469809","8":"-1.890166e+00"},{"1":"PLTHT","2":"IITAaugmented","3":"C2a","4":"GETGV","5":"-1.603021e+00","6":"0.2231854585","7":"-1.3798353516","8":"-1.826206e+00"},{"1":"PLTHT","2":"IITAaugmented","3":"C2b","4":"GEBV","5":"3.129034e-01","6":"0.0705756032","7":"0.3834790179","8":"2.423278e-01"},{"1":"PLTHT","2":"IITAaugmented","3":"C2b","4":"GETGV","5":"5.611174e-01","6":"0.0557746543","7":"0.6168920601","8":"5.053428e-01"},{"1":"PLTHT","2":"IITAaugmented","3":"C3a","4":"GEBV","5":"3.276682e-01","6":"0.2760352128","7":"0.6037034581","8":"5.163303e-02"},{"1":"PLTHT","2":"IITAaugmented","3":"C3a","4":"GETGV","5":"-1.898203e-01","6":"0.2226874326","7":"0.0328671501","8":"-4.125077e-01"},{"1":"BRNHT1","2":"NRCRIalone","3":"nrTP","4":"GEBV","5":"9.608768e-01","6":"0.1388243261","7":"1.0997011447","8":"8.220525e-01"},{"1":"BRNHT1","2":"NRCRIalone","3":"nrTP","4":"GETGV","5":"1.365022e+00","6":"0.1482686893","7":"1.5132906388","8":"1.216753e+00"},{"1":"BRNHT1","2":"NRCRIalone","3":"C1a","4":"GEBV","5":"1.119004e+00","6":"0.4427316247","7":"1.5617353408","8":"6.762721e-01"},{"1":"BRNHT1","2":"NRCRIalone","3":"C1a","4":"GETGV","5":"1.353746e+00","6":"0.4876142140","7":"1.8413599208","8":"8.661315e-01"},{"1":"BRNHT1","2":"NRCRIalone","3":"C1b","4":"GEBV","5":"8.621915e-01","6":"0.2637620398","7":"1.1259535658","8":"5.984295e-01"},{"1":"BRNHT1","2":"NRCRIalone","3":"C1b","4":"GETGV","5":"6.724376e-01","6":"0.2542857618","7":"0.9267233694","8":"4.181518e-01"},{"1":"BRNHT1","2":"NRCRIalone","3":"C2a","4":"GEBV","5":"2.201696e-01","6":"0.1963136203","7":"0.4164831904","8":"2.385595e-02"},{"1":"BRNHT1","2":"NRCRIalone","3":"C2a","4":"GETGV","5":"2.228818e-01","6":"0.2057619878","7":"0.4286438246","8":"1.711985e-02"},{"1":"BRNHT1","2":"NRCRIalone","3":"C2b","4":"GEBV","5":"-1.050441e+00","6":"0.1044570496","7":"-0.9459844316","8":"-1.154899e+00"},{"1":"BRNHT1","2":"NRCRIalone","3":"C2b","4":"GETGV","5":"-7.240500e-01","6":"0.0750554518","7":"-0.6489945512","8":"-7.991055e-01"},{"1":"BRNHT1","2":"NRCRIalone","3":"C3a","4":"GEBV","5":"1.172071e+00","6":"0.2768367747","7":"1.4489074470","8":"8.952339e-01"},{"1":"BRNHT1","2":"NRCRIalone","3":"C3a","4":"GETGV","5":"9.994562e-01","6":"0.2063591032","7":"1.2058153359","8":"7.930971e-01"},{"1":"BRNHT1","2":"IITAaugmented","3":"nrTP","4":"GEBV","5":"9.486020e-01","6":"0.1098406533","7":"1.0584426822","8":"8.387614e-01"},{"1":"BRNHT1","2":"IITAaugmented","3":"nrTP","4":"GETGV","5":"8.708508e-01","6":"0.1170865918","7":"0.9879373822","8":"7.537642e-01"},{"1":"BRNHT1","2":"IITAaugmented","3":"C1a","4":"GEBV","5":"1.099033e+00","6":"0.3475033063","7":"1.4465367448","8":"7.515301e-01"},{"1":"BRNHT1","2":"IITAaugmented","3":"C1a","4":"GETGV","5":"1.289375e+00","6":"0.3624389648","7":"1.6518134821","8":"9.269356e-01"},{"1":"BRNHT1","2":"IITAaugmented","3":"C1b","4":"GEBV","5":"1.226551e+00","6":"0.2101846371","7":"1.4367358130","8":"1.016367e+00"},{"1":"BRNHT1","2":"IITAaugmented","3":"C1b","4":"GETGV","5":"7.513089e-01","6":"0.2067696454","7":"0.9580784965","8":"5.445392e-01"},{"1":"BRNHT1","2":"IITAaugmented","3":"C2a","4":"GEBV","5":"4.339706e-01","6":"0.1542279580","7":"0.5881985772","8":"2.797427e-01"},{"1":"BRNHT1","2":"IITAaugmented","3":"C2a","4":"GETGV","5":"4.695103e-01","6":"0.1562986875","7":"0.6258090004","8":"3.132116e-01"},{"1":"BRNHT1","2":"IITAaugmented","3":"C2b","4":"GEBV","5":"-1.224731e+00","6":"0.0813918925","7":"-1.1433389183","8":"-1.306123e+00"},{"1":"BRNHT1","2":"IITAaugmented","3":"C2b","4":"GETGV","5":"-7.925600e-01","6":"0.0552237278","7":"-0.7373362794","8":"-8.477837e-01"},{"1":"BRNHT1","2":"IITAaugmented","3":"C3a","4":"GEBV","5":"1.554697e+00","6":"0.2162925882","7":"1.7709893884","8":"1.338404e+00"},{"1":"BRNHT1","2":"IITAaugmented","3":"C3a","4":"GETGV","5":"1.371776e+00","6":"0.1578372411","7":"1.5296130957","8":"1.213939e+00"},{"1":"CGMS1","2":"NRCRIalone","3":"nrTP","4":"GEBV","5":"-4.113605e-03","6":"0.0031777466","7":"-0.0009358586","8":"-7.291352e-03"},{"1":"CGMS1","2":"NRCRIalone","3":"nrTP","4":"GETGV","5":"1.685891e-03","6":"0.0035524227","7":"0.0052383141","8":"-1.866531e-03"},{"1":"CGMS1","2":"NRCRIalone","3":"C1a","4":"GEBV","5":"-9.395216e-03","6":"0.0077712329","7":"-0.0016239835","8":"-1.716645e-02"},{"1":"CGMS1","2":"NRCRIalone","3":"C1a","4":"GETGV","5":"-3.916054e-03","6":"0.0073542179","7":"0.0034381637","8":"-1.127027e-02"},{"1":"CGMS1","2":"NRCRIalone","3":"C1b","4":"GEBV","5":"-1.902828e-03","6":"0.0046005428","7":"0.0026977152","8":"-6.503370e-03"},{"1":"CGMS1","2":"NRCRIalone","3":"C1b","4":"GETGV","5":"-1.818690e-03","6":"0.0052021475","7":"0.0033834579","8":"-7.020837e-03"},{"1":"CGMS1","2":"NRCRIalone","3":"C2a","4":"GEBV","5":"7.766418e-03","6":"0.0025647423","7":"0.0103311599","8":"5.201675e-03"},{"1":"CGMS1","2":"NRCRIalone","3":"C2a","4":"GETGV","5":"4.498368e-03","6":"0.0029347528","7":"0.0074331210","8":"1.563615e-03"},{"1":"CGMS1","2":"NRCRIalone","3":"C2b","4":"GEBV","5":"4.719838e-05","6":"0.0017379300","7":"0.0017851283","8":"-1.690732e-03"},{"1":"CGMS1","2":"NRCRIalone","3":"C2b","4":"GETGV","5":"-1.699260e-03","6":"0.0014616528","7":"-0.0002376077","8":"-3.160913e-03"},{"1":"CGMS1","2":"NRCRIalone","3":"C3a","4":"GEBV","5":"9.435283e-03","6":"0.0043229185","7":"0.0137582019","8":"5.112365e-03"},{"1":"CGMS1","2":"NRCRIalone","3":"C3a","4":"GETGV","5":"8.659544e-03","6":"0.0033305925","7":"0.0119901366","8":"5.328952e-03"},{"1":"CGMS1","2":"IITAaugmented","3":"nrTP","4":"GEBV","5":"-4.113605e-03","6":"0.0031777466","7":"-0.0009358586","8":"-7.291352e-03"},{"1":"CGMS1","2":"IITAaugmented","3":"nrTP","4":"GETGV","5":"1.685891e-03","6":"0.0035524227","7":"0.0052383141","8":"-1.866531e-03"},{"1":"CGMS1","2":"IITAaugmented","3":"C1a","4":"GEBV","5":"-9.395216e-03","6":"0.0077712329","7":"-0.0016239835","8":"-1.716645e-02"},{"1":"CGMS1","2":"IITAaugmented","3":"C1a","4":"GETGV","5":"-3.916054e-03","6":"0.0073542179","7":"0.0034381637","8":"-1.127027e-02"},{"1":"CGMS1","2":"IITAaugmented","3":"C1b","4":"GEBV","5":"-1.902828e-03","6":"0.0046005428","7":"0.0026977152","8":"-6.503370e-03"},{"1":"CGMS1","2":"IITAaugmented","3":"C1b","4":"GETGV","5":"-1.818690e-03","6":"0.0052021475","7":"0.0033834579","8":"-7.020837e-03"},{"1":"CGMS1","2":"IITAaugmented","3":"C2a","4":"GEBV","5":"7.766418e-03","6":"0.0025647423","7":"0.0103311599","8":"5.201675e-03"},{"1":"CGMS1","2":"IITAaugmented","3":"C2a","4":"GETGV","5":"4.498368e-03","6":"0.0029347528","7":"0.0074331210","8":"1.563615e-03"},{"1":"CGMS1","2":"IITAaugmented","3":"C2b","4":"GEBV","5":"4.719838e-05","6":"0.0017379300","7":"0.0017851283","8":"-1.690732e-03"},{"1":"CGMS1","2":"IITAaugmented","3":"C2b","4":"GETGV","5":"-1.699260e-03","6":"0.0014616528","7":"-0.0002376077","8":"-3.160913e-03"},{"1":"CGMS1","2":"IITAaugmented","3":"C3a","4":"GEBV","5":"9.435283e-03","6":"0.0043229185","7":"0.0137582019","8":"5.112365e-03"},{"1":"CGMS1","2":"IITAaugmented","3":"C3a","4":"GETGV","5":"8.659544e-03","6":"0.0033305925","7":"0.0119901366","8":"5.328952e-03"},{"1":"CGMS2","2":"NRCRIalone","3":"nrTP","4":"GEBV","5":"-2.533570e-03","6":"0.0012480419","7":"-0.0012855277","8":"-3.781612e-03"},{"1":"CGMS2","2":"NRCRIalone","3":"nrTP","4":"GETGV","5":"7.760740e-04","6":"0.0014228143","7":"0.0021988883","8":"-6.467404e-04"},{"1":"CGMS2","2":"NRCRIalone","3":"C1a","4":"GEBV","5":"5.647331e-03","6":"0.0031523205","7":"0.0087996512","8":"2.495010e-03"},{"1":"CGMS2","2":"NRCRIalone","3":"C1a","4":"GETGV","5":"4.918297e-03","6":"0.0033137700","7":"0.0082320673","8":"1.604527e-03"},{"1":"CGMS2","2":"NRCRIalone","3":"C1b","4":"GEBV","5":"3.908028e-03","6":"0.0015984110","7":"0.0055064386","8":"2.309617e-03"},{"1":"CGMS2","2":"NRCRIalone","3":"C1b","4":"GETGV","5":"1.632518e-03","6":"0.0015344143","7":"0.0031669327","8":"9.810402e-05"},{"1":"CGMS2","2":"NRCRIalone","3":"C2a","4":"GEBV","5":"2.936591e-03","6":"0.0010808248","7":"0.0040174158","8":"1.855766e-03"},{"1":"CGMS2","2":"NRCRIalone","3":"C2a","4":"GETGV","5":"2.248047e-03","6":"0.0015291944","7":"0.0037772412","8":"7.188524e-04"},{"1":"CGMS2","2":"NRCRIalone","3":"C2b","4":"GEBV","5":"-1.642698e-03","6":"0.0007159267","7":"-0.0009267716","8":"-2.358625e-03"},{"1":"CGMS2","2":"NRCRIalone","3":"C2b","4":"GETGV","5":"-1.937596e-05","6":"0.0005175783","7":"0.0004982023","8":"-5.369542e-04"},{"1":"CGMS2","2":"NRCRIalone","3":"C3a","4":"GEBV","5":"1.027543e-02","6":"0.0016003340","7":"0.0118757655","8":"8.675097e-03"},{"1":"CGMS2","2":"NRCRIalone","3":"C3a","4":"GETGV","5":"3.820776e-03","6":"0.0016990135","7":"0.0055197898","8":"2.121763e-03"},{"1":"CGMS2","2":"IITAaugmented","3":"nrTP","4":"GEBV","5":"-2.533570e-03","6":"0.0012480419","7":"-0.0012855277","8":"-3.781612e-03"},{"1":"CGMS2","2":"IITAaugmented","3":"nrTP","4":"GETGV","5":"7.760740e-04","6":"0.0014228143","7":"0.0021988883","8":"-6.467404e-04"},{"1":"CGMS2","2":"IITAaugmented","3":"C1a","4":"GEBV","5":"5.647331e-03","6":"0.0031523205","7":"0.0087996512","8":"2.495010e-03"},{"1":"CGMS2","2":"IITAaugmented","3":"C1a","4":"GETGV","5":"4.918297e-03","6":"0.0033137700","7":"0.0082320673","8":"1.604527e-03"},{"1":"CGMS2","2":"IITAaugmented","3":"C1b","4":"GEBV","5":"3.908028e-03","6":"0.0015984110","7":"0.0055064386","8":"2.309617e-03"},{"1":"CGMS2","2":"IITAaugmented","3":"C1b","4":"GETGV","5":"1.632518e-03","6":"0.0015344143","7":"0.0031669327","8":"9.810402e-05"},{"1":"CGMS2","2":"IITAaugmented","3":"C2a","4":"GEBV","5":"2.936591e-03","6":"0.0010808248","7":"0.0040174158","8":"1.855766e-03"},{"1":"CGMS2","2":"IITAaugmented","3":"C2a","4":"GETGV","5":"2.248047e-03","6":"0.0015291944","7":"0.0037772412","8":"7.188524e-04"},{"1":"CGMS2","2":"IITAaugmented","3":"C2b","4":"GEBV","5":"-1.642698e-03","6":"0.0007159267","7":"-0.0009267716","8":"-2.358625e-03"},{"1":"CGMS2","2":"IITAaugmented","3":"C2b","4":"GETGV","5":"-1.937596e-05","6":"0.0005175783","7":"0.0004982023","8":"-5.369542e-04"},{"1":"CGMS2","2":"IITAaugmented","3":"C3a","4":"GEBV","5":"1.027543e-02","6":"0.0016003340","7":"0.0118757655","8":"8.675097e-03"},{"1":"CGMS2","2":"IITAaugmented","3":"C3a","4":"GETGV","5":"3.820776e-03","6":"0.0016990135","7":"0.0055197898","8":"2.121763e-03"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>pred_summary <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="st">  </span><span class="kw">filter</span>(predictionOf<span class="op">==</span><span class="st">&quot;GEBV&quot;</span>) <span class="op">%&gt;%</span><span class="st">  </span></span>
+<span id="cb14-3"><a href="#cb14-3"></a><span class="st">  </span><span class="kw">ggplot</span>(.,<span class="kw">aes</span>(<span class="dt">x=</span>Group,<span class="dt">y=</span>gBLUPmean,<span class="dt">fill=</span>Dataset)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb14-4"><a href="#cb14-4"></a><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&#39;identity&#39;</span>, <span class="dt">color=</span><span class="st">&#39;gray50&#39;</span>, <span class="dt">size=</span><span class="fl">0.5</span>, <span class="dt">position =</span> <span class="kw">position_dodge</span>(<span class="fl">1.1</span>)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb14-5"><a href="#cb14-5"></a><span class="st">  </span><span class="kw">geom_linerange</span>(<span class="kw">aes</span>(<span class="dt">ymax=</span>upperSE,</span>
+<span id="cb14-6"><a href="#cb14-6"></a>                     <span class="dt">ymin=</span>lowerSE), </span>
+<span id="cb14-7"><a href="#cb14-7"></a>                 <span class="dt">color=</span><span class="st">&#39;gray60&#39;</span>, <span class="dt">size=</span><span class="fl">0.5</span>,<span class="dt">position =</span> <span class="kw">position_dodge</span>(<span class="fl">1.1</span>)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb14-8"><a href="#cb14-8"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>Trait,<span class="dt">scales=</span><span class="st">&#39;free_y&#39;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb14-9"><a href="#cb14-9"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span></span>
+<span id="cb14-10"><a href="#cb14-10"></a><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>, <span class="dt">size=</span><span class="fl">1.1</span>, <span class="dt">color=</span><span class="st">&#39;black&#39;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb14-11"><a href="#cb14-11"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">face =</span> <span class="st">&#39;bold&#39;</span>,<span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">size=</span><span class="dv">12</span>),</span>
+<span id="cb14-12"><a href="#cb14-12"></a>        <span class="dt">axis.title.y =</span> <span class="kw">element_text</span>(<span class="dt">face =</span> <span class="st">&#39;bold&#39;</span>,<span class="dt">size=</span><span class="dv">14</span>),</span>
+<span id="cb14-13"><a href="#cb14-13"></a>        <span class="dt">legend.position =</span> <span class="st">&#39;bottom&#39;</span>,</span>
+<span id="cb14-14"><a href="#cb14-14"></a>        <span class="dt">strip.background.x =</span> <span class="kw">element_blank</span>(),</span>
+<span id="cb14-15"><a href="#cb14-15"></a>        <span class="dt">strip.text =</span> <span class="kw">element_text</span>(<span class="dt">face=</span><span class="st">&#39;bold&#39;</span>,<span class="dt">size=</span><span class="dv">14</span>),</span>
+<span id="cb14-16"><a href="#cb14-16"></a>        <span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">face=</span><span class="st">&#39;bold&#39;</span>)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb14-17"><a href="#cb14-17"></a><span class="st">  </span><span class="kw">scale_fill_viridis_d</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb14-18"><a href="#cb14-18"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x=</span><span class="ot">NULL</span>,<span class="dt">y=</span><span class="st">&quot;Mean gBLUPs&quot;</span>,<span class="dt">title=</span><span class="st">&quot;Genetic Gain&quot;</span>, <span class="dt">subtitle =</span> <span class="st">&quot;Comparing GEBVs using NRCRI TP vs. IITA augmented data&quot;</span>)</span></code></pre></div>
+<p><img src="figure/10-Results.Rmd/unnamed-chunk-12-1.png" width="960" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>pred_summary <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb15-2"><a href="#cb15-2"></a><span class="st">  </span><span class="kw">filter</span>(Dataset<span class="op">==</span><span class="st">&quot;NRCRIalone&quot;</span>) <span class="op">%&gt;%</span><span class="st">  </span></span>
+<span id="cb15-3"><a href="#cb15-3"></a><span class="st">  </span><span class="kw">ggplot</span>(.,<span class="kw">aes</span>(<span class="dt">x=</span>Group,<span class="dt">y=</span>gBLUPmean,<span class="dt">fill=</span>predictionOf)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb15-4"><a href="#cb15-4"></a><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&#39;identity&#39;</span>, <span class="dt">color=</span><span class="st">&#39;gray50&#39;</span>, <span class="dt">size=</span><span class="fl">0.5</span>, <span class="dt">position =</span> <span class="kw">position_dodge</span>(<span class="fl">1.1</span>)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb15-5"><a href="#cb15-5"></a><span class="st">  </span><span class="kw">geom_linerange</span>(<span class="kw">aes</span>(<span class="dt">ymax=</span>upperSE,</span>
+<span id="cb15-6"><a href="#cb15-6"></a>                     <span class="dt">ymin=</span>lowerSE), </span>
+<span id="cb15-7"><a href="#cb15-7"></a>                 <span class="dt">color=</span><span class="st">&#39;gray60&#39;</span>, <span class="dt">size=</span><span class="fl">0.5</span>,<span class="dt">position =</span> <span class="kw">position_dodge</span>(<span class="fl">1.1</span>)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb15-8"><a href="#cb15-8"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>Trait,<span class="dt">scales=</span><span class="st">&#39;free_y&#39;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb15-9"><a href="#cb15-9"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span></span>
+<span id="cb15-10"><a href="#cb15-10"></a><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>, <span class="dt">size=</span><span class="fl">1.1</span>, <span class="dt">color=</span><span class="st">&#39;black&#39;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb15-11"><a href="#cb15-11"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">face =</span> <span class="st">&#39;bold&#39;</span>,<span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">size=</span><span class="dv">12</span>),</span>
+<span id="cb15-12"><a href="#cb15-12"></a>        <span class="dt">axis.title.y =</span> <span class="kw">element_text</span>(<span class="dt">face =</span> <span class="st">&#39;bold&#39;</span>,<span class="dt">size=</span><span class="dv">14</span>),</span>
+<span id="cb15-13"><a href="#cb15-13"></a>        <span class="dt">legend.position =</span> <span class="st">&#39;bottom&#39;</span>,</span>
+<span id="cb15-14"><a href="#cb15-14"></a>        <span class="dt">strip.background.x =</span> <span class="kw">element_blank</span>(),</span>
+<span id="cb15-15"><a href="#cb15-15"></a>        <span class="dt">strip.text =</span> <span class="kw">element_text</span>(<span class="dt">face=</span><span class="st">&#39;bold&#39;</span>,<span class="dt">size=</span><span class="dv">14</span>),</span>
+<span id="cb15-16"><a href="#cb15-16"></a>        <span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">face=</span><span class="st">&#39;bold&#39;</span>)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb15-17"><a href="#cb15-17"></a><span class="st">  </span><span class="kw">scale_fill_viridis_d</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb15-18"><a href="#cb15-18"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x=</span><span class="ot">NULL</span>,<span class="dt">y=</span><span class="st">&quot;Mean gBLUPs&quot;</span>,<span class="dt">title=</span><span class="st">&quot;Genetic Gain&quot;</span>, <span class="dt">subtitle =</span> <span class="st">&quot;Comparing GEBV and GETGV  predicted with the NRCRI TP alone&quot;</span>)</span></code></pre></div>
+<p><img src="figure/10-Results.Rmd/unnamed-chunk-13-1.png" width="960" style="display: block; margin: auto;" /></p>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="kw">sessionInfo</span>()</span></code></pre></div>
+<pre><code>R version 4.0.2 (2020-06-22)
+Platform: x86_64-apple-darwin17.0 (64-bit)
+Running under: macOS Mojave 10.14.6
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRblas.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/4.0/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] magrittr_1.5    forcats_0.5.0   stringr_1.4.0   dplyr_1.0.2    
+ [5] purrr_0.3.4     readr_1.4.0     tidyr_1.1.2     tibble_3.0.4   
+ [9] ggplot2_3.3.2   tidyverse_1.3.0 workflowr_1.6.2
+
+loaded via a namespace (and not attached):
+ [1] tidyselect_1.1.0  xfun_0.18         haven_2.3.1       colorspace_1.4-1 
+ [5] vctrs_0.3.4       generics_0.0.2    viridisLite_0.3.0 htmltools_0.5.0  
+ [9] yaml_2.2.1        blob_1.2.1        rlang_0.4.8       later_1.1.0.1    
+[13] pillar_1.4.6      withr_2.3.0       glue_1.4.2        DBI_1.1.0        
+[17] dbplyr_1.4.4      modelr_0.1.8      readxl_1.3.1      lifecycle_0.2.0  
+[21] munsell_0.5.0     gtable_0.3.0      cellranger_1.1.0  rvest_0.3.6      
+[25] evaluate_0.14     labeling_0.3      knitr_1.30        ps_1.4.0         
+[29] httpuv_1.5.4      fansi_0.4.1       broom_0.7.1       Rcpp_1.0.5       
+[33] promises_1.1.1    backports_1.1.10  scales_1.1.1      jsonlite_1.7.1   
+[37] farver_2.0.3      fs_1.5.0          hms_0.5.3         digest_0.6.25    
+[41] stringi_1.5.3     rprojroot_1.3-2   grid_4.0.2        here_0.1         
+[45] cli_2.1.0         tools_4.0.2       crayon_1.3.4      whisker_0.4      
+[49] pkgconfig_2.0.3   ellipsis_0.3.1    xml2_1.3.2        reprex_0.3.0     
+[53] lubridate_1.7.9   rstudioapi_0.11   assertthat_0.2.1  rmarkdown_2.4    
+[57] httr_1.4.2        R6_2.4.1          git2r_0.27.1      compiler_4.0.2   </code></pre>
+</div>
+</div>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

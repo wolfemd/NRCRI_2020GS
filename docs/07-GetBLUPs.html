@@ -11,7 +11,7 @@
 
 
 
-<title>Impute NRCRI DCas20_5440</title>
+<title>Get BLUPs combining all trial data</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -609,8 +609,8 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Impute NRCRI DCas20_5440</h1>
-<h4 class="date">2020-October-8</h4>
+<h1 class="title toc-ignore">Get BLUPs combining all trial data</h1>
+<h4 class="date">2020-October-13</h4>
 
 </div>
 
@@ -776,7 +776,7 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/ImputeDCas20_5440.Rmd</code>) and HTML (<code>docs/ImputeDCas20_5440.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/07-GetBLUPs.Rmd</code>) and HTML (<code>docs/07-GetBLUPs.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -802,53 +802,19 @@ Message
 <tbody>
 <tr>
 <td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/wolfemd/NRCRI_2020GS/1a34bfa201a48a1fc5a113e578ea681a1904a3ae/docs/ImputeDCas20_5440.html" target="_blank">1a34bfa</a>
-</td>
-<td>
-wolfemd
-</td>
-<td>
-2020-10-09
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/wolfemd/NRCRI_2020GS/345a2fb1a96d1706f4206bd6d4cb2f8ed1d210ce/docs/ImputeDCas20_5440.html" target="_blank">345a2fb</a>
-</td>
-<td>
-wolfemd
-</td>
-<td>
-2020-10-09
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
 Rmd
 </td>
 <td>
-<a href="https://github.com/wolfemd/NRCRI_2020GS/blob/63fe5fa2c6ce9b1d611e0b9d6fc88b86c3c4208b/analysis/ImputeDCas20_5440.Rmd" target="_blank">63fe5fa</a>
+<a href="https://github.com/wolfemd/NRCRI_2020GS/blob/977f389859d7b4659096714bee94507948610e9f/analysis/07-GetBLUPs.Rmd" target="_blank">977f389</a>
 </td>
 <td>
 wolfemd
 </td>
 <td>
-2020-10-09
+2020-10-16
 </td>
 <td>
-Publish imputations for 2020 of DCAs20_5440 and restructure page for
+Publish NRCRI imputations for 2020 (DCas20_5510 and DCas20_5440) plus a
 </td>
 </tr>
 </tbody>
@@ -858,114 +824,140 @@ Publish imputations for 2020 of DCAs20_5440 and restructure page for
 </div>
 </div>
 </div>
-<p>DArTseqLD (DCas20-5440). From Princess Onyyegbule on Sep 22, 2020: “These samples are from materials for inbreeding depression after one self-pollinated generation in two elite cassava varieties (TMS980581 and TMS070337). We want to assess the possibility of obtaining genetic gain by selecting transgressive individuals based on several productive traits, mostly high dry matter content.”</p>
-<p>Impute with RefPanelWA (W. Africa RefPanel)</p>
-<div id="copy-data" class="section level1">
-<h1>Copy data</h1>
-<p>Copy the imputation reference panel from 2019 to the <code>data/</code> folder.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">cp</span> -r /home/jj332_cas/marnin/NRCRI_2020GS /workdir/mw489/</span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">cp</span> -r /home/jj332_cas/marnin/NRCRI_2020GS/data/Report-DCas20-5440 /workdir/mw489/NRCRI_2020GS/data/</span>
-<span id="cb1-3"><a href="#cb1-3"></a></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">cp</span> -r /home/jj332_cas/CassavaGenotypeData/CassavaGeneticMap /workdir/mw489/NRCRI_2020GS/data/</span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">cp</span> /home/jj332_cas/CassavaGenotypeData/nextgenImputation2019/ImputationStageII_71219/chr*_ImputationReferencePanel_StageIIpartI_72219.vcf.gz /workdir/mw489/NRCRI_2020GS/data/</span></code></pre></div>
-<div id="with-refpanelwa" class="section level2">
-<h2>With RefPanelWA</h2>
-<p>Impute with <a href="https://faculty.washington.edu/browning/beagle/b5_0.html">Beagle V5.0</a>.</p>
-<p>Use the “imputation reference panel” dataset from 2019, e.g. <code>chr1_ImputationReferencePanel_StageIIpartI_72219.vcf.gz</code> as reference.</p>
-<p>Used 1 large memory Cornell CBSU machine (e.g. <a href="https://biohpc.cornell.edu/lab/hardware.aspx">cbsulm16; 112 cores, 512 GB RAM</a>), running 1 chromosome at a time.</p>
-<p>R functions are stored in the <code>code/</code> sub-directory. Functions sourced from e.g. <strong>imputationFunctions.R</strong> are wrappers around e.g. Beagle, and other command line programs.</p>
-<div id="impute" class="section level3">
-<h3>Impute</h3>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co">#library(tidyverse); library(magrittr);</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="kw">source</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;code&quot;</span>,<span class="st">&quot;imputationFunctions.R&quot;</span>))</span>
-<span id="cb2-3"><a href="#cb2-3"></a>targetVCFpath&lt;-here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data/Report-DCas20-5440/&quot;</span>) <span class="co"># location of the targetVCF</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a>refVCFpath&lt;-here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data/&quot;</span>)</span>
-<span id="cb2-5"><a href="#cb2-5"></a>mapPath&lt;-here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;data/CassavaGeneticMap/&quot;</span>)</span>
-<span id="cb2-6"><a href="#cb2-6"></a>outPath&lt;-here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;output/&quot;</span>)</span>
-<span id="cb2-7"><a href="#cb2-7"></a>outSuffix&lt;-<span class="st">&quot;DCas20_5440&quot;</span></span>
-<span id="cb2-8"><a href="#cb2-8"></a></span>
-<span id="cb2-9"><a href="#cb2-9"></a>purrr<span class="op">::</span><span class="kw">map</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">18</span>,<span class="op">~</span><span class="kw">runBeagle5</span>(<span class="dt">targetVCF=</span><span class="kw">paste0</span>(targetVCFpath,<span class="st">&quot;chr&quot;</span>,.,<span class="st">&quot;_DCas20_5440.vcf.gz&quot;</span>),</span>
-<span id="cb2-10"><a href="#cb2-10"></a>                            <span class="dt">refVCF=</span><span class="kw">paste0</span>(refVCFpath,<span class="st">&quot;chr&quot;</span>,.,<span class="st">&quot;_ImputationReferencePanel_StageIIpartI_72219.vcf.gz&quot;</span>),</span>
-<span id="cb2-11"><a href="#cb2-11"></a>                            <span class="dt">mapFile=</span><span class="kw">paste0</span>(mapPath,<span class="st">&quot;chr&quot;</span>,.,<span class="st">&quot;_cassava_cM_pred.v6_91019.map&quot;</span>),</span>
-<span id="cb2-12"><a href="#cb2-12"></a>                            <span class="dt">outName=</span><span class="kw">paste0</span>(outPath,<span class="st">&quot;chr&quot;</span>,.,<span class="st">&quot;_DCas20_5440_WA_REFimputed&quot;</span>),</span>
-<span id="cb2-13"><a href="#cb2-13"></a>                            <span class="dt">nthreads=</span><span class="dv">112</span>))</span></code></pre></div>
-<p>Clean up Beagle log files after run. Move to sub-directory <code>output/BeagleLogs/</code>.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1"></a><span class="bu">cd</span> /workdir/mw489/NRCRI_2020GS/output/<span class="kw">;</span> </span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="fu">mkdir</span> BeagleLogs<span class="kw">;</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="fu">cp</span> *_DCas20_5440_WA_REFimputed.log BeagleLogs/</span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="fu">cp</span> -r BeagleLogs /home/jj332_cas/marnin/NRCRI_2020GS/output/</span>
-<span id="cb3-5"><a href="#cb3-5"></a><span class="fu">cp</span> *_DCas20_5440_WA_REFimputed* /home/jj332_cas/marnin/NRCRI_2020GS/output/</span></code></pre></div>
+<div id="previous-step" class="section level1">
+<h1>Previous step</h1>
+<ol style="list-style-type: decimal">
+<li><a href="06-cleanTPdata.html">Prepare training dataset</a>: Download data from DB, “Clean” and format DB data.</li>
+</ol>
 </div>
-<div id="post-impute-filter" class="section level3">
-<h3>Post-impute filter</h3>
-<p>For now, the function will just do a fixed filter: AR2&gt;0.75 (DR2&gt;0.75 as of Beagle5.0), P_HWE&gt;1e-20, MAF&gt;0.005 [0.5%].</p>
-<p>It can easily be modified in the future to include parameters to vary the filter specifications.</p>
-<p>Input parameters</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co">#&#39; @inPath path to input VCF-to-be-filtered, can be left null if path included in @inName . Must end in &quot;/&quot;</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="co">#&#39; @inName name of input VCF file EXCLUDING file extension. Assumes .vcf.gz</span></span>
-<span id="cb4-3"><a href="#cb4-3"></a><span class="co">#&#39; @outPath path where filtered VCF and related are to be stored.Can be left null if path included in @outName . Must end in &quot;/&quot;.</span></span>
-<span id="cb4-4"><a href="#cb4-4"></a><span class="co">#&#39; @outName name desired for output EXCLUDING extension. Output will be .vcf.gz </span></span></code></pre></div>
-<p>Loop to filter all 18 VCF files in parallel</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>inPath&lt;-here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;output/&quot;</span>)</span>
-<span id="cb5-2"><a href="#cb5-2"></a>outPath&lt;-here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;output/&quot;</span>)</span>
-<span id="cb5-3"><a href="#cb5-3"></a><span class="kw">source</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;code&quot;</span>,<span class="st">&quot;imputationFunctions.R&quot;</span>))</span>
-<span id="cb5-4"><a href="#cb5-4"></a><span class="kw">require</span>(furrr); <span class="kw">options</span>(<span class="dt">mc.cores=</span>ncores); <span class="kw">plan</span>(multiprocess)</span>
-<span id="cb5-5"><a href="#cb5-5"></a><span class="kw">future_map</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">18</span>,<span class="op">~</span><span class="kw">postImputeFilter</span>(<span class="dt">inPath=</span>inPath,</span>
-<span id="cb5-6"><a href="#cb5-6"></a>                                  <span class="dt">inName=</span><span class="kw">paste0</span>(<span class="st">&quot;chr&quot;</span>,.,<span class="st">&quot;_DCas20_5440_WA_REFimputed&quot;</span>),</span>
-<span id="cb5-7"><a href="#cb5-7"></a>                                  <span class="dt">outPath=</span>outPath,</span>
-<span id="cb5-8"><a href="#cb5-8"></a>                                  <span class="dt">outName=</span><span class="kw">paste0</span>(<span class="st">&quot;chr&quot;</span>,.,<span class="st">&quot;_DCas20_5440_WA_REFimputedAndFiltered&quot;</span>)))</span></code></pre></div>
-<p>Check what’s left</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>purrr<span class="op">::</span><span class="kw">map</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">18</span>,<span class="op">~</span><span class="kw">system</span>(<span class="kw">paste0</span>(<span class="st">&quot;zcat &quot;</span>,here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;output/&quot;</span>),<span class="st">&quot;chr&quot;</span>,.,<span class="st">&quot;_DCas20_5440_WA_REFimputedAndFiltered.vcf.gz | wc -l&quot;</span>)))</span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="co"># 6912</span></span>
-<span id="cb6-3"><a href="#cb6-3"></a><span class="co"># 2961</span></span>
-<span id="cb6-4"><a href="#cb6-4"></a><span class="co"># 2659</span></span>
-<span id="cb6-5"><a href="#cb6-5"></a><span class="co"># 2317</span></span>
-<span id="cb6-6"><a href="#cb6-6"></a><span class="co"># 2329</span></span>
-<span id="cb6-7"><a href="#cb6-7"></a><span class="co"># 2258</span></span>
-<span id="cb6-8"><a href="#cb6-8"></a><span class="co"># 1426</span></span>
-<span id="cb6-9"><a href="#cb6-9"></a><span class="co"># 2229</span></span>
-<span id="cb6-10"><a href="#cb6-10"></a><span class="co"># 2478</span></span>
-<span id="cb6-11"><a href="#cb6-11"></a><span class="co"># 2207</span></span>
-<span id="cb6-12"><a href="#cb6-12"></a><span class="co"># 2130</span></span>
-<span id="cb6-13"><a href="#cb6-13"></a><span class="co"># 2290</span></span>
-<span id="cb6-14"><a href="#cb6-14"></a><span class="co"># 1930</span></span>
-<span id="cb6-15"><a href="#cb6-15"></a><span class="co"># 2744</span></span>
-<span id="cb6-16"><a href="#cb6-16"></a><span class="co"># 2873</span></span>
-<span id="cb6-17"><a href="#cb6-17"></a><span class="co"># 2015</span></span>
-<span id="cb6-18"><a href="#cb6-18"></a><span class="co"># 1580</span></span>
-<span id="cb6-19"><a href="#cb6-19"></a><span class="co"># 1772</span></span></code></pre></div>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1"></a><span class="bu">cd</span> /workdir/mw489/NRCRI_2020GS/output/<span class="kw">;</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="fu">cp</span> *_DCas20_5440_WA_REFimputedAndFiltered* /home/jj332_cas/marnin/NRCRI_2020GS/output/</span></code></pre></div>
+<div id="objective" class="section level1">
+<h1>Objective</h1>
+<p><strong>Two-stage</strong> genomic prediction refers to the following procedure:</p>
+<p><strong>Stage 1:</strong> Fit a linear mixed model to the data <em>without</em> genomic data. Individuals (e.g. clones / accessions) are modeled as independent and identically distributed (<em>i.i.d.</em>) random effects. The BLUPs for this random effect represent the measurable total genetic values of each individual. All the experimental design variation, e.g. replication and blocking effects have been controlled for in the creation of our new response variable, the BLUPs from the gneotype random effect.</p>
+<p><strong>Stage 2:</strong> Using a modified version of the BLUPs from step 1 as the response variable, fit a genomic prediction model, which now has reduced size because the number of observations is now the same as the number of individuals.</p>
+<p><strong>NOTE:</strong> In the animal breeding literature <strong>single-step</strong> often refers to predictions that combine pedigree and marker information simultaneously. That <em>is not</em> our meaning here.</p>
+<p>The code below represents Stage I.</p>
 </div>
-<div id="formats-for-downstream-analysis" class="section level3">
-<h3>Formats for downstream analysis</h3>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">library</span>(tidyverse); <span class="kw">library</span>(magrittr);</span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="co"># Make binary plink</span></span>
-<span id="cb8-3"><a href="#cb8-3"></a>pathIn&lt;-<span class="st">&quot;/home/jj332_cas/marnin/NRCRI_2020GS/output/&quot;</span></span>
-<span id="cb8-4"><a href="#cb8-4"></a><span class="kw">require</span>(furrr); <span class="kw">options</span>(<span class="dt">mc.cores=</span>ncores); <span class="kw">plan</span>(multiprocess)</span>
-<span id="cb8-5"><a href="#cb8-5"></a><span class="kw">future_map</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">18</span>,<span class="op">~</span><span class="kw">system</span>(<span class="kw">paste0</span>(<span class="st">&quot;export PATH=/programs/plink-1.9-x86_64-beta3.30:$PATH;&quot;</span>,</span>
-<span id="cb8-6"><a href="#cb8-6"></a>                               <span class="st">&quot;plink --vcf &quot;</span>,pathIn,<span class="st">&quot;chr&quot;</span>,.,</span>
-<span id="cb8-7"><a href="#cb8-7"></a>                               <span class="st">&quot;_DCas20_5440_WA_REFimputedAndFiltered.vcf.gz &quot;</span>,</span>
-<span id="cb8-8"><a href="#cb8-8"></a>                               <span class="st">&quot;--make-bed --const-fid &quot;</span>,</span>
-<span id="cb8-9"><a href="#cb8-9"></a>                               <span class="st">&quot;--out &quot;</span>,pathIn,<span class="st">&quot;chr&quot;</span>,.,</span>
-<span id="cb8-10"><a href="#cb8-10"></a>                               <span class="st">&quot;_DCas20_5440_WA_REFimputedAndFiltered&quot;</span>)))</span>
-<span id="cb8-11"><a href="#cb8-11"></a><span class="co"># Recode to dosage</span></span>
-<span id="cb8-12"><a href="#cb8-12"></a><span class="kw">future_map</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">18</span>,<span class="op">~</span><span class="kw">system</span>(<span class="kw">paste0</span>(<span class="st">&quot;export PATH=/programs/plink-1.9-x86_64-beta3.30:$PATH;&quot;</span>,</span>
-<span id="cb8-13"><a href="#cb8-13"></a>                               <span class="st">&quot;plink --bfile &quot;</span>,pathIn,<span class="st">&quot;chr&quot;</span>,.,</span>
-<span id="cb8-14"><a href="#cb8-14"></a>                               <span class="st">&quot;_DCas20_5440_WA_REFimputedAndFiltered &quot;</span>,</span>
-<span id="cb8-15"><a href="#cb8-15"></a>                               <span class="st">&quot;--recode A &quot;</span>,</span>
-<span id="cb8-16"><a href="#cb8-16"></a>                               <span class="st">&quot;--out &quot;</span>,pathIn,<span class="st">&quot;chr&quot;</span>,.,</span>
-<span id="cb8-17"><a href="#cb8-17"></a>                               <span class="st">&quot;_DCas20_5440_WA_REFimputedAndFiltered&quot;</span>)))</span>
-<span id="cb8-18"><a href="#cb8-18"></a></span>
-<span id="cb8-19"><a href="#cb8-19"></a><span class="co"># Genome-wide dosage (for use in R)</span></span>
-<span id="cb8-20"><a href="#cb8-20"></a>snps&lt;-<span class="kw">future_map</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">18</span>,<span class="op">~</span><span class="kw">read.table</span>(<span class="kw">paste0</span>(pathIn,<span class="st">&quot;chr&quot;</span>,.,<span class="st">&quot;_DCas20_5440_WA_REFimputedAndFiltered.raw&quot;</span>), <span class="dt">stringsAsFactor=</span>F, <span class="dt">header =</span> T) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb8-21"><a href="#cb8-21"></a><span class="st">                   </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="op">-</span>FID,<span class="op">-</span>PAT,<span class="op">-</span>MAT,<span class="op">-</span>SEX,<span class="op">-</span>PHENOTYPE) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb8-22"><a href="#cb8-22"></a><span class="st">                   </span><span class="kw">column_to_rownames</span>(<span class="dt">var =</span> <span class="st">&quot;IID&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb8-23"><a href="#cb8-23"></a><span class="st">                   </span><span class="kw">as.matrix</span>()) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb8-24"><a href="#cb8-24"></a><span class="st">  </span><span class="kw">reduce</span>(.,cbind)</span>
-<span id="cb8-25"><a href="#cb8-25"></a><span class="kw">dim</span>(snps)</span>
-<span id="cb8-26"><a href="#cb8-26"></a><span class="co"># [1]   251 44930</span></span>
-<span id="cb8-27"><a href="#cb8-27"></a><span class="kw">saveRDS</span>(snps,<span class="dt">file =</span> <span class="kw">paste0</span>(pathIn,<span class="st">&quot;DosageMatrix_DCas20_5440_WA_REFimputedAndFiltered.rds&quot;</span>))</span></code></pre></div>
+<div id="set-up-training-datasets" class="section level1">
+<h1>Set-up training datasets</h1>
+<p>This next step fits models to each trait, combining curated data (BLUPs) from each trial, which we computed in the previous step.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">rm</span>(<span class="dt">list=</span><span class="kw">ls</span>())</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">library</span>(tidyverse); <span class="kw">library</span>(magrittr);</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="kw">source</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;code&quot;</span>,<span class="st">&quot;gsFunctions.R&quot;</span>))</span>
+<span id="cb1-4"><a href="#cb1-4"></a>dbdata&lt;-<span class="kw">readRDS</span>(<span class="dt">file=</span>here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;output&quot;</span>,<span class="st">&quot;NRCRI_ExptDesignsDetected_2020Oct13.rds&quot;</span>))</span>
+<span id="cb1-5"><a href="#cb1-5"></a>traits&lt;-<span class="kw">c</span>(<span class="st">&quot;CGM&quot;</span>,<span class="st">&quot;CGMS1&quot;</span>,<span class="st">&quot;CGMS2&quot;</span>,<span class="st">&quot;MCMDS&quot;</span>,<span class="st">&quot;DM&quot;</span>,<span class="st">&quot;PLTHT&quot;</span>,<span class="st">&quot;BRNHT1&quot;</span>,<span class="st">&quot;HI&quot;</span>,<span class="st">&quot;logFYLD&quot;</span>,<span class="st">&quot;logTOPYLD&quot;</span>,<span class="st">&quot;logRTNO&quot;</span>)</span>
+<span id="cb1-6"><a href="#cb1-6"></a></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="co"># **Nest by trait.** Need to restructure the data from per-trial by regrouping by trait. </span></span>
+<span id="cb1-8"><a href="#cb1-8"></a>dbdata&lt;-<span class="kw">nestDesignsDetectedByTraits</span>(dbdata,traits)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>dbdata <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">N_blups=</span><span class="kw">map_dbl</span>(MultiTrialTraitData,nrow)) <span class="op">%&gt;%</span><span class="st"> </span>rmarkdown<span class="op">::</span><span class="kw">paged_table</span>()</span></code></pre></div>
+</div>
+<div id="function-to-fit-mixed-models" class="section level1">
+<h1>Function to fit mixed-models</h1>
+<p>To fit the mixed-model that I want, I am again resorting to <code>asreml-R</code>. I fit random effects for rep and block only where complete and incomplete blocks, respectively are indicated in the trial design variables. <code>sommer</code> <em>should</em> be able to fit the same model via the <code>at()</code> function, <em>but</em> I am having trouble with it <em>and</em> <code>sommer</code> is much slower even without a dense covariance (i.e. a kinship), compared to <code>lme4::lmer()</code> or <code>asreml()</code>. <strong>Note:</strong> For genomic predictions I <em>do</em> use <code>sommer</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>dbdata <span class="op">%&lt;&gt;%</span><span class="st"> </span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">fixedFormula=</span><span class="kw">ifelse</span>(Trait <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;logFYLD&quot;</span>,<span class="st">&quot;logRTNO&quot;</span>,<span class="st">&quot;logTOPYLD&quot;</span>),<span class="st">&quot;Value ~ yearInLoc&quot;</span>,<span class="st">&quot;Value ~ yearInLoc + PropNOHAV&quot;</span>),</span>
+<span id="cb3-3"><a href="#cb3-3"></a>         <span class="dt">randFormula=</span><span class="kw">paste0</span>(<span class="st">&quot;~idv(GID) + idv(trialInLocYr) + at(CompleteBlocks,&#39;Yes&#39;):repInTrial &quot;</span>,</span>
+<span id="cb3-4"><a href="#cb3-4"></a>                            <span class="st">&quot;+ at(IncompleteBlocks,&#39;Yes&#39;):blockInRep&quot;</span>))</span>
+<span id="cb3-5"><a href="#cb3-5"></a>dbdata <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Nobs=</span><span class="kw">map_dbl</span>(MultiTrialTraitData,nrow)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="st">  </span><span class="kw">select</span>(Trait,Nobs,fixedFormula,randFormula) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="st">  </span>rmarkdown<span class="op">::</span><span class="kw">paged_table</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># randFormula&lt;-paste0(&quot;~vs(GID) + vs(trialInLocYr) + vs(at(CompleteBlocks,&#39;Yes&#39;),repInTrial) + vs(at(IncompleteBlocks,&#39;Yes&#39;),blockInRep)&quot;)</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="co"># library(sommer)</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="co"># fit &lt;- mmer(fixed = Value ~ 1 + yearInLoc,</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="co">#             random = as.formula(randFormula),</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="co">#             data=trainingdata,</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="co">#             getPEV=TRUE)</span></span></code></pre></div>
+<p>Includes rounds of outlier removal and re-fitting.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>fitASfunc&lt;-<span class="cf">function</span>(fixedFormula,randFormula,MultiTrialTraitData,...){</span>
+<span id="cb5-2"><a href="#cb5-2"></a>  <span class="co"># test arguments for function</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a>  <span class="co"># ----------------------</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a>  <span class="co"># MultiTrialTraitData&lt;-dbdata$MultiTrialTraitData[[7]]</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a>  <span class="co"># #Trait&lt;-dbdata$Trait[[3]]</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a>  <span class="co"># fixedFormula&lt;-dbdata$fixedFormula[[7]]</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a>  <span class="co"># randFormula&lt;-dbdata$randFormula[[7]]</span></span>
+<span id="cb5-8"><a href="#cb5-8"></a>  <span class="co"># test&lt;-fitASfunc(fixedFormula,randFormula,MultiTrialTraitData)</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a>  <span class="co"># ----------------------</span></span>
+<span id="cb5-10"><a href="#cb5-10"></a>  <span class="kw">require</span>(asreml); </span>
+<span id="cb5-11"><a href="#cb5-11"></a>  fixedFormula&lt;-<span class="kw">as.formula</span>(fixedFormula)</span>
+<span id="cb5-12"><a href="#cb5-12"></a>  randFormula&lt;-<span class="kw">as.formula</span>(randFormula)</span>
+<span id="cb5-13"><a href="#cb5-13"></a>  <span class="co"># fit asreml </span></span>
+<span id="cb5-14"><a href="#cb5-14"></a>  out&lt;-<span class="kw">asreml</span>(<span class="dt">fixed =</span> fixedFormula,</span>
+<span id="cb5-15"><a href="#cb5-15"></a>              <span class="dt">random =</span> randFormula,</span>
+<span id="cb5-16"><a href="#cb5-16"></a>              <span class="dt">data =</span> MultiTrialTraitData, </span>
+<span id="cb5-17"><a href="#cb5-17"></a>              <span class="dt">maxiter =</span> <span class="dv">40</span>, <span class="dt">workspace=</span><span class="fl">800e6</span>, <span class="dt">na.method.X =</span> <span class="st">&quot;omit&quot;</span>)</span>
+<span id="cb5-18"><a href="#cb5-18"></a>  <span class="co">#### extract residuals - Round 1</span></span>
+<span id="cb5-19"><a href="#cb5-19"></a>  </span>
+<span id="cb5-20"><a href="#cb5-20"></a>  outliers1&lt;-<span class="kw">which</span>(<span class="kw">abs</span>(<span class="kw">scale</span>(out<span class="op">$</span>residuals))<span class="op">&gt;</span><span class="fl">3.3</span>)</span>
+<span id="cb5-21"><a href="#cb5-21"></a>  </span>
+<span id="cb5-22"><a href="#cb5-22"></a>  <span class="cf">if</span>(<span class="kw">length</span>(outliers1)<span class="op">&gt;</span><span class="dv">0</span>){</span>
+<span id="cb5-23"><a href="#cb5-23"></a>    </span>
+<span id="cb5-24"><a href="#cb5-24"></a>    x&lt;-MultiTrialTraitData[<span class="op">-</span>outliers1,]</span>
+<span id="cb5-25"><a href="#cb5-25"></a>    <span class="co"># re-fit</span></span>
+<span id="cb5-26"><a href="#cb5-26"></a>    out&lt;-<span class="kw">asreml</span>(<span class="dt">fixed =</span> fixedFormula,</span>
+<span id="cb5-27"><a href="#cb5-27"></a>                <span class="dt">random =</span> randFormula,</span>
+<span id="cb5-28"><a href="#cb5-28"></a>                <span class="dt">data =</span> x, </span>
+<span id="cb5-29"><a href="#cb5-29"></a>                <span class="dt">maxiter =</span> <span class="dv">40</span>, <span class="dt">workspace=</span><span class="fl">800e6</span>, <span class="dt">na.method.X =</span> <span class="st">&quot;omit&quot;</span>)</span>
+<span id="cb5-30"><a href="#cb5-30"></a>    <span class="co">#### extract residuals - Round 2</span></span>
+<span id="cb5-31"><a href="#cb5-31"></a>    outliers2&lt;-<span class="kw">which</span>(<span class="kw">abs</span>(<span class="kw">scale</span>(out<span class="op">$</span>residuals))<span class="op">&gt;</span><span class="fl">3.3</span>)</span>
+<span id="cb5-32"><a href="#cb5-32"></a>    <span class="cf">if</span>(<span class="kw">length</span>(outliers2)<span class="op">&gt;</span><span class="dv">0</span>){</span>
+<span id="cb5-33"><a href="#cb5-33"></a>      <span class="co">#### remove outliers</span></span>
+<span id="cb5-34"><a href="#cb5-34"></a>      x&lt;-x[<span class="op">-</span>outliers2,]</span>
+<span id="cb5-35"><a href="#cb5-35"></a>      <span class="co"># final re-fit</span></span>
+<span id="cb5-36"><a href="#cb5-36"></a>      out&lt;-<span class="kw">asreml</span>(<span class="dt">fixed =</span> fixedFormula,</span>
+<span id="cb5-37"><a href="#cb5-37"></a>                  <span class="dt">random =</span> randFormula,</span>
+<span id="cb5-38"><a href="#cb5-38"></a>                  <span class="dt">data =</span> x, <span class="dt">maxiter =</span> <span class="dv">40</span>,<span class="dt">workspace=</span><span class="fl">800e6</span>, <span class="dt">na.method.X =</span> <span class="st">&quot;omit&quot;</span>)</span>
+<span id="cb5-39"><a href="#cb5-39"></a>    }</span>
+<span id="cb5-40"><a href="#cb5-40"></a>  }</span>
+<span id="cb5-41"><a href="#cb5-41"></a>  <span class="cf">if</span>(<span class="kw">length</span>(outliers1)<span class="op">==</span><span class="dv">0</span>){ outliers1&lt;-<span class="ot">NULL</span> }</span>
+<span id="cb5-42"><a href="#cb5-42"></a>  <span class="cf">if</span>(<span class="kw">length</span>(outliers2)<span class="op">==</span><span class="dv">0</span>){ outliers2&lt;-<span class="ot">NULL</span> }</span>
+<span id="cb5-43"><a href="#cb5-43"></a>  </span>
+<span id="cb5-44"><a href="#cb5-44"></a>  ll&lt;-<span class="kw">summary</span>(out,<span class="dt">all=</span>T)<span class="op">$</span>loglik</span>
+<span id="cb5-45"><a href="#cb5-45"></a>  varcomp&lt;-<span class="kw">summary</span>(out,<span class="dt">all=</span>T)<span class="op">$</span>varcomp</span>
+<span id="cb5-46"><a href="#cb5-46"></a>  Vg&lt;-varcomp[<span class="st">&quot;GID!GID.var&quot;</span>,<span class="st">&quot;component&quot;</span>]</span>
+<span id="cb5-47"><a href="#cb5-47"></a>  Ve&lt;-varcomp[<span class="st">&quot;R!variance&quot;</span>,<span class="st">&quot;component&quot;</span>]</span>
+<span id="cb5-48"><a href="#cb5-48"></a>  H2=Vg<span class="op">/</span>(Vg<span class="op">+</span>Ve)</span>
+<span id="cb5-49"><a href="#cb5-49"></a>  blups&lt;-<span class="kw">summary</span>(out,<span class="dt">all=</span>T)<span class="op">$</span>coef.random <span class="op">%&gt;%</span></span>
+<span id="cb5-50"><a href="#cb5-50"></a><span class="st">    </span>as.data.frame <span class="op">%&gt;%</span></span>
+<span id="cb5-51"><a href="#cb5-51"></a><span class="st">    </span><span class="kw">rownames_to_column</span>(<span class="dt">var =</span> <span class="st">&quot;GID&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb5-52"><a href="#cb5-52"></a><span class="st">    </span>dplyr<span class="op">::</span><span class="kw">select</span>(GID,solution,<span class="st">`</span><span class="dt">std error</span><span class="st">`</span>) <span class="op">%&gt;%</span></span>
+<span id="cb5-53"><a href="#cb5-53"></a><span class="st">    </span><span class="kw">filter</span>(<span class="kw">grepl</span>(<span class="st">&quot;GID&quot;</span>,GID)) <span class="op">%&gt;%</span></span>
+<span id="cb5-54"><a href="#cb5-54"></a><span class="st">    </span><span class="kw">rename</span>(<span class="dt">BLUP=</span>solution) <span class="op">%&gt;%</span></span>
+<span id="cb5-55"><a href="#cb5-55"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">GID=</span><span class="kw">gsub</span>(<span class="st">&quot;GID_&quot;</span>,<span class="st">&quot;&quot;</span>,GID),</span>
+<span id="cb5-56"><a href="#cb5-56"></a>           <span class="dt">PEV=</span><span class="st">`</span><span class="dt">std error</span><span class="st">`</span><span class="op">^</span><span class="dv">2</span>, <span class="co"># asreml specific</span></span>
+<span id="cb5-57"><a href="#cb5-57"></a>           <span class="dt">REL=</span><span class="dv">1</span><span class="op">-</span>(PEV<span class="op">/</span>Vg), <span class="co"># Reliability</span></span>
+<span id="cb5-58"><a href="#cb5-58"></a>           <span class="dt">drgBLUP=</span>BLUP<span class="op">/</span>REL, <span class="co"># deregressed BLUP</span></span>
+<span id="cb5-59"><a href="#cb5-59"></a>           <span class="dt">WT=</span>(<span class="dv">1</span><span class="op">-</span>H2)<span class="op">/</span>((<span class="fl">0.1</span> <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">-</span>REL)<span class="op">/</span>REL)<span class="op">*</span>H2)) <span class="co"># weight for use in Stage 2</span></span>
+<span id="cb5-60"><a href="#cb5-60"></a>  out&lt;-<span class="kw">tibble</span>(<span class="dt">loglik=</span>ll,Vg,Ve,H2,</span>
+<span id="cb5-61"><a href="#cb5-61"></a>              <span class="dt">blups=</span><span class="kw">list</span>(blups),</span>
+<span id="cb5-62"><a href="#cb5-62"></a>              <span class="dt">varcomp=</span><span class="kw">list</span>(varcomp),</span>
+<span id="cb5-63"><a href="#cb5-63"></a>              <span class="dt">outliers1=</span><span class="kw">list</span>(outliers1),</span>
+<span id="cb5-64"><a href="#cb5-64"></a>              <span class="dt">outliers2=</span><span class="kw">list</span>(outliers2))</span>
+<span id="cb5-65"><a href="#cb5-65"></a>  <span class="kw">return</span>(out) }</span></code></pre></div>
+</div>
+<div id="run-asreml" class="section level1">
+<h1>Run asreml</h1>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">library</span>(furrr); <span class="kw">options</span>(<span class="dt">mc.cores=</span><span class="dv">11</span>); <span class="kw">plan</span>(multiprocess)</span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="kw">library</span>(asreml)</span>
+<span id="cb6-3"><a href="#cb6-3"></a>dbdata <span class="op">%&lt;&gt;%</span><span class="st"> </span></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">fitAS=</span><span class="kw">future_pmap</span>(.,fitASfunc))</span>
+<span id="cb6-5"><a href="#cb6-5"></a>dbdata <span class="op">%&lt;&gt;%</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>fixedFormula,<span class="op">-</span>randFormula,<span class="op">-</span>MultiTrialTraitData) <span class="op">%&gt;%</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a><span class="st">  </span><span class="kw">unnest</span>(fitAS)</span></code></pre></div>
+<div id="output-file" class="section level2">
+<h2>Output file</h2>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">saveRDS</span>(dbdata,<span class="dt">file=</span>here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;output&quot;</span>,<span class="st">&quot;nrcri_blupsForModelTraining_twostage_asreml_2020Oct13.rds&quot;</span>))</span></code></pre></div>
+</div>
+</div>
+<div id="results" class="section level1">
+<h1>Results</h1>
+<p>See <a href="10-Results.html">Results</a></p>
+</div>
+<div id="next-step" class="section level1">
+<h1>Next step</h1>
+<ol start="4" style="list-style-type: decimal">
+<li><a href="08-CrossValidation.html">Check prediction accuracy</a>: Evaluate prediction accuracy with cross-validation.</li>
+</ol>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -973,9 +965,7 @@ Publish imputations for 2020 of DCAs20_5440 and restructure page for
 </button>
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">sessionInfo</span>()</span></code></pre></div>
-</div>
-</div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">sessionInfo</span>()</span></code></pre></div>
 </div>
 </div>
 
