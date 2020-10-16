@@ -584,7 +584,7 @@ div.tocify {
       <a href="08-CrossValidation.html">Check prediction accuracy</a>
     </li>
     <li>
-      <a href="09-GetGEBVs.html">Get GEBV for GS C2</a>
+      <a href="09-GetGBLUPs.html">Get GEBV for GS C2</a>
     </li>
     <li>
       <a href="10-Results.html">Results</a>
@@ -749,16 +749,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomwolfemdNRCRI2020GStree977f389859d7b4659096714bee94507948610e9ftargetblank977f389a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/wolfemd/NRCRI_2020GS/tree/977f389859d7b4659096714bee94507948610e9f" target="_blank">977f389</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomwolfemdNRCRI2020GStreec5c03371686703096ed898ac5d878130dea880c0targetblankc5c0337a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/wolfemd/NRCRI_2020GS/tree/c5c03371686703096ed898ac5d878130dea880c0" target="_blank">c5c0337</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomwolfemdNRCRI2020GStree977f389859d7b4659096714bee94507948610e9ftargetblank977f389a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomwolfemdNRCRI2020GStreec5c03371686703096ed898ac5d878130dea880c0targetblankc5c0337a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/wolfemd/NRCRI_2020GS/tree/977f389859d7b4659096714bee94507948610e9f" target="_blank">977f389</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/wolfemd/NRCRI_2020GS/tree/c5c03371686703096ed898ac5d878130dea880c0" target="_blank">c5c0337</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -823,6 +823,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/wolfemd/NRCRI_2020GS/12bd17bf104a5b5b20707310bb919b6df2120c95/docs/10-Results.html" target="_blank">12bd17b</a>
+</td>
+<td>
+wolfemd
+</td>
+<td>
+2020-10-16
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -898,8 +915,8 @@ Publish NRCRI imputations for 2020 (DCas20_5510 and DCas20_5440) plus a
 </ol>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">rm</span>(<span class="dt">list=</span><span class="kw">ls</span>());<span class="kw">gc</span>()</span></code></pre></div>
 <pre><code>          used (Mb) gc trigger  (Mb) limit (Mb) max used  (Mb)
-Ncells 1126298 60.2    2085370 111.4         NA  2085370 111.4
-Vcells 1992436 15.3    8388608  64.0     102400  5405596  41.3</code></pre>
+Ncells 1126617 60.2    2105672 112.5         NA  2105672 112.5
+Vcells 1993191 15.3    8388608  64.0     102400  5216599  39.8</code></pre>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">library</span>(tidyverse); <span class="kw">library</span>(magrittr); </span>
 <span id="cb6-2"><a href="#cb6-2"></a>cv&lt;-<span class="kw">readRDS</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;output&quot;</span>,<span class="st">&quot;cvresults_A_nrOnly_2020Oct15.rds&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb6-3"><a href="#cb6-3"></a><span class="st">  </span><span class="kw">bind_rows</span>(<span class="kw">readRDS</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;output&quot;</span>,<span class="st">&quot;cvresults_A_iitaAugmented_2020Oct15.rds&quot;</span>))) <span class="op">%&gt;%</span><span class="st"> </span></span>
@@ -957,6 +974,43 @@ Vcells 1992436 15.3    8388608  64.0     102400  5405596  41.3</code></pre>
 <span id="cb8-14"><a href="#cb8-14"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;Prediction Accuracies - Additive-only model&quot;</span>, <span class="dt">y=</span><span class="st">&quot;GEBV Accuracy&quot;</span>,<span class="dt">x=</span><span class="ot">NULL</span>) <span class="op">+</span></span>
 <span id="cb8-15"><a href="#cb8-15"></a><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>, <span class="dt">color=</span><span class="st">&#39;darkred&#39;</span>)</span></code></pre></div>
 <p><img src="figure/10-Results.Rmd/unnamed-chunk-6-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
+Past versions of unnamed-chunk-6-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-6-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wolfemd/NRCRI_2020GS/blob/12bd17bf104a5b5b20707310bb919b6df2120c95/docs/figure/10-Results.Rmd/unnamed-chunk-6-1.png" target="_blank">12bd17b</a>
+</td>
+<td>
+wolfemd
+</td>
+<td>
+2020-10-16
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>cv <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb9-2"><a href="#cb9-2"></a><span class="st">  </span><span class="kw">filter</span>(modelType<span class="op">==</span><span class="st">&quot;ADE&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb9-3"><a href="#cb9-3"></a><span class="st">  </span><span class="kw">ggplot</span>(.,<span class="kw">aes</span>(<span class="dt">x=</span>Trait,<span class="dt">y=</span>accGETGV,<span class="dt">fill=</span>Dataset)) <span class="op">+</span><span class="st"> </span></span>
@@ -972,7 +1026,47 @@ Vcells 1992436 15.3    8388608  64.0     102400  5405596  41.3</code></pre>
 <span id="cb9-13"><a href="#cb9-13"></a><span class="st">  </span><span class="kw">scale_fill_viridis_d</span>() <span class="op">+</span><span class="st"> </span><span class="kw">coord_flip</span>() <span class="op">+</span><span class="st"> </span></span>
 <span id="cb9-14"><a href="#cb9-14"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;Prediction Accuracies - Additive plus Dominance plus AxD epistasis model&quot;</span>, <span class="dt">y=</span><span class="st">&quot;GETGV Accuracy&quot;</span>,<span class="dt">x=</span><span class="ot">NULL</span>) <span class="op">+</span></span>
 <span id="cb9-15"><a href="#cb9-15"></a><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>, <span class="dt">color=</span><span class="st">&#39;darkred&#39;</span>)</span></code></pre></div>
-<p><img src="figure/10-Results.Rmd/unnamed-chunk-7-1.png" width="960" style="display: block; margin: auto;" /> ### Version 2: Compare models A vs. ADE</p>
+<p><img src="figure/10-Results.Rmd/unnamed-chunk-7-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
+Past versions of unnamed-chunk-7-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-7-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wolfemd/NRCRI_2020GS/blob/12bd17bf104a5b5b20707310bb919b6df2120c95/docs/figure/10-Results.Rmd/unnamed-chunk-7-1.png" target="_blank">12bd17b</a>
+</td>
+<td>
+wolfemd
+</td>
+<td>
+2020-10-16
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="version-2-compare-models-a-vs.-ade" class="section level3">
+<h3>Version 2: Compare models A vs. ADE</h3>
 <p>Facet by Groups. X-axis Traits. Fill color by Model (A vs. ADE).</p>
 <p>2 plots: NRonly, IITAaugmented</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>cv <span class="op">%&gt;%</span></span>
@@ -991,6 +1085,43 @@ Vcells 1992436 15.3    8388608  64.0     102400  5405596  41.3</code></pre>
 <span id="cb10-14"><a href="#cb10-14"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;Prediction Accuracies - NRCRI TP alone&quot;</span>, <span class="dt">y=</span><span class="st">&quot;Accuracy&quot;</span>,<span class="dt">x=</span><span class="ot">NULL</span>) <span class="op">+</span></span>
 <span id="cb10-15"><a href="#cb10-15"></a><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>, <span class="dt">color=</span><span class="st">&#39;darkred&#39;</span>)</span></code></pre></div>
 <p><img src="figure/10-Results.Rmd/unnamed-chunk-8-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
+Past versions of unnamed-chunk-8-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wolfemd/NRCRI_2020GS/blob/12bd17bf104a5b5b20707310bb919b6df2120c95/docs/figure/10-Results.Rmd/unnamed-chunk-8-1.png" target="_blank">12bd17b</a>
+</td>
+<td>
+wolfemd
+</td>
+<td>
+2020-10-16
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>cv <span class="op">%&gt;%</span></span>
 <span id="cb11-2"><a href="#cb11-2"></a><span class="st">  </span><span class="kw">filter</span>(Dataset<span class="op">==</span><span class="st">&quot;IITAaugmented&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb11-3"><a href="#cb11-3"></a><span class="st">  </span><span class="kw">ggplot</span>(.,<span class="kw">aes</span>(<span class="dt">x=</span>Trait,<span class="dt">y=</span>accGETGV,<span class="dt">fill=</span>modelType)) <span class="op">+</span><span class="st"> </span></span>
@@ -1006,7 +1137,49 @@ Vcells 1992436 15.3    8388608  64.0     102400  5405596  41.3</code></pre>
 <span id="cb11-13"><a href="#cb11-13"></a><span class="st">  </span><span class="kw">scale_fill_viridis_d</span>() <span class="op">+</span><span class="st"> </span><span class="kw">coord_flip</span>() <span class="op">+</span><span class="st"> </span></span>
 <span id="cb11-14"><a href="#cb11-14"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;Prediction Accuracies - NRCRI + IITA TP&quot;</span>, <span class="dt">y=</span><span class="st">&quot;Accuracy&quot;</span>,<span class="dt">x=</span><span class="ot">NULL</span>) <span class="op">+</span></span>
 <span id="cb11-15"><a href="#cb11-15"></a><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>, <span class="dt">color=</span><span class="st">&#39;darkred&#39;</span>)</span></code></pre></div>
-<p><img src="figure/10-Results.Rmd/unnamed-chunk-9-1.png" width="960" style="display: block; margin: auto;" /> # Genetic Gain</p>
+<p><img src="figure/10-Results.Rmd/unnamed-chunk-9-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
+Past versions of unnamed-chunk-9-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-9-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wolfemd/NRCRI_2020GS/blob/12bd17bf104a5b5b20707310bb919b6df2120c95/docs/figure/10-Results.Rmd/unnamed-chunk-9-1.png" target="_blank">12bd17b</a>
+</td>
+<td>
+wolfemd
+</td>
+<td>
+2020-10-16
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="genetic-gain" class="section level1">
+<h1>Genetic Gain</h1>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">library</span>(tidyverse); <span class="kw">library</span>(magrittr)</span>
 <span id="cb12-2"><a href="#cb12-2"></a>traits&lt;-<span class="kw">c</span>(<span class="st">&quot;MCMDS&quot;</span>,<span class="st">&quot;DM&quot;</span>,<span class="st">&quot;logFYLD&quot;</span>,<span class="st">&quot;logTOPYLD&quot;</span>,<span class="st">&quot;logRTNO&quot;</span>,<span class="st">&quot;HI&quot;</span>,<span class="st">&quot;PLTHT&quot;</span>,<span class="st">&quot;BRNHT1&quot;</span>,<span class="st">&quot;CGM&quot;</span>,<span class="st">&quot;CGMS1&quot;</span>,<span class="st">&quot;CGMS2&quot;</span>)</span>
 <span id="cb12-3"><a href="#cb12-3"></a>preds&lt;-<span class="kw">read.csv</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;output&quot;</span>,<span class="st">&quot;genomicPredictions_NRCRI_2020Oct15.csv&quot;</span>), <span class="dt">stringsAsFactors =</span> F)</span>
@@ -1047,6 +1220,43 @@ Vcells 1992436 15.3    8388608  64.0     102400  5405596  41.3</code></pre>
 <span id="cb14-17"><a href="#cb14-17"></a><span class="st">  </span><span class="kw">scale_fill_viridis_d</span>() <span class="op">+</span><span class="st"> </span></span>
 <span id="cb14-18"><a href="#cb14-18"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x=</span><span class="ot">NULL</span>,<span class="dt">y=</span><span class="st">&quot;Mean gBLUPs&quot;</span>,<span class="dt">title=</span><span class="st">&quot;Genetic Gain&quot;</span>, <span class="dt">subtitle =</span> <span class="st">&quot;Comparing GEBVs using NRCRI TP vs. IITA augmented data&quot;</span>)</span></code></pre></div>
 <p><img src="figure/10-Results.Rmd/unnamed-chunk-12-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
+Past versions of unnamed-chunk-12-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-12-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wolfemd/NRCRI_2020GS/blob/12bd17bf104a5b5b20707310bb919b6df2120c95/docs/figure/10-Results.Rmd/unnamed-chunk-12-1.png" target="_blank">12bd17b</a>
+</td>
+<td>
+wolfemd
+</td>
+<td>
+2020-10-16
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>pred_summary <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb15-2"><a href="#cb15-2"></a><span class="st">  </span><span class="kw">filter</span>(Dataset<span class="op">==</span><span class="st">&quot;NRCRIalone&quot;</span>) <span class="op">%&gt;%</span><span class="st">  </span></span>
 <span id="cb15-3"><a href="#cb15-3"></a><span class="st">  </span><span class="kw">ggplot</span>(.,<span class="kw">aes</span>(<span class="dt">x=</span>Group,<span class="dt">y=</span>gBLUPmean,<span class="dt">fill=</span>predictionOf)) <span class="op">+</span><span class="st"> </span></span>
@@ -1066,6 +1276,43 @@ Vcells 1992436 15.3    8388608  64.0     102400  5405596  41.3</code></pre>
 <span id="cb15-17"><a href="#cb15-17"></a><span class="st">  </span><span class="kw">scale_fill_viridis_d</span>() <span class="op">+</span><span class="st"> </span></span>
 <span id="cb15-18"><a href="#cb15-18"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x=</span><span class="ot">NULL</span>,<span class="dt">y=</span><span class="st">&quot;Mean gBLUPs&quot;</span>,<span class="dt">title=</span><span class="st">&quot;Genetic Gain&quot;</span>, <span class="dt">subtitle =</span> <span class="st">&quot;Comparing GEBV and GETGV  predicted with the NRCRI TP alone&quot;</span>)</span></code></pre></div>
 <p><img src="figure/10-Results.Rmd/unnamed-chunk-13-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
+Past versions of unnamed-chunk-13-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-13-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/wolfemd/NRCRI_2020GS/blob/12bd17bf104a5b5b20707310bb919b6df2120c95/docs/figure/10-Results.Rmd/unnamed-chunk-13-1.png" target="_blank">12bd17b</a>
+</td>
+<td>
+wolfemd
+</td>
+<td>
+2020-10-16
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1109,8 +1356,6 @@ loaded via a namespace (and not attached):
 [49] pkgconfig_2.0.3   ellipsis_0.3.1    xml2_1.3.2        reprex_0.3.0     
 [53] lubridate_1.7.9   rstudioapi_0.11   assertthat_0.2.1  rmarkdown_2.4    
 [57] httr_1.4.2        R6_2.4.1          git2r_0.27.1      compiler_4.0.2   </code></pre>
-</div>
-</div>
 </div>
 </div>
 
