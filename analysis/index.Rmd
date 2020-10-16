@@ -20,11 +20,12 @@ Re-prediction of NRCRI germplasm. Updating available training data as of April 2
 3.  [Get BLUPs combining all trial data](03-GetBLUPs.html): Combine data from all trait-trials to get BLUPs for downstream genomic prediction.
 4.  [Check prediction accuracy](04-CrossValidation.html): Evaluate prediction accuracy with cross-validation.
 5.  [Genomic prediction of GS C2](05-GetGBLUPs.html): Predict *genomic* BLUPs (GEBV and GETGV) for all selection candidates using all available data.
-6.  [Estimate genetic gain](06-GetGainEst.html)
 
-# October Imputation
+# October Imputations
 
-DCas20-5440 From Princess Onyyegbule on Sep 22, 2020: "These samples are from materials for inbreeding depression after one self-pollinated generation in two elite cassava varieties (TMS980581 and TMS070337). We want to assess the possibility of obtaining genetic gain by selecting transgressive individuals based on several productive traits, mostly high dry matter content."
+## DCas20-5440 
+
+From Princess Onyyegbule on Sep 22, 2020: "These samples are from materials for inbreeding depression after one self-pollinated generation in two elite cassava varieties (TMS980581 and TMS070337). We want to assess the possibility of obtaining genetic gain by selecting transgressive individuals based on several productive traits, mostly high dry matter content."
 
 **Steps**:
 
@@ -37,6 +38,37 @@ DCas20-5440 From Princess Onyyegbule on Sep 22, 2020: "These samples are from ma
 -   **Imputed filename:** `chr*_DCas20_5440_WA_REFimputed.vcf.gz`
 -   **Post-impute filtered filename:** `chr*_DCas20_5440_WA_REFimputedAndFiltered.vcf.gz`
 -   **Genome-wide dosage matrix format for use in R:** `DosageMatrix_DCas20_5440_WA_REFimputedAndFiltered.rds`
+
+## DCas20-5510 
+
+GS C3. 
+
+**Steps**:
+
+1.   [Convert DCas20-5510 report to VCF for imputation](convertDCas20_5510_ToVCF.html):
+2.   [Impute DCas20-5510](ImputeDCas20_5510.html): with West Africa reference panel
+
+**Files**:
+
+-   **RefPanel VCF filename:** `chr*_ImputationReferencePanel_StageIIpartI_72219.vcf.gz`
+-   **Imputed filename:** `chr*_DCas20_5510_WA_REFimputed.vcf.gz`
+-   **Post-impute filtered filename:** `chr*_DCas20_5510_WA_REFimputedAndFiltered.vcf.gz`
+-   **Genome-wide dosage matrix format for use in R:** `DosageMatrix_DCas20_5510_WA_REFimputedAndFiltered.rds`
+
+# October Genomic Prediction
+
+I will update the prediction done in April and predict GEBV/GETGV for all samples in the two new reports (**DCas20-5440 and DCas20-5510**). I learned some lessons doing a [prediction for IITA in September](https://wolfemd.github.io/IITA_2020GS/). 
+
+To fit the mixed-model that I want, I am again resorting to `asreml-R`. I fit random effects for rep and block only where complete and incomplete blocks, respectively are indicated in the trial design variables. `sommer` _should_ be able to fit the same model via the `at()` function, _but_ I am having trouble with it _and_ `sommer` is much slower even without a dense covariance (i.e. a kinship), compared to `lme4::lmer()` or `asreml()`. **Note:** For genomic predictions I _do_ use `sommer`. 
+
+1. [Prepare training dataset](06-cleanTPdata.html): Download data from DB, "Clean" and format DB data.
+2. [Get BLUPs combining all trial data](07-GetBLUPs.html): Combine data from all trait-trials to get BLUPs for downstream genomic prediction. 
+    * Fit mixed-model to multi-trial dataset and extract BLUPs, de-regressed BLUPs and weights. Include two rounds of outlier removal.
+3. [Check prediction accuracy](08-CrossValidation.html): Evaluate prediction accuracy with cross-validation.
+    * Compare prediction accuracy with vs. without IITA's training data to augment.
+4. [Genomic prediction](09-GetGBLUPs.html): Predict _genomic_ BLUPs (GEBV and GETGV) for all selection candidates using all available data.
+5. [Results](10-Results.html): New home for plots and other results.
+
 
 # Data availability and reproducibility
 

@@ -23,6 +23,22 @@ navbar:
       href: convertDCas20_5440_ToVCF.html
     - text: Impute DCas20_5440
       href: ImputeDCas20_5440.html
+    - text: Conversion DArT report DCas20_5510 to VCF
+      href: convertDCas20_5510_ToVCF.html
+    - text: Impute DCas20_5510
+      href: ImputeDCas20_5510.html
+  - text: October2020 Predictions
+    menu:
+    - text: Data Cleaning
+      href: 06-cleanTPdata.html
+    - text: Get BLUPs
+      href: 07-GetBLUPs.html
+    - text: Check prediction accuracy
+      href: 08-CrossValidation.html
+    - text: Get GEBV for GS C2
+      href: 09-GetGEBVs.html
+    - text: Results
+      href: 10-Results.html
   - text: Other
     menu:
     - text: About
