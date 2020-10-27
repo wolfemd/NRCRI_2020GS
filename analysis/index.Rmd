@@ -72,7 +72,7 @@ To fit the mixed-model that I want, I am again resorting to `asreml-R`. I fit ra
 **Files**: everything is in the `output/` sub-directory. 
 
 -  **GEBVs for parent selection:** `GEBV_NRCRI_ModelA_2020Oct15.csv`
--  **GETGVs for variety advancement:** `GETGV_NRCRI_ModelA_2020Oct15.csv`
+-  **GETGVs for variety advancement:** `GETGV_NRCRI_ModelADE_2020Oct15.csv`
 -  **Tidy, long-form CSV of predictions, including PEVs:** `genomicPredictions_NRCRI_2020Oct15.csv`
 
 [**DOWNLOAD FROM CASSAVABASE FTP SERVER**](ftp://ftp.cassavabase.org/marnin_datasets/NRCRI_2020GS/output/)
