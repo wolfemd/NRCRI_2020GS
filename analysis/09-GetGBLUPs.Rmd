@@ -126,13 +126,13 @@ predModelA %>%
                          GID %in% c2a ~ "C2a",
                          GID %in% c2b ~ "C2b",
                          GID %in% c3a ~ "C3a")) %>% 
-  select(Dataset,Group,any_of(traits)) %>% 
+  select(Dataset,Group,GID,any_of(traits)) %>% 
   arrange(desc(Group)) %>% 
   write.csv(., file = here::here("output","GEBV_NRCRI_ModelA_2020Oct15.csv"), row.names = F)
 
 ## Format and write GETGV
 predModelADE %>% 
-   select(Trait,Dataset,genomicPredOut) %>% 
+  select(Trait,Dataset,genomicPredOut) %>% 
   unnest(genomicPredOut) %>% 
   select(-varcomps) %>% 
   unnest(gblups) %>% 
@@ -144,12 +144,12 @@ predModelADE %>%
                          GID %in% c2a ~ "C2a",
                          GID %in% c2b ~ "C2b",
                          GID %in% c3a ~ "C3a")) %>% 
-  select(Dataset,Group,any_of(traits)) %>% 
+  select(Dataset,Group,GID,any_of(traits)) %>% 
   arrange(desc(Group)) %>% 
-  write.csv(., file = here::here("output","GETGV_NRCRI_ModelA_2020Oct15.csv"), row.names = F)
+  write.csv(., file = here::here("output","GETGV_NRCRI_ModelADE_2020Oct15.csv"), row.names = F)
 
 ### Make a unified "tidy" long-form: 
-predictions<-predModelA %>% 
+predModelA %>% 
   select(Trait,Dataset,genomicPredOut) %>% 
   unnest(genomicPredOut) %>% 
   select(-varcomps) %>% 
