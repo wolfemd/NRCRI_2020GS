@@ -14,6 +14,7 @@
 
 <title>NRCRI 2020 GS and related procedures</title>
 
+<script src="site_libs/header-attrs-2.5/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
@@ -22,6 +23,8 @@
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
@@ -33,6 +36,8 @@ div.section {
 }
 </style>
 
+
+
 <style type="text/css">
   code{white-space: pre-wrap;}
   span.smallcaps{font-variant: small-caps;}
@@ -40,7 +45,7 @@ div.section {
   div.column{display: inline-block; vertical-align: top; width: 50%;}
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   ul.task-list{list-style: none;}
-      </style>
+    </style>
 
 
 
@@ -406,7 +411,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-10-16
+<strong>Last updated:</strong> 2020-10-27
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -437,16 +442,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomwolfemdNRCRI2020GStreec5c03371686703096ed898ac5d878130dea880c0targetblankc5c0337a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/wolfemd/NRCRI_2020GS/tree/c5c03371686703096ed898ac5d878130dea880c0" target="_blank">c5c0337</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomwolfemdNRCRI2020GStreef612355c3d6550a0e2eaaeb24e87ebc51b0b5ff8targetblankf612355a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/wolfemd/NRCRI_2020GS/tree/f612355c3d6550a0e2eaaeb24e87ebc51b0b5ff8" target="_blank">f612355</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomwolfemdNRCRI2020GStreec5c03371686703096ed898ac5d878130dea880c0targetblankc5c0337a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomwolfemdNRCRI2020GStreef612355c3d6550a0e2eaaeb24e87ebc51b0b5ff8targetblankf612355a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/wolfemd/NRCRI_2020GS/tree/c5c03371686703096ed898ac5d878130dea880c0" target="_blank">c5c0337</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/wolfemd/NRCRI_2020GS/tree/f612355c3d6550a0e2eaaeb24e87ebc51b0b5ff8" target="_blank">f612355</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -463,7 +468,10 @@ Ignored files:
 Untracked files:
     Untracked:  CrossValidationFunction_PlusNRCRI_2020GSnotes.gslides
     Untracked:  data/DatabaseDownload_2020Oct13/
+    Untracked:  data/Report-DCas20-5510/Report_5510_Counts_Ref_Version6.csv
     Untracked:  data/chr1_RefPanelAndGSprogeny_ReadyForGP_72719.fam
+    Untracked:  output/DosageMatrix_NRCRI_2020Oct15.rds
+    Untracked:  output/DosageMatrix_NRCRI_SamplesForGP_2020April27.rds
     Untracked:  output/Kinship_AA_NRCRI_2020April27.rds
     Untracked:  output/Kinship_AD_NRCRI_2020April27.rds
     Untracked:  output/Kinship_AD_NRCRI_2020Oct15.rds
@@ -516,7 +524,41 @@ Message
 Rmd
 </td>
 <td>
-<a href="https://github.com/wolfemd/NRCRI_2020GS/blob/c5c03371686703096ed898ac5d878130dea880c0/analysis/index.Rmd" target="_blank">c5c0337</a>
+<a href="https://github.com/wolfemd/NRCRI_2020GS/blob/70302ab8821fa7df25e4cd8219b7a0d4ca9bc3f2/analysis/index.Rmd" target="_blank">70302ab</a>
+</td>
+<td>
+wolfemd
+</td>
+<td>
+2020-10-27
+</td>
+<td>
+Start workflowr project.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/wolfemd/NRCRI_2020GS/10e59803500d8b2fd69dd2083dd1b79d44771054/docs/index.html" target="_blank">10e5980</a>
+</td>
+<td>
+wolfemd
+</td>
+<td>
+2020-10-16
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/wolfemd/NRCRI_2020GS/blob/cc2531ea54df09c9b08522f7d7707dfe7358a2df/analysis/index.Rmd" target="_blank">cc2531e</a>
 </td>
 <td>
 wolfemd
@@ -533,7 +575,7 @@ Fixing broken links
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/wolfemd/NRCRI_2020GS/12bd17bf104a5b5b20707310bb919b6df2120c95/docs/index.html" target="_blank">12bd17b</a>
+<a href="https://rawcdn.githack.com/wolfemd/NRCRI_2020GS/dcb32fdec664ed257a0d2669cb71063023d80309/docs/index.html" target="_blank">dcb32fd</a>
 </td>
 <td>
 wolfemd
@@ -550,7 +592,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/wolfemd/NRCRI_2020GS/blob/ace4a862b6fade4533d3b864d6ca4a7c3ba39353/analysis/index.Rmd" target="_blank">ace4a86</a>
+<a href="https://github.com/wolfemd/NRCRI_2020GS/blob/2b1df03d3bc1ae933a425e68b3d8c9da79c54bee/analysis/index.Rmd" target="_blank">2b1df03</a>
 </td>
 <td>
 wolfemd
@@ -567,7 +609,7 @@ Start workflowr project.
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/wolfemd/NRCRI_2020GS/1a34bfa201a48a1fc5a113e578ea681a1904a3ae/docs/index.html" target="_blank">1a34bfa</a>
+<a href="https://rawcdn.githack.com/wolfemd/NRCRI_2020GS/0036b9fd48acb3a0f5b9ae7407f5e27fc4c88f3a/docs/index.html" target="_blank">0036b9f</a>
 </td>
 <td>
 wolfemd
@@ -584,7 +626,7 @@ Build site.
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/wolfemd/NRCRI_2020GS/345a2fb1a96d1706f4206bd6d4cb2f8ed1d210ce/docs/index.html" target="_blank">345a2fb</a>
+<a href="https://rawcdn.githack.com/wolfemd/NRCRI_2020GS/587bebec86418a147d608e2d3ed03e50ece8e490/docs/index.html" target="_blank">587bebe</a>
 </td>
 <td>
 wolfemd
@@ -601,7 +643,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/wolfemd/NRCRI_2020GS/blob/8bff9f09297cd9e4836005531d6586cd91111b43/analysis/index.Rmd" target="_blank">8bff9f0</a>
+<a href="https://github.com/wolfemd/NRCRI_2020GS/blob/d4769328a1cac0761908c00c1519d0330894ea2e/analysis/index.Rmd" target="_blank">d476932</a>
 </td>
 <td>
 wolfemd
@@ -618,7 +660,7 @@ Start workflowr project.
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/wolfemd/NRCRI_2020GS/f3f6163b319d8633e807c1c45ed2da79e2d747ed/docs/index.html" target="_blank">f3f6163</a>
+<a href="https://rawcdn.githack.com/wolfemd/NRCRI_2020GS/4c1998010f41aad83537e03cef385946ab1ab2e5/docs/index.html" target="_blank">4c19980</a>
 </td>
 <td>
 wolfemd
@@ -635,7 +677,7 @@ Build site.
 Rmd
 </td>
 <td>
-<a href="https://github.com/wolfemd/NRCRI_2020GS/blob/5389b1f7dff98c33f061e19639399f78d0e77671/analysis/index.Rmd" target="_blank">5389b1f</a>
+<a href="https://github.com/wolfemd/NRCRI_2020GS/blob/ec668578dabe71b28c8ab410071ca3b6e3f7ba82/analysis/index.Rmd" target="_blank">ec66857</a>
 </td>
 <td>
 wolfemd
@@ -652,7 +694,7 @@ Start workflowr project.
 Rmd
 </td>
 <td>
-<a href="https://github.com/wolfemd/NRCRI_2020GS/blob/b7a6ef41737e4e3c989ec41e0e398bcbb2539469/analysis/index.Rmd" target="_blank">b7a6ef4</a>
+<a href="https://github.com/wolfemd/NRCRI_2020GS/blob/3afe1bc92c54d6098c1958c99a75901144f18fbd/analysis/index.Rmd" target="_blank">3afe1bc</a>
 </td>
 <td>
 wolfemd
@@ -738,7 +780,7 @@ Start workflowr project.
 <p><strong>Files</strong>: everything is in the <code>output/</code> sub-directory.</p>
 <ul>
 <li><strong>GEBVs for parent selection:</strong> <code>GEBV_NRCRI_ModelA_2020Oct15.csv</code></li>
-<li><strong>GETGVs for variety advancement:</strong> <code>GETGV_NRCRI_ModelA_2020Oct15.csv</code></li>
+<li><strong>GETGVs for variety advancement:</strong> <code>GETGV_NRCRI_ModelADE_2020Oct15.csv</code></li>
 <li><strong>Tidy, long-form CSV of predictions, including PEVs:</strong> <code>genomicPredictions_NRCRI_2020Oct15.csv</code></li>
 </ul>
 <p><a href="ftp://ftp.cassavabase.org/marnin_datasets/NRCRI_2020GS/output/"><strong>DOWNLOAD FROM CASSAVABASE FTP SERVER</strong></a></p>
@@ -779,13 +821,15 @@ footer is added to webpages before the MathJax javascript. -->
 
 
 
+
+
 </div>
 
 <script>
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
